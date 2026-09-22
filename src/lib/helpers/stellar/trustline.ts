@@ -137,7 +137,9 @@ async function resolveClassicAssetForSAC(
     };
     const meta = await TokenMetadata.load(network, contractId);
     if (meta.asset) {
-      return { code: meta.asset.getCode(), issuer: meta.asset.getIssuer() };
+      const code = meta.asset.getCode();
+      const issuer = meta.asset.getIssuer();
+      if (code && issuer) return { code, issuer };
     }
   } catch {
     // fall through to strategy 1

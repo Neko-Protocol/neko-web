@@ -1,2 +1,30 @@
-import config from "@neko/config/tailwind";
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  darkMode: ["class", '[data-theme="dark"]'],
+  // Note: Tailwind v4 primarily relies on @source in CSS.
+  // Keeping content here helps editor tooling and legacy fallbacks.
+  content: ["./src/**/*.{ts,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        neko: {
+          navy: "#081f5c",
+          blue: "#7096d1",
+          accent: "#294cab",
+          border: "#334eac",
+          teal: "#39bfb7",
+          "teal-light": "#68f9f2",
+          muted: "#bad6eb",
+          "navy-hover": "#12328a",
+          cream: "#fff9f0",
+          gray: "#f3f4f6",
+          dark: "#121212",
+        },
+      },
+    },
+  },
+  plugins: [],
+};
+
 export default config;

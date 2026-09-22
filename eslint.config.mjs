@@ -1,4 +1,4 @@
-import base from "@neko/config/eslint";
+import base from "./packages/config/eslint.config.mjs";
 import i18next from "eslint-plugin-i18next";
 
 /**
