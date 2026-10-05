@@ -43,6 +43,10 @@ async function forward(
   if (accept) headers["Accept"] = accept;
   const requestId = req.headers.get("x-request-id");
   if (requestId) headers["X-Request-Id"] = requestId;
+  const authorization = req.headers.get("authorization");
+  if (authorization && isMeRoute(pathSegments)) {
+    headers["Authorization"] = authorization;
+  }
 
   const isReadOnly = req.method === "GET" || req.method === "HEAD";
   const hasBody = !isReadOnly;
@@ -78,6 +82,11 @@ async function forward(
   });
 }
 
+function isMeRoute(pathSegments: string[]): boolean {
+  const [first, second] = pathSegments;
+  return first === "v1" && second === "me";
+}
+
 type RouteContext = { params: Promise<{ path: string[] }> };
 
 export async function GET(req: NextRequest, ctx: RouteContext) {
@@ -86,6 +95,11 @@ export async function GET(req: NextRequest, ctx: RouteContext) {
 }
 
 export async function POST(req: NextRequest, ctx: RouteContext) {
+  const { path } = await ctx.params;
+  return forward(req, path);
+}
+
+export async function PATCH(req: NextRequest, ctx: RouteContext) {
   const { path } = await ctx.params;
   return forward(req, path);
 }
