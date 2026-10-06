@@ -8,6 +8,9 @@
 --                      positions (at most once per UTC day).
 --
 -- They are in-app and push only, so mailing_messages is left unchanged.
+--
+-- admin_wallet_low_balance is kept: both Neko-Staging and Neko-Prod already
+-- allow it in this constraint, although 0018 did not list it.
 -- public.notifications.trigger_type has no check constraint, so it already
 -- accepts the new values.
 --
@@ -21,6 +24,6 @@ alter table public.notification_messages
   add constraint notification_messages_trigger_type_check
   check (trigger_type in (
     'signup','first_deposit','swap_completed',
-    'inactivity','referral_confirmed',
+    'inactivity','referral_confirmed','admin_wallet_low_balance',
     'tx_confirmed','vault_run','portfolio_valuation'
   ));
