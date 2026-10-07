@@ -47,6 +47,7 @@
       "close": "Cerrar",
       "privySetupFailedTitle": "No pudimos terminar de configurar tu cuenta",
       "privySetupFailedDescription": "Recarga la página para intentarlo de nuevo. Si sigue pasando, contacta a soporte.",
+      "emailAccount": "Cuenta con correo",
       "profile": {
         "title": "Un último paso",
         "subtitle": "Revisa y acepta los términos para empezar a invertir.",

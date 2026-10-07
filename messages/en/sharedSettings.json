@@ -52,7 +52,12 @@
       "disconnectWallet": "Disconnect Wallet",
       "disconnecting": "Disconnecting…",
       "noWalletConnected": "No wallet connected.",
-      "connectViaSidebar": "Connect via the sidebar to get started."
+      "connectViaSidebar": "Use Start investing in the sidebar to get started.",
+      "email": "Email",
+      "accountStatus": "Account status",
+      "activated": "Active",
+      "notActivated": "Not activated yet",
+      "activate": "Activate"
     },
     "uiMode": {
       "title": "App Mode",
