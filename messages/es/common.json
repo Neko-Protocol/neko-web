@@ -39,7 +39,9 @@
       "connectAccount": "Conectar cuenta",
       "stellarWallet": "Billetera Stellar",
       "stellarWalletDescription": "Freighter o Stellar Wallets Kit",
-      "referralCodeApplied": "El código {code} se aplicará al conectar."
+      "referralCodeApplied": "El código {code} se aplicará al conectar.",
+      "privySetupFailedTitle": "No pudimos terminar de configurar tu cuenta",
+      "privySetupFailedDescription": "Recarga la página para intentarlo de nuevo. Si sigue pasando, contacta a soporte."
     },
     "uiMode": {
       "title": "Elige tu experiencia",
