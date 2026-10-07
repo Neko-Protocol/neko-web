@@ -4,7 +4,9 @@ import type {
   SubmitTransactionRequest,
   TransactionStatusResponse,
 } from "@neko-protocol/api-contracts";
+import { isPrivyWalletActive } from "@/features/shared/wallet/privy/privySession";
 import { backendClient } from "./backend-client";
+import { meApi } from "./me.api";
 
 export type {
   PrepareTransactionRequest,
@@ -16,10 +18,14 @@ export type {
 
 export const txApi = {
   prepare: (req: PrepareTransactionRequest) =>
-    backendClient.post<PrepareTransactionResponse>("/v1/tx/prepare", req),
+    isPrivyWalletActive()
+      ? meApi.prepareTx(req.unsignedXdr)
+      : backendClient.post<PrepareTransactionResponse>("/v1/tx/prepare", req),
 
   submit: (req: SubmitTransactionRequest) =>
-    backendClient.post<TransactionStatusResponse>("/v1/tx/submit", req),
+    isPrivyWalletActive()
+      ? meApi.submitTx(req.signedXdr)
+      : backendClient.post<TransactionStatusResponse>("/v1/tx/submit", req),
 
   status: (hash: string) =>
     backendClient.get<TransactionStatusResponse>(

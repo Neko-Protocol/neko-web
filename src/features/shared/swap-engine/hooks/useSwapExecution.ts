@@ -18,6 +18,7 @@ import { useWallet } from "@/hooks/useWallet";
 import { auditService } from "@/lib/services/audit.service";
 import { ensureTrustlineForSwapToken } from "@/lib/helpers/stellar/trustline";
 import { extractSignedTxXdr } from "@neko-protocol/orchestrator";
+import { ensurePrivyWalletActivated } from "@/features/shared/wallet/privy/sponsoredTx";
 
 export interface SwapExecutionParams {
   amountIn: string;
@@ -35,7 +36,7 @@ export interface SwapExecutionResult {
 
 export function useSwapExecution() {
   const t = useTranslations("sharedSwapEngine.execution");
-  const { signTransaction, networkPassphrase } = useWallet();
+  const { signTransaction, networkPassphrase, isPrivyWallet } = useWallet();
 
   const executeSwap = useCallback(
     async (params: SwapExecutionParams): Promise<SwapExecutionResult> => {
@@ -48,6 +49,8 @@ export function useSwapExecution() {
       if (!networkPassphrase) {
         throw new Error(t("walletNotConnected"));
       }
+
+      if (isPrivyWallet) await ensurePrivyWalletActivated();
 
       /**
        * An account can only receive a classic asset it trusts, and the router
@@ -155,7 +158,7 @@ export function useSwapExecution() {
 
       throw new Error(t("transactionFailed"));
     },
-    [signTransaction, networkPassphrase, t]
+    [signTransaction, networkPassphrase, isPrivyWallet, t]
   );
 
   return { executeSwap };

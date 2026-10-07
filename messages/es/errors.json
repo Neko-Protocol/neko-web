@@ -75,7 +75,27 @@
       "INSUFFICIENT_FUNDS": "Fondos insuficientes para esta transacción.",
       "NETWORK_ERROR": "Error de red. Verifica tu conexión e inténtalo de nuevo.",
       "SIMULATION_FAILED": "Falló la simulación de la transacción. Verifica los datos ingresados e inténtalo de nuevo.",
-      "UNKNOWN_CONTRACT_ERROR": "La transacción falló. Inténtalo de nuevo o contacta soporte si el problema persiste."
+      "UNKNOWN_CONTRACT_ERROR": "La transacción falló. Inténtalo de nuevo o contacta soporte si el problema persiste.",
+      "PARTNER_LEADERBOARD_FAILED": "No pudimos cargar la clasificación de socios. Inténtalo de nuevo.",
+      "PARTNER_REFERRED_FAILED": "No pudimos cargar los referidos de este socio. Inténtalo de nuevo.",
+      "PARTNER_NAME_REQUIRED": "El nombre del socio es obligatorio.",
+      "PARTNER_CODE_REQUIRED": "El código del socio es obligatorio.",
+      "PARTNER_CODE_TAKEN": "Ese código de socio ya está en uso.",
+      "PARTNER_CREATE_FAILED": "No pudimos crear el socio. Inténtalo de nuevo.",
+      "PARTNER_DELETE_FAILED": "No pudimos eliminar el socio. Inténtalo de nuevo.",
+      "PRIVY_TOKEN_INVALID": "Tu sesión expiró. Vuelve a iniciar sesión.",
+      "PRIVY_NOT_CONFIGURED": "El inicio de sesión con correo no está disponible en este momento.",
+      "PRIVY_UNAVAILABLE": "El inicio de sesión con correo no está disponible temporalmente. Inténtalo de nuevo.",
+      "ACCOUNT_NOT_FOUND": "No encontramos tu cuenta. Vuelve a iniciar sesión.",
+      "WALLET_NOT_FOUND": "No encontramos tu billetera. Vuelve a iniciar sesión.",
+      "ALREADY_ACTIVATED": "Tu cuenta ya está activada.",
+      "SPONSOR_UNAVAILABLE": "La activación de cuentas no está disponible temporalmente. Inténtalo más tarde.",
+      "SPONSOR_BUSY": "Estamos activando otras cuentas en este momento. Inténtalo de nuevo en unos segundos.",
+      "ACTIVATION_LIMIT_REACHED": "Alcanzamos el límite de cuentas nuevas de hoy. Inténtalo de nuevo mañana.",
+      "ACTIVATION_TX_MISMATCH": "No pudimos verificar la activación. Inténtalo de nuevo.",
+      "WALLET_NOT_ACTIVATED": "Activa tu cuenta antes de hacer transacciones.",
+      "SPONSOR_FEE_TOO_HIGH": "La comisión de red de esta transacción es más alta de lo que podemos cubrir. Inténtalo de nuevo.",
+      "TRUSTLINE_LIMIT_REACHED": "Esta cuenta alcanzó su límite de activos. Contacta a soporte para agregar más."
     }
   }
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { Loader2, CheckCircle2 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useConnectModalStore } from "@/features/shared/wallet/stores/connectModal.store";
 
 export type OrderType = "swap" | "limit" | "twap";
 
@@ -29,9 +30,14 @@ export const SwapButton: React.FC<SwapButtonProps> = ({
   onClick,
 }) => {
   const t = useTranslations("expert.swap");
+  const openConnectModal = useConnectModalStore((s) => s.open);
   if (!address) {
     return (
-      <button disabled className={`${baseClass} bg-white/10 text-white/40`}>
+      <button
+        type="button"
+        onClick={openConnectModal}
+        className={`${baseClass} bg-[#229EDF] text-white hover:bg-[#1a8bc7]`}
+      >
         {t("button.connectWallet")}
       </button>
     );

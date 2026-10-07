@@ -8,10 +8,15 @@ import {
 } from "@/lib/helpers/stellar/wallet";
 import { stellarNetwork, networkPassphrase } from "@/lib/constants/network";
 import { useStellarWalletStore } from "@/stores/stellarWalletStore";
+import {
+  PRIVY_WALLET_NAME,
+  requirePrivySession,
+} from "@/features/shared/wallet/privy/privySession";
 
 export function useWallet() {
-  const { address: stellarAddress } = useStellarWalletStore();
+  const { address: stellarAddress, walletName } = useStellarWalletStore();
   const address = stellarAddress ?? undefined;
+  const isPrivyWallet = walletName === PRIVY_WALLET_NAME;
 
   const {
     data: {
@@ -41,6 +46,13 @@ export function useWallet() {
       throw new Error("Connect Stellar wallet to sign");
     }
     const signerPublicKey = options?.address ?? address;
+    if (isPrivyWallet) {
+      const signedTxXdr = await requirePrivySession().wallet.signTransaction(
+        xdr,
+        { networkPassphrase: options?.networkPassphrase ?? networkPassphrase }
+      );
+      return { signedTxXdr };
+    }
     const signedTxXdr = await signStellarTransactionWithWallet({
       unsignedTransactionXdr: xdr,
       signerPublicKey,
@@ -50,6 +62,7 @@ export function useWallet() {
 
   return {
     address: address ?? undefined,
+    isPrivyWallet,
     network: stellarNetwork,
     networkPassphrase,
     balances,

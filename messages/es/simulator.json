@@ -128,7 +128,9 @@
       "submittedToast": "Depósito enviado",
       "failedToast": "Depósito fallido",
       "close": "Cerrar",
-      "amount": "Monto"
+      "amount": "Monto",
+      "confirmLabelNoWallet": "Confirmar",
+      "processing": "Procesando…"
     },
     "stackStep": {
       "header": "¿Quieres ganar todavía más?",

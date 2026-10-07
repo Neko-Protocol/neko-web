@@ -65,7 +65,7 @@
         "twap": "TWAP"
       },
       "button": {
-        "connectWallet": "Conectar Wallet",
+        "connectWallet": "Empieza a invertir",
         "enterAmount": "Ingresa un Monto",
         "insufficientBalance": "Saldo Insuficiente",
         "swapCompleted": "¡Swap Completado!",

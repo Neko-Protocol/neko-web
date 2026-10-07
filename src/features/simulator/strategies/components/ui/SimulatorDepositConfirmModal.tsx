@@ -12,6 +12,7 @@ import {
   isUserCancellationError,
 } from "@neko-protocol/orchestrator";
 import { useApiErrorMessage } from "@/lib/helpers/useApiErrorMessage";
+import { useHasWalletPrompt } from "@/features/shared/wallet/hooks/useHasWalletPrompt";
 
 interface SimulatorDepositConfirmModalProps {
   title: string;
@@ -33,6 +34,7 @@ export function SimulatorDepositConfirmModal({
   onClose,
 }: SimulatorDepositConfirmModalProps) {
   const t = useTranslations("simulator.depositModal");
+  const hasWalletPrompt = useHasWalletPrompt();
   const getErrorMessage = useApiErrorMessage();
   const [visible, setVisible] = useState(false);
   const { addNotification } = useToast();
@@ -105,7 +107,10 @@ export function SimulatorDepositConfirmModal({
             onClick={() => void handleConfirm()}
             className="mt-5 w-full rounded-xl bg-[#229EDF] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1f8ec9] disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {isPending ? t("signing") : (confirmLabel ?? t("confirmLabel"))}
+            {isPending
+              ? t(hasWalletPrompt ? "signing" : "processing")
+              : (confirmLabel ??
+                t(hasWalletPrompt ? "confirmLabel" : "confirmLabelNoWallet"))}
           </button>
         </div>
       </div>

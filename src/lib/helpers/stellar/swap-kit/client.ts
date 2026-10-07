@@ -11,6 +11,8 @@ import {
   networkPassphrase,
   rpcUrl,
 } from "@/lib/constants/network";
+import { isPrivyWalletActive } from "@/features/shared/wallet/privy/privySession";
+import { submitSponsoredTransactionOrThrow } from "@/features/shared/wallet/privy/sponsoredTx";
 import type {
   BuildRequest,
   BuildResponse,
@@ -138,6 +140,10 @@ export async function sendTransaction(
 
   if (transaction instanceof Transaction) {
     assertSignedForSubmission(transaction);
+  }
+
+  if (isPrivyWalletActive()) {
+    return { txHash: await submitSponsoredTransactionOrThrow(request.xdr) };
   }
 
   const response = await server.sendTransaction(transaction);
