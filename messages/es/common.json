@@ -35,13 +35,21 @@
       "connectWallet": "Conectar billetera",
       "disconnect": "Desconectar",
       "connectedWith": "Estás conectado con:",
-      "connectToGetStarted": "¡Conecta tu billetera para empezar!",
+      "connectToGetStarted": "Inicia sesión para empezar a construir tu portafolio",
       "connectAccount": "Conectar cuenta",
       "stellarWallet": "Billetera Stellar",
       "stellarWalletDescription": "Freighter o Stellar Wallets Kit",
       "referralCodeApplied": "El código {code} se aplicará al conectar.",
+      "startInvesting": "Empieza a invertir",
+      "connectModalSubtitle": "Inicia sesión para empezar a hacer crecer tus ahorros.",
+      "stellarOptionTitle": "Conectar una wallet de Stellar",
+      "stellarOptionDescription": "Freighter, xBull, Lobstr, Albedo y más",
+      "close": "Cerrar",
       "privySetupFailedTitle": "No pudimos terminar de configurar tu cuenta",
-      "privySetupFailedDescription": "Recarga la página para intentarlo de nuevo. Si sigue pasando, contacta a soporte."
+      "privySetupFailedDescription": "Recarga la página para intentarlo de nuevo. Si sigue pasando, contacta a soporte.",
+      "emailCta": "Continuar con email",
+      "emailHint": "¿Nuevo en Neko? No necesitas wallet ni cripto.",
+      "or": "o"
     },
     "uiMode": {
       "title": "Elige tu experiencia",

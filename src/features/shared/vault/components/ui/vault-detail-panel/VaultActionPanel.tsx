@@ -11,6 +11,7 @@ import type { SupportedCurrency } from "@/stores/currency.store";
 import { useMultisigDetection } from "@/features/shared/vault/hooks/useMultisigDetection";
 import { MultisigBanner } from "@/features/shared/vault/components/ui/MultisigBanner";
 import type { VaultActionPanelProps } from "./types";
+import { useConnectModalStore } from "@/features/shared/wallet/stores/connectModal.store";
 
 function formatBalance(n: number): string {
   if (n === 0) return "0";
@@ -460,6 +461,7 @@ export function VaultActionPanel({
 }: VaultActionPanelProps) {
   const t = useTranslations("sharedVault.actionPanel");
   const { data: multisigInfo } = useMultisigDetection();
+  const openConnectModal = useConnectModalStore((s) => s.open);
   const supplyLabel = vault.supplyAsset.symbol;
   const hasAmount = !!amount && parseFloat(amount) > 0;
   const depositAmt = parseFloat(amount) || 0;
@@ -490,11 +492,11 @@ export function VaultActionPanel({
     parseFloat(amount) > currentDeposited + 1e-10;
 
   const isDisabled =
-    !isWalletConnected ||
-    isLoading ||
-    !hasAmount ||
-    depositExceedsBalance ||
-    withdrawExceedsBalance;
+    isWalletConnected &&
+    (isLoading ||
+      !hasAmount ||
+      depositExceedsBalance ||
+      withdrawExceedsBalance);
 
   const maxAmount = tab === "deposit" ? supplyBalance : withdrawBalance;
   const balanceForDisplay =
@@ -567,7 +569,9 @@ export function VaultActionPanel({
 
       <button
         type="button"
-        onClick={() => void onSubmit()}
+        onClick={() =>
+          isWalletConnected ? void onSubmit() : openConnectModal()
+        }
         disabled={isDisabled}
         className="w-full py-3.5 rounded-xl text-sm font-bold text-white transition-colors duration-200 bg-[#229EDF] hover:bg-[#1a8bc7] disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >

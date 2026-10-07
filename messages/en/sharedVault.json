@@ -174,7 +174,7 @@
       "withdrawSymbol": "Withdraw {symbol}",
       "depositingSymbol": "Depositing {symbol}…",
       "withdrawing": "Withdrawing…",
-      "connectWallet": "Connect wallet",
+      "connectWallet": "Start investing",
       "confirmingOnNetwork": "Confirming on network…",
       "confirmInWallet": "Please confirm in your wallet"
     },
