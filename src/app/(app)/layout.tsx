@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { WalletAutoConnect } from "@/features/shared/wallet/components/WalletAutoConnect";
 import { ConnectWalletModal } from "@/features/shared/wallet/components/ConnectWalletModal";
 import { PrivyWalletBridge } from "@/features/shared/wallet/privy/PrivyWalletBridge";
+import { PrivyProfileModal } from "@/features/shared/wallet/privy/PrivyProfileModal";
 import { PRIVY_ENABLED } from "@/features/shared/wallet/privy/privyConfig";
 import { PendingMultisigTxsWatcher } from "@/features/shared/wallet/components/PendingMultisigTxsWatcher";
 import { CurrencyRateSync } from "@/features/shared/currency/components/CurrencyRateSync";
@@ -14,6 +15,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       <WalletAutoConnect />
       {PRIVY_ENABLED && <PrivyWalletBridge />}
       <ConnectWalletModal />
+      <PrivyProfileModal />
       <PendingMultisigTxsWatcher />
       <CurrencyRateSync />
       <UIModeModalController />

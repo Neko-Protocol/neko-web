@@ -47,6 +47,13 @@
       "close": "Cerrar",
       "privySetupFailedTitle": "No pudimos terminar de configurar tu cuenta",
       "privySetupFailedDescription": "Recarga la página para intentarlo de nuevo. Si sigue pasando, contacta a soporte.",
+      "profile": {
+        "title": "Un último paso",
+        "subtitle": "Revisa y acepta los términos para empezar a invertir.",
+        "terms": "Acepto los Términos de servicio de Neko.",
+        "termsWithLink": "Acepto los <link>Términos de servicio</link> de Neko.",
+        "submit": "Continuar"
+      },
       "emailCta": "Continuar con email",
       "emailHint": "¿Nuevo en Neko? No necesitas wallet ni cripto.",
       "or": "o"
