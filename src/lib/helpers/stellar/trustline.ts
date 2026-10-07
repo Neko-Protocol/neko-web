@@ -11,7 +11,15 @@ import {
   networkPassphrase,
   rpcUrl,
 } from "@/lib/constants/network";
-import { extractSignedTxXdr, type SignTransactionFn } from "@neko-protocol/orchestrator";
+import {
+  extractSignedTxXdr,
+  type SignTransactionFn,
+} from "@neko-protocol/orchestrator";
+import { isPrivyWalletActive } from "@/features/shared/wallet/privy/privySession";
+import {
+  addSponsoredTrustlines,
+  submitSponsoredTransactionOrThrow,
+} from "@/features/shared/wallet/privy/sponsoredTx";
 import { getAvailableTokens } from "@/lib/helpers/stellar/swap-kit/tokens";
 import type { Token } from "@/lib/types/swapTypes";
 import {
@@ -36,6 +44,9 @@ function parseTokenStrForClassic(
   if (!code || !issuer) return null;
   return { code, issuer };
 }
+
+export const classicAssetId = ({ code, issuer }: ClassicAssetRef) =>
+  `${code}:${issuer}`;
 
 export async function getMissingClassicTrustlines(
   publicKey: string,
@@ -67,6 +78,10 @@ export async function getMissingClassicTrustlines(
 export async function submitHorizonTransaction(
   signedXdr: string
 ): Promise<void> {
+  if (isPrivyWalletActive()) {
+    await submitSponsoredTransactionOrThrow(signedXdr);
+    return;
+  }
   const res = await fetch(`${horizonUrl}/transactions`, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -213,6 +228,11 @@ export async function ensureTrustlineForSAC(
   ]);
   if (missing.length === 0) return;
 
+  if (isPrivyWalletActive()) {
+    await addSponsoredTrustlines(missing.map(classicAssetId));
+    return;
+  }
+
   const xdr = await buildAddClassicTrustlinesTxXdr(walletAddress, missing);
   const signedTxXdr = extractSignedTxXdr(
     await signTransaction(xdr, { networkPassphrase })
@@ -281,6 +301,12 @@ export async function ensureTrustlineForSwapToken({
     `${asset.code}:${asset.issuer}`,
   ]);
   if (missing.length === 0) return false;
+
+  if (isPrivyWalletActive()) {
+    onTrustlineNeeded?.(asset);
+    await addSponsoredTrustlines(missing.map(classicAssetId));
+    return true;
+  }
 
   // Checked before the wallet prompt: a reserve shortfall would otherwise
   // reach the user as Horizon's raw `op_low_reserve`, after they had signed.
