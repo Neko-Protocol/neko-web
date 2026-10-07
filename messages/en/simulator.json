@@ -128,7 +128,9 @@
       "submittedToast": "Deposit submitted",
       "failedToast": "Deposit failed",
       "close": "Close",
-      "amount": "Amount"
+      "amount": "Amount",
+      "confirmLabelNoWallet": "Confirm",
+      "processing": "Processing…"
     },
     "stackStep": {
       "header": "Want to earn even more?",

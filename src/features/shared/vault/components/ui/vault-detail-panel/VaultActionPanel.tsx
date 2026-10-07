@@ -12,6 +12,7 @@ import { useMultisigDetection } from "@/features/shared/vault/hooks/useMultisigD
 import { MultisigBanner } from "@/features/shared/vault/components/ui/MultisigBanner";
 import type { VaultActionPanelProps } from "./types";
 import { useConnectModalStore } from "@/features/shared/wallet/stores/connectModal.store";
+import { useHasWalletPrompt } from "@/features/shared/wallet/hooks/useHasWalletPrompt";
 
 function formatBalance(n: number): string {
   if (n === 0) return "0";
@@ -460,6 +461,7 @@ export function VaultActionPanel({
   isClaimingEarnings,
 }: VaultActionPanelProps) {
   const t = useTranslations("sharedVault.actionPanel");
+  const hasWalletPrompt = useHasWalletPrompt();
   const { data: multisigInfo } = useMultisigDetection();
   const openConnectModal = useConnectModalStore((s) => s.open);
   const supplyLabel = vault.supplyAsset.symbol;
@@ -591,7 +593,9 @@ export function VaultActionPanel({
 
       {isLoading && (
         <p className="text-white/40 text-xs text-center mt-1">
-          {isConfirming ? t("confirmingOnNetwork") : t("confirmInWallet")}
+          {isConfirming || !hasWalletPrompt
+            ? t("confirmingOnNetwork")
+            : t("confirmInWallet")}
         </p>
       )}
     </div>
