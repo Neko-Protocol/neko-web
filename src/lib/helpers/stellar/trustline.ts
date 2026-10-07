@@ -240,6 +240,25 @@ export async function ensureTrustlineForSAC(
   await submitHorizonTransaction(signedTxXdr);
 }
 
+const HORIZON_LAG_TIMEOUT_MS = 20_000;
+const HORIZON_POLL_MS = 1_000;
+
+async function waitForHorizonTrustlines(
+  walletAddress: string,
+  assets: ClassicAssetRef[]
+): Promise<void> {
+  const ids = assets.map(classicAssetId);
+  const deadline = Date.now() + HORIZON_LAG_TIMEOUT_MS;
+  while (Date.now() < deadline) {
+    const missing = await getMissingClassicTrustlines(walletAddress, ids);
+    if (missing.length === 0) return;
+    await new Promise((resolve) => setTimeout(resolve, HORIZON_POLL_MS));
+  }
+  throw new Error(
+    "The trustline was added but isn't visible yet. Try the swap again in a few seconds."
+  );
+}
+
 /** One trustline is one subentry, and each subentry locks a base reserve. */
 const TRUSTLINE_RESERVE_STROOPS = 5_000_000n;
 
@@ -305,6 +324,7 @@ export async function ensureTrustlineForSwapToken({
   if (isPrivyWalletActive()) {
     onTrustlineNeeded?.(asset);
     await addSponsoredTrustlines(missing.map(classicAssetId));
+    await waitForHorizonTrustlines(walletAddress, missing);
     return true;
   }
 
