@@ -75,7 +75,20 @@
       "INSUFFICIENT_FUNDS": "Insufficient funds for this transaction.",
       "NETWORK_ERROR": "Network error. Please check your connection and try again.",
       "SIMULATION_FAILED": "Transaction simulation failed. Please check your inputs and try again.",
-      "UNKNOWN_CONTRACT_ERROR": "Transaction failed. Please try again or contact support if the issue persists."
+      "UNKNOWN_CONTRACT_ERROR": "Transaction failed. Please try again or contact support if the issue persists.",
+      "PRIVY_TOKEN_INVALID": "Your session has expired. Please sign in again.",
+      "PRIVY_NOT_CONFIGURED": "Email sign-in isn't available right now.",
+      "PRIVY_UNAVAILABLE": "Email sign-in is temporarily unavailable. Please try again.",
+      "ACCOUNT_NOT_FOUND": "We couldn't find your account. Please sign in again.",
+      "WALLET_NOT_FOUND": "We couldn't find your wallet. Please sign in again.",
+      "ALREADY_ACTIVATED": "Your account is already activated.",
+      "SPONSOR_UNAVAILABLE": "Account activation is temporarily unavailable. Please try again later.",
+      "SPONSOR_BUSY": "We're activating other accounts right now. Please try again in a moment.",
+      "ACTIVATION_LIMIT_REACHED": "We've reached today's limit for new accounts. Please try again tomorrow.",
+      "ACTIVATION_TX_MISMATCH": "The activation couldn't be verified. Please try again.",
+      "WALLET_NOT_ACTIVATED": "Activate your account before making transactions.",
+      "SPONSOR_FEE_TOO_HIGH": "This transaction's network fee is higher than we can cover. Please try again.",
+      "TRUSTLINE_LIMIT_REACHED": "This account has reached its limit of assets. Contact support to add more."
     }
   }
 }
