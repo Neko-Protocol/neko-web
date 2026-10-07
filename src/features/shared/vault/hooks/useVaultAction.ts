@@ -35,6 +35,12 @@ import {
 } from "@neko-protocol/orchestrator";
 import { resolveDecimalsForAuditAssetKey } from "@/lib/helpers/auditAssetAmounts";
 import { auditService } from "@/lib/services/audit.service";
+import { BackendError } from "@/lib/services/backend-client";
+import { isPrivyWalletActive } from "@/features/shared/wallet/privy/privySession";
+import {
+  ensurePrivyWalletActivated,
+  submitSponsoredTransaction,
+} from "@/features/shared/wallet/privy/sponsoredTx";
 
 const VAULT_SHARE_DECIMALS = 7;
 const WITHDRAW_SLIPPAGE_BPS = 100;
@@ -112,6 +118,25 @@ async function signAndSubmit(
       throw new Error(lobstrRejectedMessage(result.error));
     }
     return { kind: "multisig_pending", hash };
+  }
+
+  if (isPrivyWalletActive()) {
+    const final = await submitSponsoredTransaction(signedTxXdr);
+    if (final.status === "FAILED") {
+      throw new Error(
+        final.error?.message ?? final.error?.code ?? "TRANSACTION_FAILED"
+      );
+    }
+    return {
+      kind: "submitted",
+      hash: final.hash,
+      sendResult: {
+        status: "PENDING",
+        hash: final.hash,
+        latestLedger: 0,
+        latestLedgerCloseTime: 0,
+      },
+    };
   }
 
   const sendResult = await server.sendTransaction(tx);
@@ -239,6 +264,8 @@ export function useVaultAction(
         }
         const passphrase = walletPassphrase;
 
+        if (isPrivyWalletActive()) await ensurePrivyWalletActivated();
+
         const client = new DefindexVaultClient({
           contractId: vaultContractId,
           rpcUrl,
@@ -338,7 +365,8 @@ export function useVaultAction(
       } catch (err) {
         if (err instanceof Error && err.message === "USER_REJECTED")
           return { success: false, isFirstVaultDeposit: false };
-        const errorCode = getGenericErrorCode(err);
+        const errorCode =
+          err instanceof BackendError ? err.code : getGenericErrorCode(err);
         showError(
           errorCode
             ? getErrorMessage(errorCode)
@@ -525,7 +553,8 @@ export function useVaultAction(
       } catch (err) {
         if (err instanceof Error && err.message === "USER_REJECTED")
           return { success: false };
-        const errorCode = getGenericErrorCode(err);
+        const errorCode =
+          err instanceof BackendError ? err.code : getGenericErrorCode(err);
         showError(
           errorCode
             ? getErrorMessage(errorCode)
@@ -707,7 +736,8 @@ export function useVaultAction(
       } catch (err) {
         if (err instanceof Error && err.message === "USER_REJECTED")
           return { success: false };
-        const errorCode = getGenericErrorCode(err);
+        const errorCode =
+          err instanceof BackendError ? err.code : getGenericErrorCode(err);
         showError(
           errorCode
             ? getErrorMessage(errorCode)
