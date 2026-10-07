@@ -59,7 +59,7 @@ export function AuthModalShell({
               alt="Neko"
               width={90}
               height={25}
-              className="h-6 w-auto"
+              className="h-6 w-auto -translate-x-[8.84%]"
               priority
             />
             <h3 id={titleId} className="mt-6 text-lg font-semibold text-white">
