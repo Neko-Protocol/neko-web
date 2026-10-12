@@ -107,6 +107,7 @@ export async function buildTransactionServer(
     quote: request.quote,
     from: request.from,
     to: request.to ?? request.from,
+    feeSponsored: request.feeSponsored === true,
   });
 
   return { xdr: result.xdr, swap: result.swap };
