@@ -96,6 +96,7 @@ export function useSwapExecution() {
         quote: newQuote,
         from: address,
         to: address,
+        feeSponsored: isPrivyWallet,
       });
 
       let signedResult;

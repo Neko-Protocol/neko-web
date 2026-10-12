@@ -39,6 +39,7 @@ export interface BuildRequest {
   quote: QuoteResponse;
   from: string;
   to?: string;
+  feeSponsored?: boolean;
 }
 
 export interface BuildResponse {
