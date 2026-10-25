@@ -20,7 +20,8 @@
       "token": "Token",
       "raised": "{raised} of {target}",
       "funded": "{pct}% funded",
-      "targetApy": "Target APY"
+      "targetApy": "Target APY",
+      "raisedLabel": "Raised"
     },
     "categories": {
       "real-estate": "Real estate",
@@ -31,20 +32,99 @@
     "opportunities": {
       "andesCoffee": {
         "name": "Andes Coffee",
-        "description": "Harvest financing for a specialty coffee cooperative in Huila, Colombia, repaid from export sales."
+        "description": "Harvest financing for a specialty coffee cooperative in Huila, Colombia, repaid from export sales.",
+        "issuer": "Cooperativa Cafetera del Huila",
+        "location": "Huila, Colombia",
+        "summary": "Andes Coffee finances the yearly harvest of a cooperative of 180 specialty coffee growers in Huila, one of Colombia's best-known coffee regions. The funds cover fertilizer and other inputs, hand-picking during the harvest season, and wet-mill processing, the costs that small growers usually have to cover months before they get paid. The cooperative has already signed export contracts with specialty roasters in the US and Europe at fixed prices. When the green coffee is shipped and the buyers pay, the loan is repaid in a single payment that returns the principal plus the target yield. Before listing, Neko reviewed the cooperative's legal documents, past harvest volumes and the signed export contracts.",
+        "highlights": [
+          "Repaid from signed export contracts",
+          "Specialty-grade coffee (84+ SCA score)",
+          "Principal and yield paid at harvest sale"
+        ]
       },
       "lumenTower": {
         "name": "Lumen Tower",
-        "description": "A mixed-use rental building in Guadalajara. Investors earn a share of monthly rental income."
+        "description": "A mixed-use rental building in Guadalajara. Investors earn a share of monthly rental income.",
+        "issuer": "Lumen Desarrollos S.A. de C.V.",
+        "location": "Guadalajara, Mexico",
+        "summary": "Lumen Tower is a completed mixed-use building in Guadalajara's Providencia district, a high-demand residential and business area. It has 64 apartments on the upper floors and retail space on the ground floor, and is currently 94% occupied. A professional property manager handles leasing, maintenance and rent collection. Each month, net rental income — rent collected minus operating costs, maintenance and management fees — is distributed to token holders in proportion to their holdings. The 36-month term matches the remaining length of most current leases. Before listing, Neko reviewed the property title, the rent roll and three years of operating statements.",
+        "highlights": [
+          "Completed building, 94% occupied",
+          "Monthly rental income distributions",
+          "Professional property management in place"
+        ]
       },
       "solarYucatan": {
         "name": "Solar Yucatán",
-        "description": "A 4 MW solar farm selling clean energy to local businesses under long-term contracts."
+        "description": "A 4 MW solar farm selling clean energy to local businesses under long-term contracts.",
+        "issuer": "SolarVerde Energía",
+        "location": "Mérida, Mexico",
+        "summary": "Solar Yucatán is a 4 MW photovoltaic farm near Mérida, in one of the sunniest regions of Mexico. It sells the electricity it produces to local factories, hotels and retailers under 10-year power purchase agreements that set the price per kWh in advance. That gives the project a predictable stream of income that does not depend on wholesale energy prices. Investors receive a share of energy sales every quarter, after operation and maintenance costs. The plant is already connected to the grid and has been generating for over a year. Before listing, Neko reviewed the interconnection permits, the purchase agreements and the plant's production history.",
+        "highlights": [
+          "Long-term power purchase agreements",
+          "Clean energy for local businesses",
+          "Quarterly distributions from energy sales"
+        ]
       },
       "invoicePyme": {
         "name": "Pyme Invoices",
-        "description": "Short-term financing of verified invoices from small businesses in Buenos Aires."
+        "description": "Short-term financing of verified invoices from small businesses in Buenos Aires.",
+        "issuer": "Factura Ya S.A.",
+        "location": "Buenos Aires, Argentina",
+        "summary": "Pyme Invoices finances verified invoices that small businesses in Buenos Aires issue to large, creditworthy buyers such as supermarket chains and manufacturers. Instead of waiting 90 to 180 days to get paid, the small business receives cash today, and investors are repaid when the buyer pays the invoice. Every invoice is checked against the buyer before it is funded, and the pool is spread across many businesses and buyers so no single invoice weighs too much. At the end of the six-month term, investors receive their principal plus the target yield. This offering will open once the first batch of invoices has been verified.",
+        "highlights": [
+          "Short 6-month term",
+          "Invoices verified before funding",
+          "Diversified across many small businesses"
+        ]
       }
+    },
+    "detail": {
+      "back": "Back to Pro Opportunities",
+      "notFound": "Opportunity not found",
+      "payout": "Payout",
+      "funding": "Funding",
+      "overview": "Overview",
+      "highlights": "Highlights",
+      "details": "Details",
+      "issuer": "Issuer",
+      "location": "Location",
+      "assetType": "Asset type",
+      "token": "Token",
+      "tokenStandard": "Token standard",
+      "tokenStandardValue": "SEP-57 RWA token",
+      "network": "Network",
+      "invest": {
+        "buyTab": "Buy",
+        "withdrawTab": "Withdraw",
+        "buyLabel": "Buy {token} with USDC",
+        "withdrawLabel": "Withdraw {token}",
+        "amountAriaLabel": "Amount in {unit}",
+        "max": "MAX",
+        "insufficientBalance": "Insufficient balance",
+        "belowMinimum": "Below the minimum investment of {amount}",
+        "network": "Network",
+        "minimum": "Minimum investment",
+        "apy": "Target APY",
+        "projectedMonthly": "Projected monthly earnings",
+        "projectedYearly": "Projected yearly earnings",
+        "yourPosition": "Your position ({token})",
+        "payoutSchedule": "Payout schedule",
+        "buyButton": "Buy {token}",
+        "withdrawButton": "Withdraw {token}",
+        "comingSoon": "Coming soon"
+      },
+      "minInvestment": "Min. investment",
+      "totalRaised": "Total raised (USD)",
+      "ofTarget": "{pct}% of {target} target",
+      "noFundingYet": "No funding yet",
+      "investCta": "Invest",
+      "hideInvest": "Hide invest panel"
+    },
+    "payout": {
+      "monthly": "Monthly",
+      "quarterly": "Quarterly",
+      "at-maturity": "At maturity"
     }
   }
 }

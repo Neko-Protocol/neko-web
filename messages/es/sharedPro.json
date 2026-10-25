@@ -20,7 +20,8 @@
       "token": "Token",
       "raised": "{raised} de {target}",
       "funded": "{pct}% financiado",
-      "targetApy": "APY objetivo"
+      "targetApy": "APY objetivo",
+      "raisedLabel": "Recaudado"
     },
     "categories": {
       "real-estate": "Inmobiliario",
@@ -31,20 +32,99 @@
     "opportunities": {
       "andesCoffee": {
         "name": "Café de los Andes",
-        "description": "Financiamiento de cosecha para una cooperativa de café especial en Huila, Colombia, pagado con sus exportaciones."
+        "description": "Financiamiento de cosecha para una cooperativa de café especial en Huila, Colombia, pagado con sus exportaciones.",
+        "issuer": "Cooperativa Cafetera del Huila",
+        "location": "Huila, Colombia",
+        "summary": "Café de los Andes financia la cosecha anual de una cooperativa de 180 productores de café especial en el Huila, una de las regiones cafeteras más conocidas de Colombia. Los fondos cubren fertilizantes y otros insumos, la recolección a mano durante la cosecha y el beneficio húmedo: los costos que los pequeños productores suelen pagar meses antes de recibir su dinero. La cooperativa ya firmó contratos de exportación con tostadores de café especial en EE. UU. y Europa a precios fijos. Cuando el café verde se embarca y los compradores pagan, el préstamo se devuelve en un solo pago con el capital más el rendimiento objetivo. Antes de publicarla, Neko revisó los documentos legales de la cooperativa, sus volúmenes de cosechas anteriores y los contratos de exportación firmados.",
+        "highlights": [
+          "Se paga con contratos de exportación firmados",
+          "Café de especialidad (puntaje SCA 84+)",
+          "Capital y rendimiento pagados al vender la cosecha"
+        ]
       },
       "lumenTower": {
         "name": "Torre Lumen",
-        "description": "Un edificio de renta de uso mixto en Guadalajara. Los inversionistas reciben parte de las rentas mensuales."
+        "description": "Un edificio de renta de uso mixto en Guadalajara. Los inversionistas reciben parte de las rentas mensuales.",
+        "issuer": "Lumen Desarrollos S.A. de C.V.",
+        "location": "Guadalajara, México",
+        "summary": "Torre Lumen es un edificio terminado de uso mixto en la colonia Providencia de Guadalajara, una zona residencial y de negocios con mucha demanda. Tiene 64 departamentos en los pisos superiores y locales comerciales en la planta baja, y hoy está ocupado al 94%. Un administrador profesional se encarga de las rentas, el mantenimiento y la cobranza. Cada mes, el ingreso neto por rentas —lo cobrado menos los gastos de operación, mantenimiento y administración— se reparte entre los tenedores del token en proporción a lo que tienen. El plazo de 36 meses coincide con lo que les queda a la mayoría de los contratos de arrendamiento vigentes. Antes de publicarla, Neko revisó la escritura del inmueble, la relación de rentas y tres años de estados de operación.",
+        "highlights": [
+          "Edificio terminado, 94% ocupado",
+          "Distribución mensual de rentas",
+          "Administración profesional del inmueble"
+        ]
       },
       "solarYucatan": {
         "name": "Solar Yucatán",
-        "description": "Un parque solar de 4 MW que vende energía limpia a empresas locales con contratos de largo plazo."
+        "description": "Un parque solar de 4 MW que vende energía limpia a empresas locales con contratos de largo plazo.",
+        "issuer": "SolarVerde Energía",
+        "location": "Mérida, México",
+        "summary": "Solar Yucatán es un parque fotovoltaico de 4 MW cerca de Mérida, en una de las regiones con más sol de México. Vende la electricidad que produce a fábricas, hoteles y comercios locales con contratos de compra de energía a 10 años que fijan de antemano el precio por kWh. Eso le da al proyecto un ingreso predecible que no depende del precio de la energía en el mercado mayorista. Los inversionistas reciben cada trimestre una parte de las ventas de energía, después de los costos de operación y mantenimiento. La planta ya está conectada a la red y lleva más de un año generando. Antes de publicarla, Neko revisó los permisos de interconexión, los contratos de compra y el historial de producción de la planta.",
+        "highlights": [
+          "Contratos de compra de energía de largo plazo",
+          "Energía limpia para empresas locales",
+          "Distribuciones trimestrales por venta de energía"
+        ]
       },
       "invoicePyme": {
         "name": "Facturas Pyme",
-        "description": "Financiamiento de corto plazo de facturas verificadas de pequeñas empresas en Buenos Aires."
+        "description": "Financiamiento de corto plazo de facturas verificadas de pequeñas empresas en Buenos Aires.",
+        "issuer": "Factura Ya S.A.",
+        "location": "Buenos Aires, Argentina",
+        "summary": "Facturas Pyme financia facturas verificadas que pequeñas empresas de Buenos Aires emiten a compradores grandes y solventes, como cadenas de supermercados y fabricantes. En lugar de esperar de 90 a 180 días para cobrar, la pequeña empresa recibe el dinero hoy, y los inversionistas cobran cuando el comprador paga la factura. Cada factura se verifica con el comprador antes de financiarse, y el fondo se reparte entre muchas empresas y compradores para que ninguna factura pese demasiado. Al final del plazo de seis meses, los inversionistas reciben su capital más el rendimiento objetivo. Esta oferta se abrirá cuando se verifique el primer lote de facturas.",
+        "highlights": [
+          "Plazo corto de 6 meses",
+          "Facturas verificadas antes de financiarse",
+          "Diversificado entre muchas pequeñas empresas"
+        ]
       }
+    },
+    "detail": {
+      "back": "Volver a Oportunidades Pro",
+      "notFound": "Oportunidad no encontrada",
+      "payout": "Pagos",
+      "funding": "Financiamiento",
+      "overview": "Resumen",
+      "highlights": "Puntos clave",
+      "details": "Detalles",
+      "issuer": "Emisor",
+      "location": "Ubicación",
+      "assetType": "Tipo de activo",
+      "token": "Token",
+      "tokenStandard": "Estándar del token",
+      "tokenStandardValue": "Token RWA SEP-57",
+      "network": "Red",
+      "invest": {
+        "buyTab": "Comprar",
+        "withdrawTab": "Retirar",
+        "buyLabel": "Comprar {token} con USDC",
+        "withdrawLabel": "Retirar {token}",
+        "amountAriaLabel": "Monto en {unit}",
+        "max": "MAX",
+        "insufficientBalance": "Saldo insuficiente",
+        "belowMinimum": "Por debajo de la inversión mínima de {amount}",
+        "network": "Red",
+        "minimum": "Inversión mínima",
+        "apy": "APY objetivo",
+        "projectedMonthly": "Ganancia mensual proyectada",
+        "projectedYearly": "Ganancia anual proyectada",
+        "yourPosition": "Tu posición ({token})",
+        "payoutSchedule": "Calendario de pagos",
+        "buyButton": "Comprar {token}",
+        "withdrawButton": "Retirar {token}",
+        "comingSoon": "Próximamente"
+      },
+      "minInvestment": "Inversión mínima",
+      "totalRaised": "Total recaudado (USD)",
+      "ofTarget": "{pct}% de la meta de {target}",
+      "noFundingYet": "Aún sin financiamiento",
+      "investCta": "Invertir",
+      "hideInvest": "Ocultar panel de inversión"
+    },
+    "payout": {
+      "monthly": "Mensual",
+      "quarterly": "Trimestral",
+      "at-maturity": "Al vencimiento"
     }
   }
 }
