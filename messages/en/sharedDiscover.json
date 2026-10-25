@@ -3,6 +3,7 @@
     "page": {
       "title": "Discover Assets",
       "subtitle": "Explore assets, prices and market data",
+      "proHint": "If you are a Neko Pro user, you can go to <link>Pro Opportunities</link>.",
       "badge": "Market data",
       "illustrationAlt": "Discover assets",
       "assetClassAriaLabel": "Asset class",

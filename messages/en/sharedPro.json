@@ -1,0 +1,50 @@
+{
+  "sharedPro": {
+    "page": {
+      "title": "Pro Opportunities",
+      "subtitle": "Tokenized investments from businesses launched on Neko, available to verified Neko Pro investors.",
+      "badge": "Neko Pro",
+      "all": "All",
+      "categoryAriaLabel": "Category",
+      "searchPlaceholder": "Search by name or token...",
+      "clearSearch": "Clear search",
+      "noMatches": "No opportunities match your filters",
+      "clearFilters": "Clear filters",
+      "filters": "Filters"
+    },
+    "card": {
+      "term": "Term",
+      "months": "{count, plural, one {# month} other {# months}}",
+      "minInvestment": "Min. invest",
+      "category": "Category",
+      "token": "Token",
+      "raised": "{raised} of {target}",
+      "funded": "{pct}% funded",
+      "targetApy": "Target APY"
+    },
+    "categories": {
+      "real-estate": "Real estate",
+      "agriculture": "Agriculture",
+      "energy": "Energy",
+      "private-credit": "Private credit"
+    },
+    "opportunities": {
+      "andesCoffee": {
+        "name": "Andes Coffee",
+        "description": "Harvest financing for a specialty coffee cooperative in Huila, Colombia, repaid from export sales."
+      },
+      "lumenTower": {
+        "name": "Lumen Tower",
+        "description": "A mixed-use rental building in Guadalajara. Investors earn a share of monthly rental income."
+      },
+      "solarYucatan": {
+        "name": "Solar Yucatán",
+        "description": "A 4 MW solar farm selling clean energy to local businesses under long-term contracts."
+      },
+      "invoicePyme": {
+        "name": "Pyme Invoices",
+        "description": "Short-term financing of verified invoices from small businesses in Buenos Aires."
+      }
+    }
+  }
+}

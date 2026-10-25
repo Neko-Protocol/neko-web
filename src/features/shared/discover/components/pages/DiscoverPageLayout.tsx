@@ -2,6 +2,7 @@
 
 import React, { useMemo, useState, type ReactNode } from "react";
 import { Search, X } from "lucide-react";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { getAvailableTokens } from "@/lib/helpers/stellar/swap-kit";
 import { PageContainer } from "@/components/ui/PageContainer";
@@ -61,7 +62,19 @@ export function DiscoverPageLayout({ renderCard }: DiscoverPageLayoutProps) {
     <PageContainer maxWidth="7xl">
       <BannerPage
         title={t("title")}
-        subtitle={t("subtitle")}
+        subtitle={
+          <>
+            {t("subtitle")}
+            <br />
+            {t.rich("proHint", {
+              link: (chunks) => (
+                <Link href="/pro" className="font-bold underline">
+                  {chunks}
+                </Link>
+              ),
+            })}
+          </>
+        }
         badge={t("badge")}
         imageSrc="/banners/discover.png"
         imageAlt={t("illustrationAlt")}

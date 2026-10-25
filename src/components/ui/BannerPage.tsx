@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 export interface BannerPageProps {
   title: string;
 
-  subtitle?: string;
+  subtitle?: React.ReactNode;
 
   badge?: string;
 

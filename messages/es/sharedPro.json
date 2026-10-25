@@ -1,0 +1,50 @@
+{
+  "sharedPro": {
+    "page": {
+      "title": "Oportunidades Pro",
+      "subtitle": "Inversiones tokenizadas de empresas lanzadas en Neko, disponibles para inversionistas verificados Neko Pro.",
+      "badge": "Neko Pro",
+      "all": "Todas",
+      "categoryAriaLabel": "Categoría",
+      "searchPlaceholder": "Buscar por nombre o token...",
+      "clearSearch": "Borrar búsqueda",
+      "noMatches": "Ninguna oportunidad coincide con tus filtros",
+      "clearFilters": "Quitar filtros",
+      "filters": "Filtros"
+    },
+    "card": {
+      "term": "Plazo",
+      "months": "{count, plural, one {# mes} other {# meses}}",
+      "minInvestment": "Mínimo",
+      "category": "Categoría",
+      "token": "Token",
+      "raised": "{raised} de {target}",
+      "funded": "{pct}% financiado",
+      "targetApy": "APY objetivo"
+    },
+    "categories": {
+      "real-estate": "Inmobiliario",
+      "agriculture": "Agricultura",
+      "energy": "Energía",
+      "private-credit": "Crédito privado"
+    },
+    "opportunities": {
+      "andesCoffee": {
+        "name": "Café de los Andes",
+        "description": "Financiamiento de cosecha para una cooperativa de café especial en Huila, Colombia, pagado con sus exportaciones."
+      },
+      "lumenTower": {
+        "name": "Torre Lumen",
+        "description": "Un edificio de renta de uso mixto en Guadalajara. Los inversionistas reciben parte de las rentas mensuales."
+      },
+      "solarYucatan": {
+        "name": "Solar Yucatán",
+        "description": "Un parque solar de 4 MW que vende energía limpia a empresas locales con contratos de largo plazo."
+      },
+      "invoicePyme": {
+        "name": "Facturas Pyme",
+        "description": "Financiamiento de corto plazo de facturas verificadas de pequeñas empresas en Buenos Aires."
+      }
+    }
+  }
+}
