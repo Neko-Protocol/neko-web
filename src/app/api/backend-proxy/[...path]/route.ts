@@ -43,6 +43,9 @@ async function forward(
   if (accept) headers["Accept"] = accept;
   const requestId = req.headers.get("x-request-id");
   if (requestId) headers["X-Request-Id"] = requestId;
+  // Proves the browser started a Launchpad verification (KYC/KYB).
+  const claimToken = req.headers.get("x-claim-token");
+  if (claimToken) headers["X-Claim-Token"] = claimToken;
 
   const isReadOnly = req.method === "GET" || req.method === "HEAD";
   const hasBody = !isReadOnly;

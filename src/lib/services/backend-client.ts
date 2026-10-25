@@ -26,18 +26,19 @@ export class BackendError extends Error {
 type RequestOptions = {
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: unknown;
+  headers?: Record<string, string>;
   signal?: AbortSignal;
 };
 
 async function request<T>(
   path: string,
-  { method = "GET", body, signal }: RequestOptions = {}
+  { method = "GET", body, headers, signal }: RequestOptions = {}
 ): Promise<T> {
   const url = `${backendBaseUrl}${path.startsWith("/") ? path : `/${path}`}`;
 
   const init: RequestInit = {
     method,
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...headers },
     signal,
   };
   if (body !== undefined) {
