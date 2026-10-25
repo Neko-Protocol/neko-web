@@ -1,10 +1,9 @@
 export type OpportunityCategory =
-  | "real-estate"
-  | "agriculture"
-  | "energy"
-  | "private-credit";
+  "real-estate" | "agriculture" | "energy" | "private-credit";
 
 export type OpportunityStatus = "open" | "coming-soon";
+
+export type PayoutFrequency = "monthly" | "quarterly" | "at-maturity";
 
 export interface ProOpportunity {
   /** Also the i18n key under `sharedPro.opportunities`. */
@@ -16,6 +15,7 @@ export interface ProOpportunity {
   /** Annual target yield, in percent. */
   targetApy: number;
   termMonths: number;
+  payout: PayoutFrequency;
   minInvestmentUsd: number;
   raisedUsd: number;
   targetUsd: number;
