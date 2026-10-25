@@ -1,29 +1,12 @@
 "use client";
 
-import React, { useId } from "react";
-import Image from "next/image";
-import { Building2, FileText, Sprout, Sun } from "lucide-react";
+import React from "react";
+import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
-import { cn } from "@/lib/utils";
-import type {
-  OpportunityCategory,
-  ProOpportunity,
-} from "../../types/opportunity";
-
-const CATEGORY_ICON: Record<OpportunityCategory, React.ElementType> = {
-  "real-estate": Building2,
-  agriculture: Sprout,
-  energy: Sun,
-  "private-credit": FileText,
-};
-
-/**
- * Photo silhouette in objectBoundingBox units: full width on the right, then
- * a smooth S-curve up to a raised bottom edge on the left, leaving a notch for
- * the title. Corner radii are tuned for the photo's ~2.3:1 aspect ratio.
- */
-const PHOTO_CLIP_PATH =
-  "M0.07,0 H0.93 Q1,0 1,0.17 V0.83 Q1,1 0.93,1 H0.6 C0.48,1 0.46,0.74 0.34,0.74 H0.07 Q0,0.74 0,0.57 V0.17 Q0,0 0.07,0 Z";
+import { CATEGORY_ICON } from "../../constants/categories";
+import { PRO_ROUTES } from "../../constants/routes";
+import type { ProOpportunity } from "../../types/opportunity";
+import { CurvedPhoto } from "./CurvedPhoto";
 
 /**
  * Top edge of the hover panel in a 340×76 box (stretched to the card width):
@@ -43,8 +26,6 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
     `sharedPro.opportunities.${opportunity.id}`
   );
   const format = useFormatter();
-  // Older React versions return ":r0:"-style ids, invalid inside url(#…).
-  const clipId = `pro-photo-${useId().replace(/:/g, "")}`;
 
   const Icon = CATEGORY_ICON[opportunity.category];
   const apy = format.number(opportunity.targetApy / 100, {
@@ -69,58 +50,20 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
   ];
 
   return (
-    <article
-      tabIndex={0}
-      className="group relative h-full outline-none transition-transform duration-300 hover:-translate-y-1"
+    <Link
+      href={PRO_ROUTES.detail(opportunity.id)}
+      className="group relative block h-full outline-none transition-transform duration-300 hover:-translate-y-1"
     >
-      <div className="relative z-10 flex h-full flex-col overflow-hidden min-h-72 rounded-[28px] border border-white/10 bg-[#131312] p-2.5 group-focus-visible:border-white/40">
-        <svg width="0" height="0" className="absolute" aria-hidden>
-          <defs>
-            <clipPath id={clipId} clipPathUnits="objectBoundingBox">
-              <path d={PHOTO_CLIP_PATH} />
-            </clipPath>
-          </defs>
-        </svg>
-
-        <div
-          className={cn("relative h-36 bg-linear-to-br", opportunity.gradient)}
-          style={{ clipPath: `url(#${clipId})` }}
+      <article className="relative z-10 flex h-full flex-col overflow-hidden min-h-72 rounded-[28px] border border-white/10 bg-[#131312] p-2.5 group-focus-visible:border-white/40">
+        <CurvedPhoto
+          src={opportunity.imageSrc}
+          alt={tOpportunity("name")}
+          gradient={opportunity.gradient}
+          fallbackIcon={Icon}
+          sizes="(min-width: 1536px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          className="h-36"
+          imageClassName="transition-transform duration-700 group-hover:scale-105"
         >
-          {opportunity.imageSrc ? (
-            <Image
-              src={opportunity.imageSrc}
-              alt={tOpportunity("name")}
-              fill
-              sizes="(min-width: 1536px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-          ) : (
-            <Icon
-              className="absolute -right-6 -bottom-6 h-32 w-32 text-white/10"
-              aria-hidden
-            />
-          )}
-          <div
-            className="absolute inset-0 bg-[radial-gradient(90%_70%_at_100%_0%,rgba(0,0,0,0.55)_0%,transparent_70%)]"
-            aria-hidden
-          />
-          {/* A CSS border would ignore the clip-path, so the outline is the
-              same path stroked. The clip hides the outer half of the stroke. */}
-          <svg
-            className="pointer-events-none absolute inset-0 h-full w-full"
-            viewBox="0 0 1 1"
-            preserveAspectRatio="none"
-            aria-hidden
-          >
-            <path
-              d={PHOTO_CLIP_PATH}
-              fill="none"
-              stroke="#2B2B2A"
-              strokeWidth={4}
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-
           <span className="absolute top-3 left-3 flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white backdrop-blur-md">
             <Icon className="h-5 w-5" aria-hidden />
           </span>
@@ -133,7 +76,7 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
               {t("targetApy")}
             </p>
           </div>
-        </div>
+        </CurvedPhoto>
 
         <div className="relative -mt-7 w-1/2 px-3">
           <h3 className="text-xl leading-tight font-semibold text-white">
@@ -210,7 +153,7 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
             </div>
           </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </Link>
   );
 }
