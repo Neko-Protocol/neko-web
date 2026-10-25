@@ -45,6 +45,78 @@
         "name": "Facturas Pyme",
         "description": "Financiamiento de corto plazo de facturas verificadas de pequeñas empresas en Buenos Aires."
       }
+    },
+    "verification": {
+      "connect": {
+        "title": "Verifícate para desbloquear Neko Pro",
+        "body": "Las oportunidades de Neko Pro están abiertas a inversionistas verificados. Conecta tu billetera para revisar tu estado o verificarte.",
+        "cta": "Conectar billetera"
+      },
+      "choose": {
+        "title": "Verifícate para ver las oportunidades",
+        "body": "Una verificación de identidad única habilita tu billetera conectada en Neko Pro.",
+        "cta": "Iniciar verificación"
+      },
+      "kinds": {
+        "kyc": {
+          "title": "Soy una persona",
+          "body": "Un documento de identidad y una selfie rápida (KYC)"
+        },
+        "kyb": {
+          "title": "Represento una empresa",
+          "body": "Documentos de la empresa y una consulta de registro (KYB)"
+        }
+      },
+      "verify": {
+        "title": {
+          "kyc": "Verifica tu identidad",
+          "kyb": "Verifica tu empresa"
+        },
+        "body": "Toma unos minutos. Mantén esta pestaña abierta.",
+        "iframeTitle": "Verificación Didit",
+        "checkNow": "Ya terminé, revisar ahora",
+        "startOver": "Empezar de nuevo"
+      },
+      "status": {
+        "pending": "Esperando a que completes los pasos de arriba.",
+        "in_progress": "Revisando tus documentos…",
+        "in_review": "En revisión. Esta página se actualiza sola.",
+        "approved": "Verificado.",
+        "declined": "Esta verificación fue rechazada.",
+        "expired": "Esta sesión de verificación expiró."
+      },
+      "approved": {
+        "title": "Estás verificado",
+        "body": "Tu verificación fue aprobada.",
+        "unlocking": "Habilitando tu billetera…"
+      },
+      "demo": {
+        "open": "Omitir verificación (demo)",
+        "nameLabel": "Nombre a registrar",
+        "skip": "Continuar",
+        "placeholder": {
+          "kyc": "Inversionista Demo",
+          "kyb": "Empresa Demo S.A."
+        },
+        "description": {
+          "kyc": "Registra una verificación de identidad aprobada con este nombre.",
+          "kyb": "Registra una verificación de empresa aprobada con este nombre."
+        },
+        "title": "Omitir verificación (demo)",
+        "close": "Cerrar"
+      },
+      "retry": "Reintentar",
+      "errors": {
+        "WORKFLOW_NOT_CONFIGURED": "La verificación aún no está configurada. Intenta más tarde.",
+        "VERIFICATION_ALREADY_CLAIMED": "Esta verificación ya está vinculada a otra billetera o cuenta.",
+        "WALLET_ALREADY_VERIFIED": "Esta billetera ya está vinculada a otra verificación.",
+        "VERIFICATION_NOT_APPROVED": "Esta verificación aún no está aprobada.",
+        "CLAIM_TOKEN_INVALID": "Esta sesión de verificación ya no es válida. Empieza de nuevo.",
+        "VERIFICATION_NOT_FOUND": "Esta sesión de verificación ya no es válida. Empieza de nuevo.",
+        "BACKEND_UNREACHABLE": "No se puede conectar con el backend de Neko.",
+        "generic": "Algo salió mal. Intenta de nuevo.",
+        "accessCheckFailed": "No pudimos revisar tu acceso a Neko Pro."
+      }
     }
   }
 }
