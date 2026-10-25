@@ -23,6 +23,7 @@
       "cartAriaLabelWithCount": "Carrito, {count, plural, one {# artículo} other {# artículos}}",
       "vault": "Vault",
       "strategies": "Estrategias",
+      "pro": "Oportunidades Pro",
       "settings": "Configuración",
       "admin": "Admin",
       "toggleMenu": "Alternar menú"
