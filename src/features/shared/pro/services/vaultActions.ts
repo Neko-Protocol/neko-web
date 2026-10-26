@@ -1,7 +1,7 @@
-import { contract } from "@stellar/stellar-sdk";
+import { Client as VaultClient } from "@/lib/contracts/neko-tokenization/vault";
 import { PRO_NETWORK } from "../constants/deployments";
 import type { ProVault, VaultState } from "../types/vault";
-import { read, toUsdc } from "./vaultReader";
+import { toUnits, vaultClient } from "./vaultReader";
 
 /** Signs an XDR for the Pro network with the connected wallet. */
 export type ProSigner = (xdr: string) => Promise<string>;
@@ -58,33 +58,29 @@ function toVaultError(err: unknown): VaultActionError {
   return new VaultActionError("failed", message.slice(0, 200));
 }
 
-const toUnits = (amount: number) => BigInt(Math.round(amount * 1e7));
+const toRaw = (amount: number) => BigInt(Math.round(amount * 1e7));
 
-/** Simulates, signs and submits one vault call; resolves to the tx hash. */
-async function invoke(
-  vault: string,
-  method: string,
-  args: Record<string, unknown>,
-  publicKey: string,
-  sign: ProSigner
+/** A vault client that signs with the connected wallet. */
+const signingVault = (vault: string, publicKey: string, sign: ProSigner) =>
+  new VaultClient({
+    contractId: vault,
+    rpcUrl: PRO_NETWORK.rpcUrl,
+    networkPassphrase: PRO_NETWORK.networkPassphrase,
+    publicKey,
+    signTransaction: async (xdr: string) => ({
+      signedTxXdr: await sign(xdr),
+      signerAddress: publicKey,
+    }),
+  });
+
+/** Simulates, signs and submits; resolves to the transaction hash. */
+async function send(
+  build: () => Promise<{
+    signAndSend: () => Promise<{ sendTransactionResponse?: { hash: string } }>;
+  }>
 ): Promise<string> {
   try {
-    const client = (await contract.Client.from({
-      contractId: vault,
-      rpcUrl: PRO_NETWORK.rpcUrl,
-      networkPassphrase: PRO_NETWORK.networkPassphrase,
-      publicKey,
-      signTransaction: async (xdr: string) => ({
-        signedTxXdr: await sign(xdr),
-        signerAddress: publicKey,
-      }),
-    })) as unknown as Record<
-      string,
-      (
-        a: Record<string, unknown>
-      ) => Promise<contract.AssembledTransaction<unknown>>
-    >;
-    const tx = await client[method](args);
+    const tx = await build();
     const sent = await tx.signAndSend();
     return sent.sendTransactionResponse?.hash ?? "";
   } catch (err) {
@@ -92,42 +88,44 @@ async function invoke(
   }
 }
 
-/** Deposit `amount` USDC and receive the vault token 1:1. */
+/** Deposit `amount` of the vault's asset and receive its token 1:1. */
 export function invest(
   vault: ProVault,
   investor: string,
   amount: number,
   sign: ProSigner
 ) {
-  return invoke(
-    vault.vault,
-    "invest",
-    { investor, amount: toUnits(amount) },
-    investor,
-    sign
-  );
+  const client = signingVault(vault.vault, investor, sign);
+  return send(() => client.invest({ investor, amount: toRaw(amount) }));
 }
 
 /** Exit the whole position the way the vault's state allows. */
 export function withdraw(vault: ProVault, investor: string, sign: ProSigner) {
-  const method = withdrawMethod(vault.state);
-  if (!method) throw new VaultActionError("invalidState");
-  return invoke(vault.vault, method, { investor }, investor, sign);
+  const client = signingVault(vault.vault, investor, sign);
+  switch (withdrawMethod(vault.state)) {
+    case "redeem":
+      return send(() => client.redeem({ investor }));
+    case "early_exit":
+      return send(() => client.early_exit({ investor }));
+    case "refund":
+      return send(() => client.refund({ investor }));
+    default:
+      throw new VaultActionError("invalidState");
+  }
 }
 
-/** USDC the investor would receive by withdrawing now. */
+/** What the investor would receive by withdrawing now, in the vault's asset. */
 export async function withdrawValue(
   vault: ProVault,
   investor: string,
   position: number
 ): Promise<number> {
+  const client = vaultClient(vault.vault);
   switch (withdrawMethod(vault.state)) {
     case "redeem":
-      return toUsdc(await read<bigint>(vault.vault, "claimable", { investor }));
+      return toUnits((await client.claimable({ investor })).result);
     case "early_exit":
-      return toUsdc(
-        await read<bigint>(vault.vault, "exit_value", { investor })
-      );
+      return toUnits((await client.exit_value({ investor })).result);
     case "refund":
       return position;
     default:
