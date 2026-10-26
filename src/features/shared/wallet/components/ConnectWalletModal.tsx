@@ -1,60 +1,124 @@
 "use client";
 
-import { X } from "lucide-react";
+import { useState } from "react";
+import Image from "next/image";
+import { ChevronRight, Loader2, Mail } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { usePrivy } from "@privy-io/react-auth";
 import { useStellarWallet } from "@/hooks/useStellarWallet";
+import { useReferralStore } from "@/features/shared/referral/stores/referral.store";
+import { PRIVY_ENABLED } from "@/features/shared/wallet/privy/privyConfig";
+import { getPrivySession } from "@/features/shared/wallet/privy/privySession";
+import { useConnectModalStore } from "@/features/shared/wallet/stores/connectModal.store";
+import { AuthModalShell } from "./AuthModalShell";
 
-interface ConnectWalletModalProps {
-  isOpen: boolean;
-  onClose: () => void;
+function EmailOption({ onStart }: { onStart: () => void }) {
+  const t = useTranslations("common.wallet");
+  const { ready, authenticated, login } = usePrivy();
+
+  return (
+    <div>
+      <button
+        type="button"
+        disabled={!ready}
+        onClick={() => {
+          onStart();
+          if (!authenticated) login();
+        }}
+        className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#229EDF] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1a8bc7] disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {ready ? (
+          <Mail className="h-4 w-4" />
+        ) : (
+          <Loader2 className="h-4 w-4 animate-spin" />
+        )}
+        {t("emailCta")}
+      </button>
+      <p className="mt-2 text-center text-xs text-white/40">{t("emailHint")}</p>
+    </div>
+  );
 }
 
-export function ConnectWalletModal({
-  isOpen,
-  onClose,
-}: ConnectWalletModalProps) {
+function Divider() {
   const t = useTranslations("common.wallet");
+  return (
+    <div className="my-5 flex items-center gap-3 text-xs text-white/30">
+      <span className="h-px flex-1 bg-white/10" />
+      {t("or")}
+      <span className="h-px flex-1 bg-white/10" />
+    </div>
+  );
+}
+
+export function ConnectWalletModal() {
+  const t = useTranslations("common.wallet");
+  const { isOpen, close } = useConnectModalStore();
   const { connect } = useStellarWallet();
+  const refCode = useReferralStore((s) => s.refCode);
+  const [connecting, setConnecting] = useState(false);
 
   if (!isOpen) return null;
 
   const handleStellarConnect = async () => {
-    await connect();
-    onClose();
+    setConnecting(true);
+    try {
+      await getPrivySession()?.logout();
+      close();
+      await connect();
+    } catch {
+    } finally {
+      setConnecting(false);
+    }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="bg-[#1C1C1C] border border-white/10 rounded-3xl w-full max-w-sm p-6 shadow-2xl">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-white text-xl font-bold">{t("connectWallet")}</h3>
-          <button
-            onClick={onClose}
-            className="text-white/40 hover:text-white transition-colors"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
+    <AuthModalShell
+      titleId="connect-modal-title"
+      title={t("startInvesting")}
+      subtitle={t("connectModalSubtitle")}
+      onClose={close}
+      closeLabel={t("close")}
+    >
+      {PRIVY_ENABLED && (
+        <>
+          <EmailOption onStart={close} />
+          <Divider />
+        </>
+      )}
 
-        <div className="space-y-3">
-          <button
-            onClick={() => void handleStellarConnect()}
-            className="w-full flex items-center gap-4 rounded-2xl bg-[#2A2A2A] hover:bg-[#333] border border-white/5 p-4 transition-colors text-left"
-          >
-            <div className="h-10 w-10 rounded-full bg-[#1a2a4a] flex items-center justify-center shrink-0">
-              <span className="text-white font-bold text-sm">S</span>
-            </div>
-            <div>
-              <p className="text-white font-semibold text-sm">
-                {t("stellarWallet")}
-              </p>
-              <p className="text-white/40 text-xs">
-                {t("stellarWalletDescription")}
-              </p>
-            </div>
-          </button>
-        </div>
-      </div>
-    </div>
+      <button
+        type="button"
+        disabled={connecting}
+        onClick={() => void handleStellarConnect()}
+        className="group flex w-full items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 text-left transition-colors hover:border-white/20 hover:bg-white/[0.06] disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        <Image
+          src="/assets/xlm-logo.png"
+          alt=""
+          width={32}
+          height={32}
+          className="h-8 w-8 shrink-0 rounded-full"
+        />
+        <span className="min-w-0 flex-1">
+          <span className="block text-sm font-medium text-white">
+            {t("stellarOptionTitle")}
+          </span>
+          <span className="block truncate text-xs text-white/40">
+            {t("stellarOptionDescription")}
+          </span>
+        </span>
+        {connecting ? (
+          <Loader2 className="h-4 w-4 shrink-0 animate-spin text-white/50" />
+        ) : (
+          <ChevronRight className="h-4 w-4 shrink-0 text-white/30 transition-colors group-hover:text-white/70" />
+        )}
+      </button>
+
+      {refCode && (
+        <p className="mt-5 text-center text-xs text-white/40">
+          {t("referralCodeApplied", { code: refCode })}
+        </p>
+      )}
+    </AuthModalShell>
   );
 }
