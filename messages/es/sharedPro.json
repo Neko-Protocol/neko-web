@@ -178,7 +178,8 @@
       "approved": {
         "title": "Estás verificado",
         "body": "Tu verificación fue aprobada.",
-        "unlocking": "Habilitando tu billetera…"
+        "unlocking": "Habilitando tu billetera…",
+        "retry": "Intentar de nuevo"
       },
       "demo": {
         "open": "Omitir verificación (demo)",

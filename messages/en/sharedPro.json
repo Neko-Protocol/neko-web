@@ -178,7 +178,8 @@
       "approved": {
         "title": "You're verified",
         "body": "Your verification was approved.",
-        "unlocking": "Whitelisting your wallet…"
+        "unlocking": "Whitelisting your wallet…",
+        "retry": "Try again"
       },
       "demo": {
         "open": "Skip verification (demo)",
