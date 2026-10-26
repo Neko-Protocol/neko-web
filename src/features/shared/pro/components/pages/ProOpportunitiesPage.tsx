@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { PageContainer } from "@/components/ui/PageContainer";
 import { BannerPage } from "@/components/ui/BannerPage";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import { proImageUrl } from "@/lib/config/storage.config";
 import { useProVaults } from "../../hooks/useProVaults";
 import type { VaultCategory } from "../../types/vault";
 import { VaultCard } from "../ui/VaultCard";
@@ -78,6 +79,8 @@ export function ProOpportunitiesPage() {
         title={t("title")}
         subtitle={t("subtitle")}
         badge={t("badge")}
+        imageSrc={proImageUrl("banners/pro.png")}
+        imageAlt={t("imageAlt")}
         className="mb-8"
       />
 
