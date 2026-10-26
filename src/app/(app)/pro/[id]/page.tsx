@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
   getVaultDeployment,
+  ProAccessGate,
   ProOpportunityDetailPage,
 } from "@/features/shared/pro";
 
@@ -18,5 +19,9 @@ export default async function ProOpportunityRoute({
 }) {
   const { id } = await params;
   if (!getVaultDeployment(id)) notFound();
-  return <ProOpportunityDetailPage slug={id} />;
+  return (
+    <ProAccessGate>
+      <ProOpportunityDetailPage slug={id} />
+    </ProAccessGate>
+  );
 }
