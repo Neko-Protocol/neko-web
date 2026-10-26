@@ -2,4 +2,4 @@
 // consumers outside this feature; intra-feature imports stay deep-path).
 export { ProOpportunitiesPage } from "./components/pages/ProOpportunitiesPage";
 export { ProOpportunityDetailPage } from "./components/pages/ProOpportunityDetailPage";
-export { getProOpportunity } from "./constants/opportunities";
+export { getVaultDeployment } from "./constants/deployments";
