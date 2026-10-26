@@ -38,13 +38,13 @@
       "private-credit": "Crédito privado"
     },
     "vaults": {
-      "casa-heredia": {
-        "location": "Heredia, Costa Rica",
-        "description": "Préstamo inmobiliario tokenizado en Heredia, Costa Rica, pagado en tramos de USDC."
+      "casa-circle": {
+        "location": "Costa Rica",
+        "description": "Préstamo inmobiliario tokenizado en Costa Rica, financiado y pagado en USDC de Circle."
       },
-      "finca-turrialba": {
-        "location": "Turrialba, Costa Rica",
-        "description": "Financiamiento agrícola tokenizado en Turrialba, Costa Rica, pagado en tramos de USDC."
+      "torre-cartago": {
+        "location": "Cartago, Costa Rica",
+        "description": "Préstamo para un edificio tokenizado en Cartago, Costa Rica, financiado y pagado en USDT0."
       }
     },
     "detail": {
@@ -52,7 +52,7 @@
       "notFound": "Oportunidad no encontrada",
       "loadError": "No pudimos leer este vault desde Stellar. Intenta de nuevo en un momento.",
       "overview": "Resumen",
-      "overviewBody": "{name} recauda hasta {target} en USDC de inversionistas verificados, que reciben tokens {symbol} 1:1. Lo recaudado se entrega al deudor, que paga {expected} en {count, plural, one {# tramo} other {# tramos}}. Cuando el vault se liquida, cada inversionista redime su parte del pago. Todo en esta página se lee en vivo de los contratos del vault en Stellar.",
+      "overviewBody": "{name} recauda hasta {target} en {asset} de inversionistas verificados, que reciben tokens {symbol} 1:1. Lo recaudado se entrega al deudor, que paga {expected} en {count, plural, one {# tramo} other {# tramos}}. Cuando el vault se liquida, cada inversionista redime su parte del pago. Todo en esta página se lee en vivo de los contratos del vault en Stellar.",
       "investCta": "Invertir",
       "hideInvest": "Ocultar panel de inversión",
       "highlights": "Puntos clave",
@@ -78,8 +78,7 @@
       "vaultContract": "Contrato del vault",
       "tokenContract": "Contrato del token",
       "complianceContract": "Contrato de compliance",
-      "usdcContract": "Contrato de USDC",
-      "totalRaised": "Total recaudado (USDC)",
+      "totalRaised": "Total recaudado ({asset})",
       "ofTarget": "{pct}% de la meta de {target}",
       "repaymentSchedule": "Calendario de pagos",
       "expected": "Esperado",
@@ -88,7 +87,7 @@
       "invest": {
         "buyTab": "Comprar",
         "withdrawTab": "Retirar",
-        "buyLabel": "Comprar {token} con USDC",
+        "buyLabel": "Comprar {token} con {asset}",
         "withdrawLabel": "Retirar {token}",
         "amountAriaLabel": "Monto en {unit}",
         "max": "MAX",
@@ -127,13 +126,14 @@
           "accountNotFound": "Tu wallet todavía no tiene cuenta en Stellar Testnet. Fóndeala con Friendbot y vuelve a intentar."
         },
         "blockers": {
-          "noUsdc": "Esta wallet no tiene USDC de prueba de Neko en Testnet. Agrega una trustline a {asset} y pídele USDC de prueba al equipo de Neko."
+          "noAsset": "Esta wallet no tiene {asset} de este vault en Testnet. Agrega una trustline a {assetId} y fóndeala primero."
         }
       },
       "fundingCompleted": "Financiamiento completado",
       "fundingFailed": "Financiamiento fallido",
       "withdrawCta": "Retirar",
-      "hideWithdraw": "Ocultar panel de retiro"
+      "hideWithdraw": "Ocultar panel de retiro",
+      "assetContract": "Contrato de {asset}"
     },
     "verification": {
       "connect": {
