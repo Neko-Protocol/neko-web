@@ -10,18 +10,26 @@
       "clearSearch": "Borrar búsqueda",
       "noMatches": "Ninguna oportunidad coincide con tus filtros",
       "clearFilters": "Quitar filtros",
-      "filters": "Filtros"
+      "filters": "Filtros",
+      "loading": "Leyendo vaults desde Stellar…",
+      "loadError": "No pudimos leer los vaults desde Stellar. Intenta de nuevo en un momento."
     },
     "card": {
       "term": "Plazo",
       "months": "{count, plural, one {# mes} other {# meses}}",
-      "minInvestment": "Mínimo",
+      "status": "Estado",
       "category": "Categoría",
       "token": "Token",
       "raised": "{raised} de {target}",
       "funded": "{pct}% financiado",
-      "targetApy": "APY objetivo",
-      "raisedLabel": "Recaudado"
+      "targetReturn": "Retorno objetivo"
+    },
+    "status": {
+      "Funding": "En financiamiento",
+      "Funded": "Financiado",
+      "Active": "Pagando",
+      "Settled": "Liquidado",
+      "Failed": "Fallido"
     },
     "categories": {
       "real-estate": "Inmobiliario",
@@ -29,71 +37,54 @@
       "energy": "Energía",
       "private-credit": "Crédito privado"
     },
-    "opportunities": {
-      "andesCoffee": {
-        "name": "Café de los Andes",
-        "description": "Financiamiento de cosecha para una cooperativa de café especial en Huila, Colombia, pagado con sus exportaciones.",
-        "issuer": "Cooperativa Cafetera del Huila",
-        "location": "Huila, Colombia",
-        "summary": "Café de los Andes financia la cosecha anual de una cooperativa de 180 productores de café especial en el Huila, una de las regiones cafeteras más conocidas de Colombia. Los fondos cubren fertilizantes y otros insumos, la recolección a mano durante la cosecha y el beneficio húmedo: los costos que los pequeños productores suelen pagar meses antes de recibir su dinero. La cooperativa ya firmó contratos de exportación con tostadores de café especial en EE. UU. y Europa a precios fijos. Cuando el café verde se embarca y los compradores pagan, el préstamo se devuelve en un solo pago con el capital más el rendimiento objetivo. Antes de publicarla, Neko revisó los documentos legales de la cooperativa, sus volúmenes de cosechas anteriores y los contratos de exportación firmados.",
-        "highlights": [
-          "Se paga con contratos de exportación firmados",
-          "Café de especialidad (puntaje SCA 84+)",
-          "Capital y rendimiento pagados al vender la cosecha"
-        ]
+    "vaults": {
+      "casa-heredia": {
+        "location": "Heredia, Costa Rica",
+        "description": "Préstamo inmobiliario tokenizado en Heredia, Costa Rica, pagado en tramos de USDC."
       },
-      "lumenTower": {
-        "name": "Torre Lumen",
-        "description": "Un edificio de renta de uso mixto en Guadalajara. Los inversionistas reciben parte de las rentas mensuales.",
-        "issuer": "Lumen Desarrollos S.A. de C.V.",
-        "location": "Guadalajara, México",
-        "summary": "Torre Lumen es un edificio terminado de uso mixto en la colonia Providencia de Guadalajara, una zona residencial y de negocios con mucha demanda. Tiene 64 departamentos en los pisos superiores y locales comerciales en la planta baja, y hoy está ocupado al 94%. Un administrador profesional se encarga de las rentas, el mantenimiento y la cobranza. Cada mes, el ingreso neto por rentas —lo cobrado menos los gastos de operación, mantenimiento y administración— se reparte entre los tenedores del token en proporción a lo que tienen. El plazo de 36 meses coincide con lo que les queda a la mayoría de los contratos de arrendamiento vigentes. Antes de publicarla, Neko revisó la escritura del inmueble, la relación de rentas y tres años de estados de operación.",
-        "highlights": [
-          "Edificio terminado, 94% ocupado",
-          "Distribución mensual de rentas",
-          "Administración profesional del inmueble"
-        ]
-      },
-      "solarYucatan": {
-        "name": "Solar Yucatán",
-        "description": "Un parque solar de 4 MW que vende energía limpia a empresas locales con contratos de largo plazo.",
-        "issuer": "SolarVerde Energía",
-        "location": "Mérida, México",
-        "summary": "Solar Yucatán es un parque fotovoltaico de 4 MW cerca de Mérida, en una de las regiones con más sol de México. Vende la electricidad que produce a fábricas, hoteles y comercios locales con contratos de compra de energía a 10 años que fijan de antemano el precio por kWh. Eso le da al proyecto un ingreso predecible que no depende del precio de la energía en el mercado mayorista. Los inversionistas reciben cada trimestre una parte de las ventas de energía, después de los costos de operación y mantenimiento. La planta ya está conectada a la red y lleva más de un año generando. Antes de publicarla, Neko revisó los permisos de interconexión, los contratos de compra y el historial de producción de la planta.",
-        "highlights": [
-          "Contratos de compra de energía de largo plazo",
-          "Energía limpia para empresas locales",
-          "Distribuciones trimestrales por venta de energía"
-        ]
-      },
-      "invoicePyme": {
-        "name": "Facturas Pyme",
-        "description": "Financiamiento de corto plazo de facturas verificadas de pequeñas empresas en Buenos Aires.",
-        "issuer": "Factura Ya S.A.",
-        "location": "Buenos Aires, Argentina",
-        "summary": "Facturas Pyme financia facturas verificadas que pequeñas empresas de Buenos Aires emiten a compradores grandes y solventes, como cadenas de supermercados y fabricantes. En lugar de esperar de 90 a 180 días para cobrar, la pequeña empresa recibe el dinero hoy, y los inversionistas cobran cuando el comprador paga la factura. Cada factura se verifica con el comprador antes de financiarse, y el fondo se reparte entre muchas empresas y compradores para que ninguna factura pese demasiado. Al final del plazo de seis meses, los inversionistas reciben su capital más el rendimiento objetivo. Esta oferta se abrirá cuando se verifique el primer lote de facturas.",
-        "highlights": [
-          "Plazo corto de 6 meses",
-          "Facturas verificadas antes de financiarse",
-          "Diversificado entre muchas pequeñas empresas"
-        ]
+      "finca-turrialba": {
+        "location": "Turrialba, Costa Rica",
+        "description": "Financiamiento agrícola tokenizado en Turrialba, Costa Rica, pagado en tramos de USDC."
       }
     },
     "detail": {
       "back": "Volver a Oportunidades Pro",
       "notFound": "Oportunidad no encontrada",
-      "payout": "Pagos",
-      "funding": "Financiamiento",
+      "loadError": "No pudimos leer este vault desde Stellar. Intenta de nuevo en un momento.",
       "overview": "Resumen",
+      "overviewBody": "{name} recauda hasta {target} en USDC de inversionistas verificados, que reciben tokens {symbol} 1:1. Lo recaudado se entrega al deudor, que paga {expected} en {count, plural, one {# tramo} other {# tramos}}. Cuando el vault se liquida, cada inversionista redime su parte del pago. Todo en esta página se lee en vivo de los contratos del vault en Stellar.",
+      "investCta": "Invertir",
+      "hideInvest": "Ocultar panel de inversión",
       "highlights": "Puntos clave",
       "details": "Detalles",
-      "issuer": "Emisor",
+      "contracts": "Contratos",
+      "hlReturn": "Retorno objetivo de {pct} en {count, plural, one {# mes} other {# meses}}",
+      "hlTranches": "Se paga en {count, plural, one {# tramo} other {# tramos}}, {paid} pagados hasta ahora",
+      "hlVerified": "Solo inversionistas con identidad verificada pueden tener {symbol}",
+      "minRaise": "Recaudación mínima",
+      "fundingDeadline": "Cierre del financiamiento",
+      "exitFee": "Comisión de salida anticipada",
+      "tranches": "Pagos",
+      "trancheCount": "{count, plural, one {# tramo} other {# tramos}}",
+      "issuer": "Deudor",
       "location": "Ubicación",
       "assetType": "Tipo de activo",
       "token": "Token",
       "tokenStandard": "Estándar del token",
       "tokenStandardValue": "Token RWA SEP-57",
       "network": "Red",
+      "networkValue": "Stellar Testnet",
+      "createdAt": "Lanzado",
+      "vaultContract": "Contrato del vault",
+      "tokenContract": "Contrato del token",
+      "complianceContract": "Contrato de compliance",
+      "usdcContract": "Contrato de USDC",
+      "totalRaised": "Total recaudado (USDC)",
+      "ofTarget": "{pct}% de la meta de {target}",
+      "repaymentSchedule": "Calendario de pagos",
+      "expected": "Esperado",
+      "paid": "Pagado",
+      "trancheLabel": "Tramo {n}",
       "invest": {
         "buyTab": "Comprar",
         "withdrawTab": "Retirar",
@@ -102,29 +93,47 @@
         "amountAriaLabel": "Monto en {unit}",
         "max": "MAX",
         "insufficientBalance": "Saldo insuficiente",
-        "belowMinimum": "Por debajo de la inversión mínima de {amount}",
         "network": "Red",
-        "minimum": "Inversión mínima",
-        "apy": "APY objetivo",
+        "targetReturn": "Retorno objetivo",
         "projectedMonthly": "Ganancia mensual proyectada",
         "projectedYearly": "Ganancia anual proyectada",
         "yourPosition": "Tu posición ({token})",
-        "payoutSchedule": "Calendario de pagos",
         "buyButton": "Comprar {token}",
         "withdrawButton": "Retirar {token}",
-        "comingSoon": "Próximamente"
+        "fundingClosed": "Financiamiento cerrado",
+        "connectWallet": "Conectar wallet",
+        "confirming": "Confirma en tu wallet…",
+        "aboveRoom": "Solo quedan {room} por recaudar",
+        "youReceive": "Recibes",
+        "withdrawButtons": {
+          "redeem": "Redimir {token}",
+          "early_exit": "Salir antes",
+          "refund": "Pedir reembolso"
+        },
+        "withdrawNotOpen": "Los retiros abren mientras se paga",
+        "investDone": "Inversión confirmada en Stellar Testnet.",
+        "withdrawDone": "Retiro confirmado en Stellar Testnet.",
+        "viewTx": "Ver transacción",
+        "errors": {
+          "noWallet": "Conecta tu wallet primero.",
+          "rejected": "Cancelaste la firma.",
+          "invalidState": "El vault no puede hacer eso en su estado actual.",
+          "invalidAmount": "Ingresa un monto mayor a cero.",
+          "targetExceeded": "Ese monto supera lo que falta por recaudar.",
+          "fundingClosed": "El financiamiento de este vault ya cerró.",
+          "nothingToRedeem": "No tienes este token.",
+          "insufficientLiquidity": "El vault todavía no tiene suficiente pagado para cubrir tu salida. Intenta después del próximo pago.",
+          "failed": "La transacción falló. Revisa que tu wallet esté en Testnet y que tu identidad esté verificada. {detail}",
+          "accountNotFound": "Tu wallet todavía no tiene cuenta en Stellar Testnet. Fóndeala con Friendbot y vuelve a intentar."
+        },
+        "blockers": {
+          "noUsdc": "Esta wallet no tiene USDC de prueba de Neko en Testnet. Agrega una trustline a {asset} y pídele USDC de prueba al equipo de Neko."
+        }
       },
-      "minInvestment": "Inversión mínima",
-      "totalRaised": "Total recaudado (USD)",
-      "ofTarget": "{pct}% de la meta de {target}",
-      "noFundingYet": "Aún sin financiamiento",
-      "investCta": "Invertir",
-      "hideInvest": "Ocultar panel de inversión"
-    },
-    "payout": {
-      "monthly": "Mensual",
-      "quarterly": "Trimestral",
-      "at-maturity": "Al vencimiento"
+      "fundingCompleted": "Financiamiento completado",
+      "fundingFailed": "Financiamiento fallido",
+      "withdrawCta": "Retirar",
+      "hideWithdraw": "Ocultar panel de retiro"
     }
   }
 }
