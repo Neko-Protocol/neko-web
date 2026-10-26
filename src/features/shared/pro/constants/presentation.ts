@@ -1,3 +1,4 @@
+import { proImageUrl } from "@/lib/config/storage.config";
 import type { VaultPresentation } from "../types/vault";
 
 /**
@@ -8,18 +9,17 @@ import type { VaultPresentation } from "../types/vault";
 export const VAULT_PRESENTATION: Record<string, VaultPresentation> = {
   // casa-circle
   CDEZ57OJBJOW3LLRJN5VORBTTITMB34WP6J67ELBEJOD33B7PJHE5EM3: {
-    imageSrc: "/pro/casa-circle.jpg",
+    imageSrc: proImageUrl("casa-circle.jpg"),
     gradient: "from-[#2F4F45] via-[#1E2E29] to-[#111513]",
   },
   // torre-cartago
   CDSJN67BXE3YA4QSO5S4XMZ4X5INMLRP2VBKYX2LFK37ALFQEKLNTUDG: {
-    imageSrc: "/pro/torre-cartago.jpg",
+    imageSrc: proImageUrl("torre-cartago.jpg"),
     gradient: "from-[#3E4A5C] via-[#232A33] to-[#121417]",
   },
   // drying-plant-for-ana-coffee
   CBUHVDZZIZH3AIXPCE635XOUBGE5G7QCKQIJPTRDT5IXKWA7X5K53PRO: {
-    imageSrc:
-      "https://lpvosaigbtcoopfzxhrm.supabase.co/storage/v1/object/public/pro-images/drying-plant-for-ana-coffee.jpg",
+    imageSrc: proImageUrl("drying-plant-for-ana-coffee.jpg"),
     gradient: "from-[#4A3A2A] via-[#2B2219] to-[#141110]",
   },
 };
