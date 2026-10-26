@@ -200,6 +200,7 @@
         "WORKFLOW_NOT_CONFIGURED": "Verification isn't configured yet. Try again later.",
         "VERIFICATION_ALREADY_CLAIMED": "This verification is already linked to another wallet or account.",
         "WALLET_ALREADY_VERIFIED": "This wallet is already linked to a different verification.",
+        "ONCHAIN_IDENTITY_FAILED": "We couldn't register your wallet's identity on Stellar. Try again in a moment.",
         "VERIFICATION_NOT_APPROVED": "This verification isn't approved yet.",
         "CLAIM_TOKEN_INVALID": "This verification session is no longer valid. Start again.",
         "VERIFICATION_NOT_FOUND": "This verification session is no longer valid. Start again.",

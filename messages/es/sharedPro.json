@@ -200,6 +200,7 @@
         "WORKFLOW_NOT_CONFIGURED": "La verificación aún no está configurada. Intenta más tarde.",
         "VERIFICATION_ALREADY_CLAIMED": "Esta verificación ya está vinculada a otra billetera o cuenta.",
         "WALLET_ALREADY_VERIFIED": "Esta billetera ya está vinculada a otra verificación.",
+        "ONCHAIN_IDENTITY_FAILED": "No pudimos registrar la identidad de tu billetera en Stellar. Intenta de nuevo en un momento.",
         "VERIFICATION_NOT_APPROVED": "Esta verificación aún no está aprobada.",
         "CLAIM_TOKEN_INVALID": "Esta sesión de verificación ya no es válida. Empieza de nuevo.",
         "VERIFICATION_NOT_FOUND": "Esta sesión de verificación ya no es válida. Empieza de nuevo.",
