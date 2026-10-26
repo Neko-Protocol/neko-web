@@ -46,6 +46,11 @@ async function forward(
   // Proves the browser started a Launchpad verification (KYC/KYB).
   const claimToken = req.headers.get("x-claim-token");
   if (claimToken) headers["X-Claim-Token"] = claimToken;
+  // The Privy access token is only forwarded to the route that verifies it.
+  const authorization = req.headers.get("authorization");
+  if (authorization && isLaunchpadMeRoute(pathSegments)) {
+    headers["Authorization"] = authorization;
+  }
 
   const isReadOnly = req.method === "GET" || req.method === "HEAD";
   const hasBody = !isReadOnly;
@@ -79,6 +84,16 @@ async function forward(
     statusText: upstream.statusText,
     headers: responseHeaders,
   });
+}
+
+function isLaunchpadMeRoute(pathSegments: string[]): boolean {
+  const [version, domain, resource, ...rest] = pathSegments;
+  return (
+    version === "v1" &&
+    domain === "launchpad" &&
+    resource === "me" &&
+    rest.length === 0
+  );
 }
 
 type RouteContext = { params: Promise<{ path: string[] }> };
