@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import {
-  getProOpportunity,
+  getVaultDeployment,
   ProOpportunityDetailPage,
 } from "@/features/shared/pro";
 
 export const metadata: Metadata = {
   title: "Pro Opportunity | Neko Protocol",
   description:
-    "Details, target yield and terms of a tokenized Neko Pro opportunity.",
+    "Target return, terms and contracts of a tokenized Neko Pro vault on Stellar.",
 };
 
 export default async function ProOpportunityRoute({
@@ -17,6 +17,6 @@ export default async function ProOpportunityRoute({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  if (!getProOpportunity(id)) notFound();
-  return <ProOpportunityDetailPage id={id} />;
+  if (!getVaultDeployment(id)) notFound();
+  return <ProOpportunityDetailPage slug={id} />;
 }
