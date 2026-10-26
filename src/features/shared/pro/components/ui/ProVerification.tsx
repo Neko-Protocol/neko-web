@@ -142,13 +142,24 @@ export function ProVerification({ wallet }: { wallet: string }) {
             }
           />
           {flow.errorKey ? (
-            <button
-              type="button"
-              onClick={flow.reset}
-              className="text-xs text-white/50 hover:text-white"
-            >
-              {t("verify.startOver")}
-            </button>
+            <div className="flex items-center justify-center gap-4">
+              {flow.whitelistFailed && (
+                <button
+                  type="button"
+                  onClick={flow.retryWhitelist}
+                  className="text-xs text-white hover:text-white/80"
+                >
+                  {t("approved.retry")}
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={flow.reset}
+                className="text-xs text-white/50 hover:text-white"
+              >
+                {t("verify.startOver")}
+              </button>
+            </div>
           ) : (
             <div className="flex items-center justify-center gap-2 text-xs text-white/55">
               <LoadingSpinner

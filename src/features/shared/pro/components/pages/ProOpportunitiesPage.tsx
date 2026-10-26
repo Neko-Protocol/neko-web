@@ -6,15 +6,11 @@ import { useTranslations } from "next-intl";
 import { PageContainer } from "@/components/ui/PageContainer";
 import { BannerPage } from "@/components/ui/BannerPage";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
-import { useProOpportunities } from "../../hooks/useProOpportunities";
-import { useProPositions } from "../../hooks/useProPositions";
-import type { OpportunityCategory } from "../../types/opportunity";
-import { OpportunityCard } from "../ui/OpportunityCard";
-import { ProPositionCard } from "../ui/ProPositionCard";
-import { ProTestnetNotice } from "../ui/ProTestnetNotice";
-import { PRO_SPINNER } from "../ui/proSpinner";
+import { useProVaults } from "../../hooks/useProVaults";
+import type { VaultCategory } from "../../types/vault";
+import { VaultCard } from "../ui/VaultCard";
 
-type CategoryFilter = OpportunityCategory | "all";
+type CategoryFilter = VaultCategory | "all";
 
 const CATEGORY_FILTERS: CategoryFilter[] = [
   "all",
@@ -22,15 +18,14 @@ const CATEGORY_FILTERS: CategoryFilter[] = [
   "agriculture",
   "energy",
   "private-credit",
-  "other",
 ];
 
 export function ProOpportunitiesPage() {
   const t = useTranslations("sharedPro.page");
   const tCategory = useTranslations("sharedPro.categories");
-  const tPositions = useTranslations("sharedPro.positions");
-  const { opportunities, isLoading, isError, refetch } = useProOpportunities();
-  const { positions } = useProPositions(opportunities);
+  const tVaults = useTranslations("sharedPro.vaults");
+  const vaultsQuery = useProVaults();
+  const vaults = useMemo(() => vaultsQuery.data ?? [], [vaultsQuery.data]);
 
   const [activeFilter, setActiveFilter] = useState<CategoryFilter>("all");
   const [query, setQuery] = useState("");
@@ -57,27 +52,29 @@ export function ProOpportunitiesPage() {
 
   const counts = useMemo(() => {
     const c: Record<CategoryFilter, number> = {
-      all: opportunities.length,
+      all: vaults.length,
       "real-estate": 0,
       agriculture: 0,
       energy: 0,
       "private-credit": 0,
-      other: 0,
     };
-    for (const o of opportunities) c[o.category] += 1;
+    for (const v of vaults) c[v.category] += 1;
     return c;
-  }, [opportunities]);
+  }, [vaults]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return opportunities.filter((o) => {
-      if (activeFilter !== "all" && o.category !== activeFilter) return false;
+    return vaults.filter((v) => {
+      if (activeFilter !== "all" && v.category !== activeFilter) return false;
       if (!q) return true;
-      return [o.name, o.description, o.tokenSymbol].some((text) =>
+      const description = tVaults.has(`${v.slug}.description`)
+        ? tVaults(`${v.slug}.description`)
+        : "";
+      return [v.name, description, v.symbol].some((text) =>
         text.toLowerCase().includes(q)
       );
     });
-  }, [activeFilter, query, opportunities]);
+  }, [vaults, activeFilter, query, tVaults]);
 
   return (
     <PageContainer maxWidth="7xl">
@@ -85,27 +82,8 @@ export function ProOpportunitiesPage() {
         title={t("title")}
         subtitle={t("subtitle")}
         badge={t("badge")}
-        className="mb-6"
+        className="mb-8"
       />
-
-      <ProTestnetNotice className="mb-8" />
-
-      {positions.length > 0 && (
-        <section className="mb-10">
-          <h2 className="mb-3 text-lg font-semibold text-white">
-            {tPositions("title")}
-          </h2>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {positions.map(({ opportunity, position }) => (
-              <ProPositionCard
-                key={opportunity.vault}
-                opportunity={opportunity}
-                position={position}
-              />
-            ))}
-          </div>
-        </section>
-      )}
 
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div ref={filtersRef} className="relative">
@@ -190,29 +168,19 @@ export function ProOpportunitiesPage() {
         </div>
       </div>
 
-      {isLoading ? (
-        <div className="flex justify-center rounded-2xl border border-white/5 bg-[#1C1C1C] p-12">
-          <LoadingSpinner className={PRO_SPINNER} />
+      {vaultsQuery.isPending ? (
+        <div className="flex flex-col items-center gap-3 rounded-2xl border border-white/5 bg-[#1C1C1C] p-12 text-center">
+          <LoadingSpinner variant="spinner" size="md" />
+          <p className="text-sm text-white/40">{t("loading")}</p>
         </div>
-      ) : isError ? (
+      ) : vaultsQuery.isError ? (
         <div className="rounded-2xl border border-white/5 bg-[#1C1C1C] p-12 text-center">
-          <p className="text-base text-white/40">{t("loadFailed")}</p>
-          <button
-            type="button"
-            onClick={refetch}
-            className="mt-3 text-xs font-semibold text-[#229EDF] hover:underline"
-          >
-            {t("retry")}
-          </button>
-        </div>
-      ) : opportunities.length === 0 ? (
-        <div className="rounded-2xl border border-white/5 bg-[#1C1C1C] p-12 text-center">
-          <p className="text-base text-white/40">{t("empty")}</p>
+          <p className="text-base text-white/40">{t("loadError")}</p>
         </div>
       ) : filtered.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-          {filtered.map((opportunity) => (
-            <OpportunityCard key={opportunity.id} opportunity={opportunity} />
+          {filtered.map((vault) => (
+            <VaultCard key={vault.slug} vault={vault} />
           ))}
         </div>
       ) : (

@@ -11,26 +11,131 @@
       "noMatches": "No opportunities match your filters",
       "clearFilters": "Clear filters",
       "filters": "Filters",
-      "loadFailed": "We couldn't load the opportunities.",
-      "retry": "Try again",
-      "empty": "No opportunities are live yet. Launched vaults appear here."
+      "loading": "Reading vaults from Stellar…",
+      "loadError": "We couldn't read the vaults from Stellar. Try again shortly."
     },
     "card": {
       "term": "Term",
       "months": "{count, plural, one {# month} other {# months}}",
-      "minInvestment": "Min. invest",
+      "status": "Status",
       "category": "Category",
       "token": "Token",
       "raised": "{raised} of {target}",
       "funded": "{pct}% funded",
-      "targetApy": "Target APY"
+      "targetReturn": "Target return"
+    },
+    "status": {
+      "Funding": "Funding",
+      "Funded": "Funded",
+      "Active": "Repaying",
+      "Settled": "Settled",
+      "Failed": "Failed"
     },
     "categories": {
       "real-estate": "Real estate",
       "agriculture": "Agriculture",
       "energy": "Energy",
-      "private-credit": "Private credit",
-      "other": "Other"
+      "private-credit": "Private credit"
+    },
+    "vaults": {
+      "casa-circle": {
+        "location": "Costa Rica",
+        "description": "Tokenized real estate loan in Costa Rica, funded and repaid in Circle's USDC."
+      },
+      "torre-cartago": {
+        "location": "Cartago, Costa Rica",
+        "description": "Tokenized building loan in Cartago, Costa Rica, funded and repaid in USDT0."
+      }
+    },
+    "detail": {
+      "back": "Back to Pro Opportunities",
+      "notFound": "Opportunity not found",
+      "loadError": "We couldn't read this vault from Stellar. Try again shortly.",
+      "overview": "Overview",
+      "overviewBody": "{name} raises up to {target} in {asset} from verified investors, who receive {symbol} tokens 1:1. The raise is released to the borrower, who repays {expected} in {count, plural, one {# tranche} other {# tranches}}. Once the vault settles, each investor redeems their share of the repayment. Everything on this page is read live from the vault's contracts on Stellar.",
+      "investCta": "Invest",
+      "hideInvest": "Hide invest panel",
+      "highlights": "Highlights",
+      "details": "Details",
+      "contracts": "Contracts",
+      "hlReturn": "Target return of {pct} over {count, plural, one {# month} other {# months}}",
+      "hlTranches": "Repaid in {count, plural, one {# tranche} other {# tranches}}, {paid} paid so far",
+      "hlVerified": "Only investors with a verified identity can hold {symbol}",
+      "minRaise": "Minimum raise",
+      "fundingDeadline": "Funding deadline",
+      "exitFee": "Early exit fee",
+      "tranches": "Repayments",
+      "trancheCount": "{count, plural, one {# tranche} other {# tranches}}",
+      "issuer": "Borrower",
+      "location": "Location",
+      "assetType": "Asset type",
+      "token": "Token",
+      "tokenStandard": "Token standard",
+      "tokenStandardValue": "SEP-57 RWA token",
+      "network": "Network",
+      "networkValue": "Stellar Testnet",
+      "createdAt": "Launched",
+      "vaultContract": "Vault contract",
+      "tokenContract": "Token contract",
+      "complianceContract": "Compliance contract",
+      "totalRaised": "Total raised ({asset})",
+      "ofTarget": "{pct}% of {target} target",
+      "repaymentSchedule": "Repayment schedule",
+      "expected": "Expected",
+      "paid": "Paid",
+      "trancheLabel": "Tranche {n}",
+      "invest": {
+        "buyTab": "Buy",
+        "withdrawTab": "Withdraw",
+        "buyLabel": "Buy {token} with {asset}",
+        "withdrawLabel": "Withdraw {token}",
+        "amountAriaLabel": "Amount in {unit}",
+        "max": "MAX",
+        "insufficientBalance": "Insufficient balance",
+        "network": "Network",
+        "targetReturn": "Target return",
+        "projectedMonthly": "Projected monthly earnings",
+        "projectedYearly": "Projected yearly earnings",
+        "yourPosition": "Your position ({token})",
+        "buyButton": "Buy {token}",
+        "withdrawButton": "Withdraw {token}",
+        "fundingClosed": "Funding closed",
+        "connectWallet": "Connect wallet",
+        "confirming": "Confirm in your wallet…",
+        "aboveRoom": "Only {room} is left to raise",
+        "youReceive": "You receive",
+        "withdrawButtons": {
+          "redeem": "Redeem {token}",
+          "early_exit": "Exit early",
+          "refund": "Get refund"
+        },
+        "withdrawNotOpen": "Withdrawals open while repaying",
+        "investDone": "Investment confirmed on Stellar Testnet.",
+        "withdrawDone": "Withdrawal confirmed on Stellar Testnet.",
+        "viewTx": "View transaction",
+        "txFailed": "Transaction failed",
+        "errors": {
+          "noWallet": "Connect your wallet first.",
+          "rejected": "You cancelled the signature.",
+          "invalidState": "The vault can't do that in its current state.",
+          "invalidAmount": "Enter an amount above zero.",
+          "targetExceeded": "That amount goes over what's left to raise.",
+          "fundingClosed": "Funding for this vault has closed.",
+          "nothingToRedeem": "You don't hold any of this token.",
+          "insufficientLiquidity": "The vault doesn't have enough repaid yet to cover your exit. Try after the next repayment.",
+          "failed": "The transaction failed. Check your wallet is on Testnet and your identity is verified. {detail}",
+          "accountNotFound": "Your wallet has no account on Stellar Testnet yet. Fund it with Friendbot, then try again.",
+          "identityNotRegistered": "Your wallet doesn't have an on-chain identity yet, so it can't hold this token. Reload the page to finish registering it, then try again in a minute."
+        },
+        "blockers": {
+          "noAsset": "This wallet has no {asset} for this vault on Testnet. Add a trustline to {assetId} and fund it first."
+        }
+      },
+      "fundingCompleted": "Funding completed",
+      "fundingFailed": "Funding failed",
+      "withdrawCta": "Withdraw",
+      "hideWithdraw": "Hide withdraw panel",
+      "assetContract": "{asset} contract"
     },
     "verification": {
       "connect": {
@@ -74,7 +179,8 @@
       "approved": {
         "title": "You're verified",
         "body": "Your verification was approved.",
-        "unlocking": "Whitelisting your wallet…"
+        "unlocking": "Whitelisting your wallet and registering its identity on Stellar. This can take up to a minute…",
+        "retry": "Try again"
       },
       "demo": {
         "open": "Skip verification (demo)",
@@ -96,159 +202,13 @@
         "WORKFLOW_NOT_CONFIGURED": "Verification isn't configured yet. Try again later.",
         "VERIFICATION_ALREADY_CLAIMED": "This verification is already linked to another wallet or account.",
         "WALLET_ALREADY_VERIFIED": "This wallet is already linked to a different verification.",
+        "ONCHAIN_IDENTITY_FAILED": "We couldn't register your wallet's identity on Stellar. Try again in a moment.",
         "VERIFICATION_NOT_APPROVED": "This verification isn't approved yet.",
         "CLAIM_TOKEN_INVALID": "This verification session is no longer valid. Start again.",
         "VERIFICATION_NOT_FOUND": "This verification session is no longer valid. Start again.",
         "BACKEND_UNREACHABLE": "The Neko backend is not reachable.",
         "generic": "Something went wrong. Try again.",
         "accessCheckFailed": "We couldn't check your Neko Pro access."
-      }
-    },
-    "status": {
-      "open": "Open",
-      "closed": "Funding closed",
-      "funded": "Funded",
-      "active": "Repaying",
-      "settled": "Settled",
-      "failed": "Not funded"
-    },
-    "testnet": {
-      "title": "Neko Pro runs on Stellar testnet.",
-      "body": "Switch your wallet to Testnet before signing. Balances and tokens here have no real value."
-    },
-    "positions": {
-      "title": "Your positions"
-    },
-    "position": {
-      "holding": "Holding",
-      "claimable": "Redeemable now",
-      "exitValue": "Early exit pays",
-      "exitFee": "Exit fee ({pct})",
-      "refundable": "Refundable",
-      "details": "View",
-      "locked": "Nothing to do until the vault moves on.",
-      "earlyExitHint": "Paid from what the issuer has repaid so far, so it may fail until enough tranches are in.",
-      "actions": {
-        "redeem": "Redeem",
-        "early_exit": "Leave early",
-        "refund": "Refund"
-      },
-      "success": {
-        "redeem": "Redeemed your {name} tokens.",
-        "early_exit": "You left {name}.",
-        "refund": "Refunded your {name} deposit."
-      }
-    },
-    "tx": {
-      "successTitle": "Done",
-      "errorTitle": "Transaction failed",
-      "errors": {
-        "invalidState": "The vault isn't in a state that allows this.",
-        "invalidAmount": "Enter an amount above zero.",
-        "targetExceeded": "That amount is more than what's left to raise.",
-        "fundingClosed": "Funding for this vault has closed.",
-        "nothingToRedeem": "This wallet holds no tokens in this vault.",
-        "insufficientLiquidity": "Not enough has been repaid yet to pay out an early exit. Try again after the next tranche.",
-        "notVerifiedOnchain": "This wallet isn't verified on-chain yet, so the token can't be issued to it.",
-        "trustlineMissing": "Add the USDC trustline first.",
-        "backendUnreachable": "The Neko backend is not reachable.",
-        "txFailed": "The network didn't accept the transaction. Try again.",
-        "wrongNetwork": "Your wallet is on the wrong network. Switch it to Testnet.",
-        "generic": "Something went wrong. Try again."
-      }
-    },
-    "invest": {
-      "title": "Invest",
-      "closed": {
-        "closed": "Funding has closed. Neko will finalize the round shortly.",
-        "funded": "This round is fully funded and waiting for release.",
-        "active": "This vault is repaying investors and no longer takes deposits.",
-        "settled": "This vault has been repaid in full.",
-        "failed": "This round didn't reach its minimum. Investors can claim a refund."
-      },
-      "unsupportedAsset": "This vault takes an asset Neko Pro can't fund yet.",
-      "register": {
-        "body": "Your wallet needs an on-chain identity before the vault token can be issued to it.",
-        "cta": "Register on-chain",
-        "pending": "Registering…"
-      },
-      "fundAccount": {
-        "body": "Your wallet doesn't exist on testnet yet. Fund it with test XLM to continue.",
-        "cta": "Fund with Friendbot"
-      },
-      "trustline": {
-        "body": "Your wallet needs a {code} trustline to hold test {code}.",
-        "cta": "Add {code} trustline"
-      },
-      "balance": "Your balance",
-      "faucet": "Get test USDC",
-      "amountLabel": "Amount (USDC)",
-      "limits": "Minimum {min} · {remaining} left to raise",
-      "errors": {
-        "notFunding": "The vault isn't taking deposits.",
-        "deadlinePassed": "The funding deadline has passed.",
-        "invalidAmount": "Enter a valid amount.",
-        "belowMinimum": "Below the minimum ticket.",
-        "aboveRemaining": "More than what's left to raise.",
-        "insufficientBalance": "Not enough {code}. Get test USDC above."
-      },
-      "cta": "Invest and receive {symbol}",
-      "success": "Invested {amount} USDC. Your {symbol} tokens are in your wallet.",
-      "trustlineSuccess": "Trustline added.",
-      "faucetSuccessTitle": "Test USDC sent",
-      "faucetSuccess": "Test USDC is on its way to your wallet."
-    },
-    "detail": {
-      "back": "All opportunities",
-      "notFound": "This opportunity isn't available.",
-      "readFailed": "Couldn't read this from the ledger.",
-      "targetApy": "Target APY",
-      "term": "Term",
-      "months": "{count, plural, one {# month} other {# months}}",
-      "minTicket": "Min. invest",
-      "deadline": "Funding deadline",
-      "funding": {
-        "raised": "{raised} raised of {target}",
-        "minimum": "Minimum to fund: {minimum}"
-      },
-      "terms": {
-        "title": "Terms",
-        "target": "Target raise",
-        "minTarget": "Minimum raise",
-        "expectedRepayment": "Expected repayment",
-        "exitFee": "Early exit fee",
-        "exitFeeValue": "{current} (cap {max})",
-        "country": "Issuer country",
-        "offering": "Offering",
-        "investorCountries": "Open to",
-        "token": "Token"
-      },
-      "schedule": {
-        "title": "Repayment schedule",
-        "empty": "No tranches.",
-        "tranche": "Tranche {number}",
-        "paidOn": "Paid {date}",
-        "dueOn": "Due {date}",
-        "states": {
-          "paid": "Paid",
-          "due": "Due",
-          "overdue": "Overdue"
-        }
-      },
-      "milestones": {
-        "title": "Milestones",
-        "approved": "{approved} of {total} approved",
-        "empty": "No milestones registered.",
-        "states": {
-          "Pending": "Pending",
-          "Submitted": "In review",
-          "Approved": "Approved",
-          "Rejected": "Rejected"
-        }
-      },
-      "links": {
-        "vault": "Vault on stellar.expert",
-        "token": "{symbol} token on stellar.expert"
       }
     }
   }
