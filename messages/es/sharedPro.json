@@ -12,7 +12,7 @@
       "clearFilters": "Quitar filtros",
       "filters": "Filtros",
       "loading": "Leyendo vaults desde Stellar…",
-      "loadError": "No pudimos leer los vaults desde Stellar. Intenta de nuevo en un momento."
+      "loadError": "No pudimos cargar los vaults. Intenta de nuevo en un momento."
     },
     "card": {
       "term": "Plazo",
@@ -37,20 +37,10 @@
       "energy": "Energía",
       "private-credit": "Crédito privado"
     },
-    "vaults": {
-      "casa-circle": {
-        "location": "Costa Rica",
-        "description": "Préstamo inmobiliario tokenizado en Costa Rica, financiado y pagado en USDC de Circle."
-      },
-      "torre-cartago": {
-        "location": "Cartago, Costa Rica",
-        "description": "Préstamo para un edificio tokenizado en Cartago, Costa Rica, financiado y pagado en USDT0."
-      }
-    },
     "detail": {
       "back": "Volver a Oportunidades Pro",
-      "notFound": "Oportunidad no encontrada",
-      "loadError": "No pudimos leer este vault desde Stellar. Intenta de nuevo en un momento.",
+      "notFound": "Esta oportunidad no existe o aún no está activa.",
+      "loadError": "No pudimos cargar este vault. Intenta de nuevo en un momento.",
       "overview": "Resumen",
       "overviewBody": "{name} recauda hasta {target} en {asset} de inversionistas verificados, que reciben tokens {symbol} 1:1. Lo recaudado se entrega al deudor, que paga {expected} en {count, plural, one {# tramo} other {# tramos}}. Cuando el vault se liquida, cada inversionista redime su parte del pago. Todo en esta página se lee en vivo de los contratos del vault en Stellar.",
       "investCta": "Invertir",

@@ -2,11 +2,8 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useWallet } from "@/hooks/useWallet";
-import {
-  getVaultDeployment,
-  PRO_NETWORK,
-  PRO_VAULTS,
-} from "../constants/deployments";
+import { PRO_NETWORK } from "../constants/deployments";
+import { opportunitiesService } from "../services/opportunities.service";
 import {
   invest,
   VaultActionError,
@@ -18,29 +15,30 @@ import type { ProVault } from "../types/vault";
 
 const proKeys = {
   vaults: ["pro", "vaults"] as const,
-  vault: (slug: string) => ["pro", "vault", slug] as const,
+  vault: (id: string) => ["pro", "vault", id] as const,
   balance: (token: string, address: string | undefined) =>
     ["pro", "balance", token, address] as const,
 };
 
 const LIVE = { staleTime: 30_000, refetchInterval: 60_000 } as const;
 
-/** Every deployed vault, read live from the chain. */
+/** Every live vault the backend lists, read live from the chain. */
 export function useProVaults() {
   return useQuery({
     queryKey: proKeys.vaults,
-    queryFn: () => Promise.all(PRO_VAULTS.map(readVault)),
+    queryFn: async () =>
+      Promise.all((await opportunitiesService.list()).map(readVault)),
     ...LIVE,
   });
 }
 
-export function useProVault(slug: string) {
+/** `null` when there is no live vault with that id. */
+export function useProVault(id: string) {
   return useQuery({
-    queryKey: proKeys.vault(slug),
-    queryFn: () => {
-      const deployment = getVaultDeployment(slug);
-      if (!deployment) throw new Error(`Unknown vault: ${slug}`);
-      return readVault(deployment);
+    queryKey: proKeys.vault(id),
+    queryFn: async () => {
+      const deployment = await opportunitiesService.get(id);
+      return deployment ? readVault(deployment) : null;
     },
     ...LIVE,
   });
@@ -66,7 +64,7 @@ export function useWithdrawValue(
     queryKey: [
       "pro",
       "withdraw-value",
-      vault.slug,
+      vault.id,
       vault.state,
       address,
       position,

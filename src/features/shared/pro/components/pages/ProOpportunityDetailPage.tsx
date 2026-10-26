@@ -4,7 +4,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ExternalLink } from "lucide-react";
-import { useFormatter, useTranslations } from "next-intl";
+import { useFormatter, useLocale, useTranslations } from "next-intl";
 import {
   Bar,
   BarChart,
@@ -40,14 +40,14 @@ import {
 import { CurvedPhoto } from "../ui/CurvedPhoto";
 
 interface ProOpportunityDetailPageProps {
-  slug: string;
+  id: string;
 }
 
 export function ProOpportunityDetailPage({
-  slug,
+  id,
 }: ProOpportunityDetailPageProps) {
   const t = useTranslations("sharedPro.detail");
-  const vault = useProVault(slug);
+  const vault = useProVault(id);
 
   if (vault.isPending) {
     return (
@@ -65,7 +65,9 @@ export function ProOpportunityDetailPage({
       <PageContainer maxWidth="6xl">
         <BackLink />
         <div className="rounded-2xl border border-white/5 bg-[#1C1C1C] p-12 text-center">
-          <p className="text-lg text-white/40">{t("loadError")}</p>
+          <p className="text-lg text-white/40">
+            {vault.data === null ? t("notFound") : t("loadError")}
+          </p>
         </div>
       </PageContainer>
     );
@@ -85,6 +87,15 @@ function BackLink() {
       {t("back")}
     </Link>
   );
+}
+
+/** The issuer's country in the reader's language, or null if unknown. */
+function countryName(code: string, locale: string): string | null {
+  try {
+    return new Intl.DisplayNames([locale], { type: "region" }).of(code) ?? null;
+  } catch {
+    return null;
+  }
 }
 
 /** A contract or account id, shortened, linking to the testnet explorer. */
@@ -113,8 +124,8 @@ function VaultDetail({ vault }: { vault: ProVault }) {
   const tCard = useTranslations("sharedPro.card");
   const tStatus = useTranslations("sharedPro.status");
   const tCategory = useTranslations("sharedPro.categories");
-  const tVault = useTranslations(`sharedPro.vaults.${vault.slug}`);
   const format = useFormatter();
+  const locale = useLocale();
 
   const [investTab, setInvestTab] = useState<InvestTab>("buy");
   const investPanelRef = useRef<HTMLElement>(null);
@@ -167,8 +178,8 @@ function VaultDetail({ vault }: { vault: ProVault }) {
       month: "short",
       year: "numeric",
     });
-  const location = tVault.has("location") ? tVault("location") : null;
-  const description = tVault.has("description") ? tVault("description") : "";
+  const location = countryName(vault.issuerCountry, locale);
+  const description = vault.description;
 
   const highlights = [
     t("hlReturn", { pct: targetReturn, count: months }),
@@ -219,10 +230,14 @@ function VaultDetail({ vault }: { vault: ProVault }) {
       label: t("tokenContract"),
       value: <ExplorerLink kind="contract" id={vault.token} />,
     },
-    {
-      label: t("complianceContract"),
-      value: <ExplorerLink kind="contract" id={vault.compliance} />,
-    },
+    ...(vault.compliance
+      ? [
+          {
+            label: t("complianceContract"),
+            value: <ExplorerLink kind="contract" id={vault.compliance} />,
+          },
+        ]
+      : []),
     {
       label: t("assetContract", { asset: vault.asset.code }),
       value: <ExplorerLink kind="contract" id={vault.asset.contract} />,

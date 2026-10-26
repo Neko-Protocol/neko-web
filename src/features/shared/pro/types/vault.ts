@@ -11,21 +11,22 @@ export interface VaultAsset {
   contract: string;
 }
 
-/** One deployed vault, as recorded in the tokenization repo's deployments. */
+/** One live vault, as the backend lists it from `launchpad_deployments`. */
 export interface VaultDeployment {
-  /** Route segment and i18n key under `sharedPro.vaults`. */
-  slug: string;
+  /** The Launchpad application id; also the route segment. */
+  id: string;
   vaultId: string;
   vault: string;
   token: string;
-  compliance: string;
-  borrower: string;
-  asset: VaultAsset;
+  compliance: string | null;
+  description: string;
+  /** ISO 3166-1 alpha-2 country of the issuer. */
+  issuerCountry: string;
+  category: VaultCategory;
 }
 
 /** Off-chain presentation the contracts don't carry. */
 export interface VaultPresentation {
-  category: VaultCategory;
   imageSrc?: string;
   gradient: string;
 }
@@ -44,6 +45,9 @@ export interface VaultTranche {
 
 /** A vault read live from the chain, amounts in whole units of its asset. */
 export interface ProVault extends VaultDeployment, VaultPresentation {
+  borrower: string;
+  /** Read from the vault's config and its Stellar Asset Contract. */
+  asset: VaultAsset;
   name: string;
   symbol: string;
   state: VaultState;
