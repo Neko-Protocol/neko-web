@@ -106,12 +106,12 @@ export function VaultCard({ vault }: VaultCardProps) {
             >
               <path d={PANEL_TOP_PATH} fill="white" />
             </svg>
-            <p className="absolute top-6 left-5 text-lg leading-none font-semibold">
+            <p className="absolute top-5 left-5 right-[46%] z-10 line-clamp-2 text-lg leading-tight font-semibold">
               {vault.name}
             </p>
           </div>
 
-          <div className="relative -mt-7 rounded-b-[28px] bg-white px-5 pt-6 pb-5">
+          <div className="relative -mt-7 rounded-b-[28px] bg-white px-5 pt-7 pb-5">
             <dl className="grid grid-cols-2 gap-x-4 gap-y-3">
               {details.map(({ label, value }) => (
                 <div key={label}>
