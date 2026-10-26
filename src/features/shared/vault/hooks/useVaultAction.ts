@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
-import { TransactionBuilder, rpc } from "@stellar/stellar-sdk";
+import { rpc } from "@stellar/stellar-sdk";
 import { Client as DefindexVaultClient } from "@neko-protocol/defindex-vault";
 import { useQueryClient } from "@tanstack/react-query";
 import { useWallet } from "@/hooks/useWallet";
@@ -14,7 +14,7 @@ import {
   allowHttpForSoroban,
 } from "@/lib/constants/network";
 import { useMultisigDetection } from "@/features/shared/vault/hooks/useMultisigDetection";
-import { lobstrVaultService } from "@/features/shared/vault/services/lobstr-vault.service";
+import { signAndSubmit } from "@/features/shared/vault/utils/signAndSubmit";
 import { usePendingMultisigTxsStore } from "@/features/shared/wallet/stores/pendingMultisigTxs.store";
 import { useApiErrorMessage } from "@/lib/helpers/useApiErrorMessage";
 import {
@@ -29,7 +29,6 @@ import {
 import {
   applySlippageBps,
   decimalToAtomic,
-  extractSignedTxXdr,
   mulDivCeil,
   mulDivFloor,
 } from "@neko-protocol/orchestrator";
@@ -77,45 +76,6 @@ function vaultWithdrawUnderlyingOut(
   } catch {
     return undefined;
   }
-}
-
-type SignAndSubmitResult =
-  | {
-      kind: "submitted";
-      hash: string;
-      sendResult: Awaited<ReturnType<rpc.Server["sendTransaction"]>>;
-    }
-  | { kind: "multisig_pending"; hash: string };
-
-async function signAndSubmit(
-  xdr: string,
-  passphrase: string,
-  signFn: (
-    xdr: string,
-    opts: { networkPassphrase: string; address?: string }
-  ) => Promise<string | { signedTxXdr?: string }>,
-  address: string,
-  isMultisig: boolean,
-  lobstrRejectedMessage: (error: string) => string
-): Promise<SignAndSubmitResult> {
-  const server = new rpc.Server(rpcUrl, {
-    allowHttp: allowHttpForSoroban,
-  });
-  const signed = await signFn(xdr, { networkPassphrase: passphrase, address });
-  const signedTxXdr = extractSignedTxXdr(signed);
-  const tx = TransactionBuilder.fromXDR(signedTxXdr, passphrase);
-  const hash = tx.hash().toString("hex");
-
-  if (isMultisig) {
-    const result = await lobstrVaultService.submitForCosigning(signedTxXdr);
-    if (!result.ok) {
-      throw new Error(lobstrRejectedMessage(result.error));
-    }
-    return { kind: "multisig_pending", hash };
-  }
-
-  const sendResult = await server.sendTransaction(tx);
-  return { kind: "submitted", hash, sendResult };
 }
 
 function readBigintResult(result: unknown): bigint {
