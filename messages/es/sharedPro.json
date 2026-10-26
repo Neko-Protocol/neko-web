@@ -123,7 +123,8 @@
           "nothingToRedeem": "No tienes este token.",
           "insufficientLiquidity": "El vault todavía no tiene suficiente pagado para cubrir tu salida. Intenta después del próximo pago.",
           "failed": "La transacción falló. Revisa que tu wallet esté en Testnet y que tu identidad esté verificada. {detail}",
-          "accountNotFound": "Tu wallet todavía no tiene cuenta en Stellar Testnet. Fóndeala con Friendbot y vuelve a intentar."
+          "accountNotFound": "Tu wallet todavía no tiene cuenta en Stellar Testnet. Fóndeala con Friendbot y vuelve a intentar.",
+          "identityNotRegistered": "Tu wallet todavía no tiene una identidad on-chain, así que no puede recibir este token. Recarga la página para terminar de registrarla y vuelve a intentar en un minuto."
         },
         "blockers": {
           "noAsset": "Esta wallet no tiene {asset} de este vault en Testnet. Agrega una trustline a {assetId} y fóndeala primero."
