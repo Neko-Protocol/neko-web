@@ -16,6 +16,12 @@ export const VAULT_PRESENTATION: Record<string, VaultPresentation> = {
     imageSrc: "/pro/torre-cartago.jpg",
     gradient: "from-[#3E4A5C] via-[#232A33] to-[#121417]",
   },
+  // drying-plant-for-ana-coffee
+  CBUHVDZZIZH3AIXPCE635XOUBGE5G7QCKQIJPTRDT5IXKWA7X5K53PRO: {
+    imageSrc:
+      "https://lpvosaigbtcoopfzxhrm.supabase.co/storage/v1/object/public/pro-images/drying-plant-for-ana-coffee.jpg",
+    gradient: "from-[#4A3A2A] via-[#2B2219] to-[#141110]",
+  },
 };
 
 export const FALLBACK_PRESENTATION: VaultPresentation = {

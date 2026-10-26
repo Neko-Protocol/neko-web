@@ -8,6 +8,15 @@ const nextConfig: NextConfig = {
     "@neko-protocol/reflector",
     "@neko-protocol/stellar-wallet",
   ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lpvosaigbtcoopfzxhrm.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
+    ],
+  },
 };
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
