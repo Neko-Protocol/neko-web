@@ -81,6 +81,10 @@ export function ProOpportunitiesPage() {
         badge={t("badge")}
         imageSrc={proImageUrl("banners/pro.png")}
         imageAlt={t("imageAlt")}
+        // Wider than the default 55% so the illustration fills the banner's
+        // height and its pedestal reads in full, rather than sitting small in
+        // the middle.
+        imageLayoutClassName="right-0 top-[11%] h-full w-[75%]"
         className="mb-8"
       />
 
