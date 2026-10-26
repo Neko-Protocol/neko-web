@@ -6,15 +6,15 @@ import type { VaultPresentation } from "../types/vault";
  * Photos are from Unsplash (Unsplash License).
  */
 export const VAULT_PRESENTATION: Record<string, VaultPresentation> = {
-  "casa-heredia": {
+  "casa-circle": {
     category: "real-estate",
-    imageSrc: "/pro/casa-heredia.jpg",
-    gradient: "from-[#3E4A5C] via-[#232A33] to-[#121417]",
+    imageSrc: "/pro/casa-circle.jpg",
+    gradient: "from-[#2F4F45] via-[#1E2E29] to-[#111513]",
   },
-  "finca-turrialba": {
-    category: "agriculture",
-    imageSrc: "/pro/finca-turrialba.jpg",
-    gradient: "from-[#5B4A2E] via-[#2F2A1C] to-[#151512]",
+  "torre-cartago": {
+    category: "real-estate",
+    imageSrc: "/pro/torre-cartago.jpg",
+    gradient: "from-[#3E4A5C] via-[#232A33] to-[#121417]",
   },
 };
 
