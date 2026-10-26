@@ -1,11 +1,10 @@
 "use client";
 
 import React from "react";
-import { ShieldCheck, Wallet } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { PageContainer } from "@/components/ui/PageContainer";
-import { useStellarWallet } from "@/hooks/useStellarWallet";
+import { useConnectModalStore } from "@/features/shared/wallet/stores/connectModal.store";
 import { useProAccess } from "../../hooks/useProAccess";
 import { PRO_SPINNER } from "./proSpinner";
 import { ProVerification } from "./ProVerification";
@@ -43,13 +42,10 @@ export function ProAccessGate({ children }: { children: React.ReactNode }) {
 
 function ConnectPrompt() {
   const t = useTranslations("sharedPro.verification");
-  const { connect } = useStellarWallet();
+  const openConnectModal = useConnectModalStore((s) => s.open);
 
   return (
     <div className="flex flex-col items-center gap-4 rounded-2xl border border-white/5 bg-[#1C1C1C] p-8 text-center">
-      <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#229EDF]/10">
-        <ShieldCheck className="h-6 w-6 text-[#229EDF]" aria-hidden />
-      </span>
       <div>
         <h2 className="text-lg font-semibold text-white">
           {t("connect.title")}
@@ -58,10 +54,9 @@ function ConnectPrompt() {
       </div>
       <button
         type="button"
-        onClick={() => void connect()}
-        className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-[#121212] transition-opacity hover:opacity-90"
+        onClick={openConnectModal}
+        className="rounded-full bg-white px-6 py-2.5 text-sm font-semibold text-[#121212] transition-opacity hover:opacity-90"
       >
-        <Wallet className="h-4 w-4" aria-hidden />
         {t("connect.cta")}
       </button>
     </div>
