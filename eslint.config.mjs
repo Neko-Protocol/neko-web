@@ -9,6 +9,8 @@ import i18next from "eslint-plugin-i18next";
  */
 export default [
   ...base,
+  // Generated contract clients, copied from neko-tokenization-hackmeridian.
+  { ignores: ["src/lib/contracts/neko-tokenization/**"] },
   {
     files: ["src/features/shared/**"],
     rules: {
