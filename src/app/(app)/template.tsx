@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { TestnetRouteGuard } from "@/components/navigation/TestnetRouteGuard";
 
 export default function DashboardTemplate({
   children,
@@ -26,7 +27,7 @@ export default function DashboardTemplate({
               : "w-full min-w-0 max-w-full flex flex-col items-center overflow-x-hidden px-4 sm:px-6 py-6 sm:py-8"
       }
     >
-      {children}
+      <TestnetRouteGuard>{children}</TestnetRouteGuard>
     </div>
   );
 }

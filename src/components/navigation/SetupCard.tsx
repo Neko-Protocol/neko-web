@@ -2,13 +2,13 @@
 
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useStellarWallet } from "@/hooks/useStellarWallet";
+import { useConnectModalStore } from "@/features/shared/wallet/stores/connectModal.store";
 import { useReferralStore } from "@/features/shared/referral/stores/referral.store";
 import { CARD_STYLES, CARD_BUTTON_STYLES } from "./sidebarConfig";
 
 export function SetupCard() {
   const t = useTranslations("common.wallet");
-  const { connect } = useStellarWallet();
+  const openConnectModal = useConnectModalStore((s) => s.open);
   const refCode = useReferralStore((s) => s.refCode);
 
   return (
@@ -18,10 +18,10 @@ export function SetupCard() {
       </p>
       <button
         type="button"
-        onClick={() => void connect()}
+        onClick={openConnectModal}
         className={CARD_BUTTON_STYLES}
       >
-        {t("connectAccount")}
+        {t("startInvesting")}
         <ArrowRight className="h-4 w-4 shrink-0" />
       </button>
 

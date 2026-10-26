@@ -137,9 +137,9 @@
     },
     "verification": {
       "connect": {
-        "title": "Verifícate para desbloquear Neko Pro",
-        "body": "Las oportunidades de Neko Pro están abiertas a inversionistas verificados. Conecta tu billetera para revisar tu estado o verificarte.",
-        "cta": "Conectar billetera"
+        "title": "Neko Pro es para inversionistas verificados",
+        "body": "Inicia sesión para verificarte.",
+        "cta": "Iniciar sesión"
       },
       "choose": {
         "title": "Verifícate para ver las oportunidades",

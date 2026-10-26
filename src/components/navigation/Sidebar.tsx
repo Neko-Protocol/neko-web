@@ -3,7 +3,7 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import { useWalletType } from "@/hooks/useWalletType";
-import { useStellarWallet } from "@/hooks/useStellarWallet";
+import { useDisconnectWallet } from "@/features/shared/wallet/hooks/useDisconnectWallet";
 import { useNavItems } from "@/hooks/useNavItems";
 import { SidebarLogo } from "./SidebarLogo";
 import { NavItem } from "./NavItem";
@@ -15,14 +15,14 @@ export const SIDEBAR_WIDTH = "270px";
 export function Sidebar() {
   const pathname = usePathname();
   const { isStellarConnected, stellarAddress } = useWalletType();
-  const { disconnect: disconnectStellar } = useStellarWallet();
+  const disconnectWallet = useDisconnectWallet();
 
   const navItems = useNavItems();
   const isConnected = isStellarConnected;
   const activeAddress = stellarAddress ?? "";
 
   const handleDisconnect = () => {
-    void disconnectStellar();
+    void disconnectWallet();
   };
 
   const isActive = (href: string) =>
@@ -35,13 +35,14 @@ export function Sidebar() {
       <SidebarLogo />
 
       <nav className="flex flex-1 flex-col gap-1 px-3 min-h-0 overflow-y-auto">
-        {navItems.map(({ label, href, icon }) => (
+        {navItems.map(({ label, href, icon, disabled }) => (
           <NavItem
             key={href}
             label={label}
             href={href}
             icon={icon}
             isActive={isActive(href)}
+            disabled={disabled}
           />
         ))}
       </nav>

@@ -52,7 +52,16 @@
       "disconnectWallet": "Disconnect Wallet",
       "disconnecting": "Disconnecting…",
       "noWalletConnected": "No wallet connected.",
-      "connectViaSidebar": "Connect via the sidebar to get started."
+      "connectViaSidebar": "Sign in from the sidebar to get started.",
+      "email": "Email",
+      "verification": "Verification",
+      "verified": "Verified ({kind})",
+      "notVerified": "Not verified",
+      "accountStatus": "Testnet funding",
+      "funded": "Funded",
+      "notFunded": "Not funded yet",
+      "fund": "Fund with friendbot",
+      "fundFailed": "Friendbot couldn't fund the wallet. Try again in a moment."
     },
     "uiMode": {
       "title": "App Mode",

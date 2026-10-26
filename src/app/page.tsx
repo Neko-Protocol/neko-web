@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { IS_TESTNET, TESTNET_HOME } from "@/lib/constants/networkAccess";
 
 export default async function Home({
   searchParams,
@@ -9,5 +10,6 @@ export default async function Home({
   // attribution for links shaped like /?ref=CODE.
   const params = await searchParams;
   const ref = typeof params.ref === "string" ? params.ref.trim() : "";
-  redirect(ref ? `/dashboard?ref=${encodeURIComponent(ref)}` : "/dashboard");
+  const home = IS_TESTNET ? TESTNET_HOME : "/dashboard";
+  redirect(ref ? `${home}?ref=${encodeURIComponent(ref)}` : home);
 }

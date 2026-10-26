@@ -26,7 +26,8 @@
       "pro": "Oportunidades Pro",
       "settings": "Configuración",
       "admin": "Admin",
-      "toggleMenu": "Alternar menú"
+      "toggleMenu": "Alternar menú",
+      "pro": "Pro"
     },
     "network": {
       "testnet": "Testnet",
@@ -36,11 +37,24 @@
       "connectWallet": "Conectar billetera",
       "disconnect": "Desconectar",
       "connectedWith": "Estás conectado con:",
-      "connectToGetStarted": "¡Conecta tu billetera para empezar!",
+      "connectToGetStarted": "Inicia sesión para empezar",
       "connectAccount": "Conectar cuenta",
       "stellarWallet": "Billetera Stellar",
       "stellarWalletDescription": "Freighter o Stellar Wallets Kit",
-      "referralCodeApplied": "El código {code} se aplicará al conectar."
+      "referralCodeApplied": "El código {code} se aplicará al conectar.",
+      "startInvesting": "Iniciar sesión",
+      "connectModalSubtitle": "Usa tu correo o conecta una billetera de Stellar.",
+      "stellarOptionTitle": "Conectar una billetera de Stellar",
+      "stellarOptionDescription": "Freighter, xBull, Lobstr, Albedo y más",
+      "close": "Cerrar",
+      "privySetupFailedTitle": "No pudimos terminar de configurar tu cuenta",
+      "privySetupFailedDescription": "Recarga la página para intentarlo de nuevo. Si sigue pasando, contacta a soporte.",
+      "fundingFailedTitle": "No pudimos fondear tu billetera de testnet",
+      "fundingFailedDescription": "Puedes reintentarlo desde Configuración.",
+      "emailAccount": "Cuenta de correo",
+      "emailCta": "Continuar con correo",
+      "emailHint": "No necesitas billetera. Creamos y fondeamos una billetera de testnet por ti.",
+      "or": "o"
     },
     "uiMode": {
       "title": "Elige tu experiencia",
@@ -65,6 +79,12 @@
       "expiredDescription": "Tu {action} de {amount} {asset} no se firmó a tiempo. Por favor intenta de nuevo.",
       "actionDeposit": "depósito",
       "actionWithdraw": "retiro"
+    },
+    "testnet": {
+      "notAvailable": "No disponible en testnet",
+      "unavailableTitle": "No disponible en testnet",
+      "unavailableBody": "Esta página usa los protocolos de Neko en mainnet. En testnet puedes explorar Oportunidades Pro.",
+      "goToPro": "Ir a Oportunidades Pro"
     }
   }
 }

@@ -9,6 +9,7 @@ import {
   Shield,
   Vault,
   ShoppingCart,
+  BadgeCheck,
 } from "lucide-react";
 import type { UIMode } from "@/features/shared/ui-mode/stores/ui-mode.store";
 
