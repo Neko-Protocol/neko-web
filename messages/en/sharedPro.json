@@ -134,6 +134,78 @@
       "fundingFailed": "Funding failed",
       "withdrawCta": "Withdraw",
       "hideWithdraw": "Hide withdraw panel"
+    },
+    "verification": {
+      "connect": {
+        "title": "Verify to unlock Neko Pro",
+        "body": "Neko Pro opportunities are open to verified investors. Connect your wallet to check your status or get verified.",
+        "cta": "Connect wallet"
+      },
+      "choose": {
+        "title": "Get verified to see opportunities",
+        "body": "A one-time identity check whitelists your connected wallet for Neko Pro.",
+        "cta": "Start verification"
+      },
+      "kinds": {
+        "kyc": {
+          "title": "I'm an individual",
+          "body": "An ID document and a quick selfie (KYC)"
+        },
+        "kyb": {
+          "title": "I represent a business",
+          "body": "Company documents and a registry check (KYB)"
+        }
+      },
+      "verify": {
+        "title": {
+          "kyc": "Verify your identity",
+          "kyb": "Verify your business"
+        },
+        "body": "This takes a few minutes. Keep this tab open.",
+        "iframeTitle": "Didit verification",
+        "checkNow": "I'm done, check now",
+        "startOver": "Start over"
+      },
+      "status": {
+        "pending": "Waiting for you to finish the steps above.",
+        "in_progress": "Checking your documents…",
+        "in_review": "Under review. This page updates on its own.",
+        "approved": "Verified.",
+        "declined": "This verification was declined.",
+        "expired": "This verification session expired."
+      },
+      "approved": {
+        "title": "You're verified",
+        "body": "Your verification was approved.",
+        "unlocking": "Whitelisting your wallet…"
+      },
+      "demo": {
+        "open": "Skip verification (demo)",
+        "nameLabel": "Name to record",
+        "skip": "Continue",
+        "placeholder": {
+          "kyc": "Demo Investor",
+          "kyb": "Demo Business S.A."
+        },
+        "description": {
+          "kyc": "Records an approved identity verification under this name.",
+          "kyb": "Records an approved business verification under this name."
+        },
+        "title": "Skip verification (demo)",
+        "close": "Close"
+      },
+      "retry": "Try again",
+      "errors": {
+        "WORKFLOW_NOT_CONFIGURED": "Verification isn't configured yet. Try again later.",
+        "VERIFICATION_ALREADY_CLAIMED": "This verification is already linked to another wallet or account.",
+        "WALLET_ALREADY_VERIFIED": "This wallet is already linked to a different verification.",
+        "VERIFICATION_NOT_APPROVED": "This verification isn't approved yet.",
+        "CLAIM_TOKEN_INVALID": "This verification session is no longer valid. Start again.",
+        "VERIFICATION_NOT_FOUND": "This verification session is no longer valid. Start again.",
+        "BACKEND_UNREACHABLE": "The Neko backend is not reachable.",
+        "generic": "Something went wrong. Try again.",
+        "accessCheckFailed": "We couldn't check your Neko Pro access."
+      }
     }
   }
 }

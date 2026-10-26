@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { NOTIFICATIONS_QUERY_ROOT } from "@/features/shared/notifications/hooks/notificationKeys";
+import { PRO_ACCESS_QUERY_ROOT } from "@/features/shared/pro/hooks/proAccessKeys";
 import { ToastProvider } from "@/providers/ToastProvider";
 import { useCurrencyStore } from "@/stores/currency.store";
 import { ReactNode, useEffect, useState } from "react";
@@ -64,10 +65,13 @@ export function Providers({ children }: { children: ReactNode }) {
           // Notifications are excluded outright: an unread badge restored from
           // localStorage would show last session's count, and a stale "3" is
           // worse than an empty bell for the second it takes to fetch.
+          // Neko Pro access is excluded too: a restored whitelist answer would
+          // open or close the KYC gate before the backend has been asked.
           shouldDehydrateQuery: (query) =>
             query.state.status === "success" &&
             query.state.data !== undefined &&
-            query.queryKey[0] !== NOTIFICATIONS_QUERY_ROOT,
+            query.queryKey[0] !== NOTIFICATIONS_QUERY_ROOT &&
+            query.queryKey[0] !== PRO_ACCESS_QUERY_ROOT,
         },
       }}
     >
