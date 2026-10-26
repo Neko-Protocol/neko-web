@@ -773,6 +773,13 @@ function InvestPanel({
     action.reset();
   };
 
+  const errorMessage = (err: unknown) =>
+    err instanceof VaultActionError
+      ? t(`errors.${err.key}`, { detail: err.detail ?? "" })
+      : t("errors.failed", {
+          detail: err instanceof Error ? err.message : String(err),
+        });
+
   const submit = () =>
     action.mutate(isBuy ? { kind: "invest", amount } : { kind: "withdraw" }, {
       onSuccess: () => setAmountInput(""),
@@ -794,12 +801,7 @@ function InvestPanel({
           ? t(`withdrawButtons.${method}`, { token })
           : t("withdrawNotOpen");
 
-  const error =
-    action.error instanceof VaultActionError
-      ? t(`errors.${action.error.key}`, { detail: action.error.detail ?? "" })
-      : action.error
-        ? t("errors.failed", { detail: action.error.message })
-        : null;
+  const error = action.error ? errorMessage(action.error) : null;
 
   return (
     <aside ref={panelRef} className="flex flex-col gap-3 lg:sticky lg:top-6">
