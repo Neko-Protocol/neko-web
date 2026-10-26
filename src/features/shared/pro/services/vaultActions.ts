@@ -32,6 +32,9 @@ const VAULT_ERRORS: Record<number, string> = {
   6: "insufficientLiquidity",
 };
 
+/** `IdentityNotFound` from the identity registry (stellar-tokens RWA). */
+const IDENTITY_NOT_FOUND = 321;
+
 /** Thrown with an i18n key under `sharedPro.detail.invest.errors`. */
 export class VaultActionError extends Error {
   constructor(
@@ -47,6 +50,9 @@ function toVaultError(err: unknown): VaultActionError {
   const code = message.match(/Error\(Contract, #(\d+)\)/)?.[1];
   if (code && VAULT_ERRORS[Number(code)]) {
     return new VaultActionError(VAULT_ERRORS[Number(code)]);
+  }
+  if (Number(code) === IDENTITY_NOT_FOUND) {
+    return new VaultActionError("identityNotRegistered");
   }
   if (/Account not found/i.test(message)) {
     return new VaultActionError("accountNotFound");
