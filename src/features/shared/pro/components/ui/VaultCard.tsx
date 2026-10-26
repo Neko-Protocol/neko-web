@@ -24,11 +24,10 @@ export function VaultCard({ vault }: VaultCardProps) {
   const t = useTranslations("sharedPro.card");
   const tStatus = useTranslations("sharedPro.status");
   const tCategory = useTranslations("sharedPro.categories");
-  const tVault = useTranslations(`sharedPro.vaults.${vault.slug}`);
   const format = useFormatter();
 
   const Icon = CATEGORY_ICON[vault.category];
-  const description = tVault.has("description") ? tVault("description") : "";
+  const description = vault.description;
   const targetReturn = format.number(totalReturn(vault), {
     style: "percent",
     maximumFractionDigits: 1,
@@ -49,7 +48,7 @@ export function VaultCard({ vault }: VaultCardProps) {
 
   return (
     <Link
-      href={PRO_ROUTES.detail(vault.slug)}
+      href={PRO_ROUTES.detail(vault.id)}
       className="group relative block h-full outline-none transition-transform duration-300 hover:-translate-y-1"
     >
       <article className="relative z-10 flex h-full flex-col overflow-hidden min-h-72 rounded-[28px] border border-white/10 bg-[#131312] p-2.5 group-focus-visible:border-white/40">

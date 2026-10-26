@@ -12,7 +12,7 @@
       "clearFilters": "Clear filters",
       "filters": "Filters",
       "loading": "Reading vaults from Stellar…",
-      "loadError": "We couldn't read the vaults from Stellar. Try again shortly."
+      "loadError": "We couldn't load the vaults. Try again shortly."
     },
     "card": {
       "term": "Term",
@@ -37,20 +37,10 @@
       "energy": "Energy",
       "private-credit": "Private credit"
     },
-    "vaults": {
-      "casa-circle": {
-        "location": "Costa Rica",
-        "description": "Tokenized real estate loan in Costa Rica, funded and repaid in Circle's USDC."
-      },
-      "torre-cartago": {
-        "location": "Cartago, Costa Rica",
-        "description": "Tokenized building loan in Cartago, Costa Rica, funded and repaid in USDT0."
-      }
-    },
     "detail": {
       "back": "Back to Pro Opportunities",
-      "notFound": "Opportunity not found",
-      "loadError": "We couldn't read this vault from Stellar. Try again shortly.",
+      "notFound": "This opportunity doesn't exist or isn't live yet.",
+      "loadError": "We couldn't load this vault. Try again shortly.",
       "overview": "Overview",
       "overviewBody": "{name} raises up to {target} in {asset} from verified investors, who receive {symbol} tokens 1:1. The raise is released to the borrower, who repays {expected} in {count, plural, one {# tranche} other {# tranches}}. Once the vault settles, each investor redeems their share of the repayment. Everything on this page is read live from the vault's contracts on Stellar.",
       "investCta": "Invest",

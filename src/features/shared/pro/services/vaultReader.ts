@@ -7,7 +7,12 @@ import {
   FALLBACK_PRESENTATION,
   VAULT_PRESENTATION,
 } from "../constants/presentation";
-import type { ProVault, VaultDeployment, VaultTranche } from "../types/vault";
+import type {
+  ProVault,
+  VaultAsset,
+  VaultDeployment,
+  VaultTranche,
+} from "../types/vault";
 
 /** Every classic asset and every vault token uses 7 decimals. */
 const DECIMALS = 7;
@@ -27,13 +32,21 @@ const factory = new FactoryClient(options(PRO_SHARED.factory));
 export const toUnits = (raw: bigint | number) => Number(raw) / 10 ** DECIMALS;
 const toMs = (seconds: bigint | number) => Number(seconds) * 1000;
 
+/** A Stellar Asset Contract names itself `CODE:ISSUER`, or `native` for XLM. */
+async function readAsset(contract: string): Promise<VaultAsset> {
+  const { result } = await tokenClient(contract).name();
+  if (result === "native") return { code: "XLM", issuer: "", contract };
+  const [code, issuer = ""] = result.split(":");
+  return { code, issuer, contract };
+}
+
 export async function readVault(
   deployment: VaultDeployment
 ): Promise<ProVault> {
   const vault = vaultClient(deployment.vault);
   const token = tokenClient(deployment.token);
+  const config = await vault.get_config().then((t) => t.result);
   const [
-    config,
     state,
     raised,
     repaid,
@@ -42,8 +55,8 @@ export async function readVault(
     name,
     symbol,
     record,
+    asset,
   ] = await Promise.all([
-    vault.get_config().then((t) => t.result),
     vault.get_state().then((t) => t.result),
     vault.raised().then((t) => t.result),
     vault.repaid().then((t) => t.result),
@@ -55,13 +68,16 @@ export async function readVault(
       .get_deployment({ vault_id: Buffer.from(deployment.vaultId, "hex") })
       .then((t) => t.result)
       .catch(() => null),
+    readAsset(config.usdc),
   ]);
 
   return {
     ...deployment,
-    ...(VAULT_PRESENTATION[deployment.slug] ?? FALLBACK_PRESENTATION),
+    ...(VAULT_PRESENTATION[deployment.vault] ?? FALLBACK_PRESENTATION),
     // The vault's config is the source of truth for what it accepts.
-    asset: { ...deployment.asset, contract: config.usdc },
+    asset,
+    borrower: config.borrower,
+    compliance: deployment.compliance ?? record?.compliance ?? null,
     name,
     symbol,
     state: state.tag,

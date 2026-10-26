@@ -23,7 +23,6 @@ const CATEGORY_FILTERS: CategoryFilter[] = [
 export function ProOpportunitiesPage() {
   const t = useTranslations("sharedPro.page");
   const tCategory = useTranslations("sharedPro.categories");
-  const tVaults = useTranslations("sharedPro.vaults");
   const vaultsQuery = useProVaults();
   const vaults = useMemo(() => vaultsQuery.data ?? [], [vaultsQuery.data]);
 
@@ -67,14 +66,11 @@ export function ProOpportunitiesPage() {
     return vaults.filter((v) => {
       if (activeFilter !== "all" && v.category !== activeFilter) return false;
       if (!q) return true;
-      const description = tVaults.has(`${v.slug}.description`)
-        ? tVaults(`${v.slug}.description`)
-        : "";
-      return [v.name, description, v.symbol].some((text) =>
+      return [v.name, v.description, v.symbol].some((text) =>
         text.toLowerCase().includes(q)
       );
     });
-  }, [vaults, activeFilter, query, tVaults]);
+  }, [vaults, activeFilter, query]);
 
   return (
     <PageContainer maxWidth="7xl">
@@ -180,7 +176,7 @@ export function ProOpportunitiesPage() {
       ) : filtered.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
           {filtered.map((vault) => (
-            <VaultCard key={vault.slug} vault={vault} />
+            <VaultCard key={vault.id} vault={vault} />
           ))}
         </div>
       ) : (
