@@ -178,7 +178,7 @@
       "approved": {
         "title": "You're verified",
         "body": "Your verification was approved.",
-        "unlocking": "Whitelisting your wallet…",
+        "unlocking": "Whitelisting your wallet and registering its identity on Stellar. This can take up to a minute…",
         "retry": "Try again"
       },
       "demo": {

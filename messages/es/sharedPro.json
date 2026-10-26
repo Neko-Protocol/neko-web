@@ -178,7 +178,7 @@
       "approved": {
         "title": "Estás verificado",
         "body": "Tu verificación fue aprobada.",
-        "unlocking": "Habilitando tu billetera…",
+        "unlocking": "Habilitando tu billetera y registrando su identidad en Stellar. Puede tardar hasta un minuto…",
         "retry": "Intentar de nuevo"
       },
       "demo": {
