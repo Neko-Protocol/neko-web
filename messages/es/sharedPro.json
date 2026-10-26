@@ -113,6 +113,7 @@
         "investDone": "Inversión confirmada en Stellar Testnet.",
         "withdrawDone": "Retiro confirmado en Stellar Testnet.",
         "viewTx": "Ver transacción",
+        "txFailed": "La transacción falló",
         "errors": {
           "noWallet": "Conecta tu wallet primero.",
           "rejected": "Cancelaste la firma.",

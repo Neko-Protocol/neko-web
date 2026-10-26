@@ -18,6 +18,7 @@ import { PageContainer } from "@/components/ui/PageContainer";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { useStellarWallet } from "@/hooks/useStellarWallet";
 import { useWallet } from "@/hooks/useWallet";
+import { promise as toastPromise } from "@/lib/toast";
 import { sanitizeAmountInput } from "@/lib/helpers/tokenDisplay";
 import { CATEGORY_ICON } from "../../constants/categories";
 import { explorerUrl, PRO_NETWORK } from "../../constants/deployments";
@@ -780,10 +781,39 @@ function InvestPanel({
           detail: err instanceof Error ? err.message : String(err),
         });
 
-  const submit = () =>
-    action.mutate(isBuy ? { kind: "invest", amount } : { kind: "withdraw" }, {
-      onSuccess: () => setAmountInput(""),
+  const submit = () => {
+    const done = t(isBuy ? "investDone" : "withdrawDone");
+    toastPromise(
+      action.mutateAsync(
+        isBuy ? { kind: "invest", amount } : { kind: "withdraw" },
+        { onSuccess: () => setAmountInput("") }
+      ),
+      {
+        loading: { title: t("confirming") },
+        success: (hash) => ({
+          title: done,
+          ...(hash && {
+            button: {
+              title: t("viewTx"),
+              onClick: () =>
+                window.open(
+                  `${PRO_NETWORK.explorerBase}/tx/${hash}`,
+                  "_blank",
+                  "noopener,noreferrer"
+                ),
+            },
+          }),
+        }),
+        error: (err) => ({
+          title: t("txFailed"),
+          description: errorMessage(err),
+        }),
+      }
+    ).catch(() => {
+      // Already shown in the toast and under the button.
     });
+  };
+
 
   const canSubmit = isBuy
     ? isFunding && !buyBlocker && hasAmount && !exceedsBalance && !exceedsRoom
