@@ -9,7 +9,8 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { useNavItems } from "@/hooks/useNavItems";
 import { useWalletType } from "@/hooks/useWalletType";
-import { useStellarWallet } from "@/hooks/useStellarWallet";
+import { useDisconnectWallet } from "@/features/shared/wallet/hooks/useDisconnectWallet";
+import { useConnectModalStore } from "@/features/shared/wallet/stores/connectModal.store";
 import { truncateAddress } from "@/lib/utils";
 import { NotificationCenter } from "@/features/shared/notifications/components/NotificationCenter";
 
@@ -32,7 +33,8 @@ export function MobileHeader() {
     if (next) setOpenAtPathname(pathname);
   };
   const { isStellarConnected, stellarAddress } = useWalletType();
-  const { connect, disconnect } = useStellarWallet();
+  const disconnect = useDisconnectWallet();
+  const openConnectModal = useConnectModalStore((s) => s.open);
   const menuRef = useRef<HTMLDivElement>(null);
   const walletButtonRef = useRef<HTMLDivElement>(null);
 
@@ -144,10 +146,10 @@ export function MobileHeader() {
             ) : (
               <button
                 type="button"
-                onClick={() => void connect()}
+                onClick={openConnectModal}
                 className="whitespace-nowrap rounded-full self-center bg-[#229EDF] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#1a8bc7] transition-colors sm:px-4 sm:py-2 sm:text-sm"
               >
-                {t("wallet.connectWallet")}
+                {t("wallet.startInvesting")}
               </button>
             )}
           </div>
@@ -190,9 +192,21 @@ export function MobileHeader() {
         )}
       >
         <div className="flex flex-col gap-2 px-4 py-6 sm:px-6">
-          {navItems.map(({ label, href, icon }) => {
+          {navItems.map(({ label, href, icon, disabled }) => {
             const Icon = icon;
             const active = isActive(href);
+            if (disabled) {
+              return (
+                <div
+                  key={href}
+                  aria-disabled="true"
+                  className="flex w-full cursor-not-allowed select-none items-center justify-start gap-4 px-4 py-4 text-lg font-medium text-white/15 sm:px-6"
+                >
+                  <Icon className="h-6 w-6 shrink-0 text-white/15" />
+                  {label}
+                </div>
+              );
+            }
             return (
               <Link
                 key={href}

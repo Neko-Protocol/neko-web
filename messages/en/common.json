@@ -25,7 +25,8 @@
       "strategies": "Strategies",
       "settings": "Settings",
       "admin": "Admin",
-      "toggleMenu": "Toggle menu"
+      "toggleMenu": "Toggle menu",
+      "pro": "Pro"
     },
     "network": {
       "testnet": "Testnet",
@@ -35,11 +36,24 @@
       "connectWallet": "Connect Wallet",
       "disconnect": "Disconnect",
       "connectedWith": "You're connected with:",
-      "connectToGetStarted": "Connect your wallet to get started!",
+      "connectToGetStarted": "Sign in to get started",
       "connectAccount": "Connect Account",
       "stellarWallet": "Stellar Wallet",
       "stellarWalletDescription": "Freighter or Stellar Wallets Kit",
-      "referralCodeApplied": "Code {code} will be applied when you connect."
+      "referralCodeApplied": "Code {code} will be applied when you connect.",
+      "startInvesting": "Sign in",
+      "connectModalSubtitle": "Use your email or connect a Stellar wallet.",
+      "stellarOptionTitle": "Connect a Stellar wallet",
+      "stellarOptionDescription": "Freighter, xBull, Lobstr, Albedo and more",
+      "close": "Close",
+      "privySetupFailedTitle": "We couldn't finish setting up your account",
+      "privySetupFailedDescription": "Refresh the page to try again. If it keeps happening, contact support.",
+      "fundingFailedTitle": "We couldn't fund your testnet wallet",
+      "fundingFailedDescription": "You can retry from Settings.",
+      "emailAccount": "Email account",
+      "emailCta": "Continue with email",
+      "emailHint": "No wallet needed. We create and fund a testnet wallet for you.",
+      "or": "or"
     },
     "uiMode": {
       "title": "Choose your experience",
@@ -64,6 +78,12 @@
       "expiredDescription": "Your {action} of {amount} {asset} was not signed in time. Please retry.",
       "actionDeposit": "deposit",
       "actionWithdraw": "withdraw"
+    },
+    "testnet": {
+      "notAvailable": "Not available on testnet",
+      "unavailableTitle": "Not available on testnet",
+      "unavailableBody": "This page uses Neko's mainnet protocols. On testnet you can explore Pro Opportunities.",
+      "goToPro": "Go to Pro Opportunities"
     }
   }
 }

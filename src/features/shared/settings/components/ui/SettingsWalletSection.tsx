@@ -6,6 +6,9 @@ import { useTranslations } from "next-intl";
 import { SectionCard } from "@/components/ui/SectionCard";
 import { ReadonlyRow } from "@/components/ui/ReadonlyRow";
 import { useStellarWallet } from "@/hooks/useStellarWallet";
+import { useDisconnectWallet } from "@/features/shared/wallet/hooks/useDisconnectWallet";
+import { PRIVY_WALLET_NAME } from "@/features/shared/wallet/privy/privySession";
+import { PrivyAccountRows } from "./PrivyAccountRows";
 import { truncateAddress } from "@/lib/utils";
 
 export interface SettingsWalletSectionProps {
@@ -24,7 +27,10 @@ export function SettingsWalletSection({
   icon,
 }: SettingsWalletSectionProps) {
   const t = useTranslations("sharedSettings.wallet");
-  const { address, walletName, isConnected, disconnect } = useStellarWallet();
+  const tWallet = useTranslations("common.wallet");
+  const { address, walletName, isConnected } = useStellarWallet();
+  const disconnect = useDisconnectWallet();
+  const isPrivy = walletName === PRIVY_WALLET_NAME;
   const [isDisconnecting, setIsDisconnecting] = React.useState(false);
 
   const handleDisconnect = React.useCallback(async () => {
@@ -51,7 +57,7 @@ export function SettingsWalletSection({
               <div className="flex flex-col gap-0.5">
                 <span className="text-xs text-white/40">{t("provider")}</span>
                 <span className="text-sm font-medium text-white/80">
-                  {walletName}
+                  {isPrivy ? tWallet("emailAccount") : walletName}
                 </span>
               </div>
             </div>
@@ -66,6 +72,8 @@ export function SettingsWalletSection({
             copiedKey={copiedKey}
             mono
           />
+
+          {isPrivy && <PrivyAccountRows copy={copy} copiedKey={copiedKey} />}
 
           <button
             type="button"

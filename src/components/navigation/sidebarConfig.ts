@@ -8,6 +8,7 @@ import {
   Shield,
   Vault,
   ShoppingCart,
+  BadgeCheck,
 } from "lucide-react";
 import type { UIMode } from "@/features/shared/ui-mode/stores/ui-mode.store";
 
@@ -18,6 +19,7 @@ export function getNavItems(
   return [
     { labelKey: "dashboard", href: "/dashboard", icon: LayoutDashboard },
     { labelKey: "discover", href: "/discover", icon: BarChart2 },
+    { labelKey: "pro", href: "/pro", icon: BadgeCheck },
     { labelKey: "pools", href: "/pools", icon: Landmark },
     ...(mode !== "basic"
       ? [{ labelKey: "swap", href: "/swap", icon: ArrowLeftRight }]

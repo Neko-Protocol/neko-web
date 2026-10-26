@@ -9,6 +9,7 @@ import { CARD_STYLES, CARD_BUTTON_STYLES } from "./sidebarConfig";
 import { useCartStore } from "@/features/basic/cart/stores/cart.store";
 import { useUIMode } from "@/features/shared/ui-mode/hooks/useUIMode";
 import { NotificationCenter } from "@/features/shared/notifications/components/NotificationCenter";
+import { usePrivyUserStore } from "@/features/shared/wallet/privy/privyUser.store";
 
 const NETWORK = (
   process.env.NEXT_PUBLIC_STELLAR_NETWORK ?? "TESTNET"
@@ -26,6 +27,7 @@ export function ConnectedCard({ address, onDisconnect }: ConnectedCardProps) {
   const [open, setOpen] = React.useState(false);
   const cartCount = useCartStore((s) => s.items.length);
   const { isBasic } = useUIMode();
+  const email = usePrivyUserStore((s) => s.email);
 
   return (
     <div className={`${CARD_STYLES} relative`}>
@@ -37,8 +39,9 @@ export function ConnectedCard({ address, onDisconnect }: ConnectedCardProps) {
         type="button"
         onClick={() => setOpen((v) => !v)}
         className={CARD_BUTTON_STYLES}
+        title={email ?? address}
       >
-        <span className="truncate">{truncateAddress(address)}</span>
+        <span className="truncate">{email ?? truncateAddress(address)}</span>
         <ArrowRight
           className={`ml-2 h-4 w-4 shrink-0 transition-transform duration-200 ${open ? "rotate-90" : ""}`}
         />

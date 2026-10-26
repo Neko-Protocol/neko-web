@@ -52,7 +52,16 @@
       "disconnectWallet": "Desconectar Wallet",
       "disconnecting": "Desconectando…",
       "noWalletConnected": "No hay wallet conectada.",
-      "connectViaSidebar": "Conecta desde la barra lateral para comenzar."
+      "connectViaSidebar": "Inicia sesión desde la barra lateral para empezar.",
+      "email": "Correo",
+      "verification": "Verificación",
+      "verified": "Verificado ({kind})",
+      "notVerified": "Sin verificar",
+      "accountStatus": "Fondos de testnet",
+      "funded": "Fondeada",
+      "notFunded": "Sin fondos aún",
+      "fund": "Fondear con friendbot",
+      "fundFailed": "Friendbot no pudo fondear la billetera. Inténtalo de nuevo en un momento."
     },
     "uiMode": {
       "title": "Modo de App",

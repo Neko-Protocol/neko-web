@@ -7,11 +7,15 @@ import { PageContainer } from "@/components/ui/PageContainer";
 import MainStats from "@/features/shared/dashboard/components/ui/MainStats";
 import { WalletHoldingsCard } from "@/features/basic/dashboard/components/ui/WalletHoldingsCard";
 import DiscoverAssets from "@/features/shared/dashboard/components/ui/DiscoverAssets";
+import { stellarNetwork } from "@/lib/config/stellar.config";
 import { EmailNudgeBanner } from "@/features/shared/dashboard/components/ui/EmailNudgeBanner";
 import AssetBreakdown from "@/features/shared/positions/components/ui/AssetBreakdown";
 import { useWalletHoldings } from "@/features/shared/wallet/hooks/useWalletHoldings";
 import YourPositions from "@/features/shared/positions/components/ui/YourPositions";
 
+// Reflector prices and the pool catalogue are mainnet data; on testnet they
+// would show an empty card and pools the wallet cannot use.
+const isTestnet = stellarNetwork === "TESTNET";
 const BasicDashboard: React.FC = () => {
   const t = useTranslations("basic.dashboard");
   const { holdings, isLoading } = useWalletHoldings();
@@ -31,8 +35,8 @@ const BasicDashboard: React.FC = () => {
         <MainStats />
         <WalletHoldingsCard holdings={holdings} isLoading={isLoading} />
         <YourPositions />
-        <AssetBreakdown />
-        <DiscoverAssets />
+        {!isTestnet && <AssetBreakdown />}
+        {!isTestnet && <DiscoverAssets />}
       </PageContainer>
     </div>
   );

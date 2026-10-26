@@ -48,9 +48,9 @@
     },
     "verification": {
       "connect": {
-        "title": "Verify to unlock Neko Pro",
-        "body": "Neko Pro opportunities are open to verified investors. Connect your wallet to check your status or get verified.",
-        "cta": "Connect wallet"
+        "title": "Neko Pro is for verified investors",
+        "body": "Sign in to get verified.",
+        "cta": "Sign in"
       },
       "choose": {
         "title": "Get verified to see opportunities",
