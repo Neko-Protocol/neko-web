@@ -78,6 +78,8 @@ export function ProOpportunitiesPage() {
         title={t("title")}
         subtitle={t("subtitle")}
         badge={t("badge")}
+        imageSrc="/banners/borrow.svg"
+        imageAlt={t("imageAlt")}
         className="mb-8"
       />
 
