@@ -10,18 +10,26 @@
       "clearSearch": "Clear search",
       "noMatches": "No opportunities match your filters",
       "clearFilters": "Clear filters",
-      "filters": "Filters"
+      "filters": "Filters",
+      "loading": "Reading vaults from Stellar…",
+      "loadError": "We couldn't read the vaults from Stellar. Try again shortly."
     },
     "card": {
       "term": "Term",
       "months": "{count, plural, one {# month} other {# months}}",
-      "minInvestment": "Min. invest",
+      "status": "Status",
       "category": "Category",
       "token": "Token",
       "raised": "{raised} of {target}",
       "funded": "{pct}% funded",
-      "targetApy": "Target APY",
-      "raisedLabel": "Raised"
+      "targetReturn": "Target return"
+    },
+    "status": {
+      "Funding": "Funding",
+      "Funded": "Funded",
+      "Active": "Repaying",
+      "Settled": "Settled",
+      "Failed": "Failed"
     },
     "categories": {
       "real-estate": "Real estate",
@@ -29,71 +37,54 @@
       "energy": "Energy",
       "private-credit": "Private credit"
     },
-    "opportunities": {
-      "andesCoffee": {
-        "name": "Andes Coffee",
-        "description": "Harvest financing for a specialty coffee cooperative in Huila, Colombia, repaid from export sales.",
-        "issuer": "Cooperativa Cafetera del Huila",
-        "location": "Huila, Colombia",
-        "summary": "Andes Coffee finances the yearly harvest of a cooperative of 180 specialty coffee growers in Huila, one of Colombia's best-known coffee regions. The funds cover fertilizer and other inputs, hand-picking during the harvest season, and wet-mill processing, the costs that small growers usually have to cover months before they get paid. The cooperative has already signed export contracts with specialty roasters in the US and Europe at fixed prices. When the green coffee is shipped and the buyers pay, the loan is repaid in a single payment that returns the principal plus the target yield. Before listing, Neko reviewed the cooperative's legal documents, past harvest volumes and the signed export contracts.",
-        "highlights": [
-          "Repaid from signed export contracts",
-          "Specialty-grade coffee (84+ SCA score)",
-          "Principal and yield paid at harvest sale"
-        ]
+    "vaults": {
+      "casa-heredia": {
+        "location": "Heredia, Costa Rica",
+        "description": "Tokenized real estate loan in Heredia, Costa Rica, repaid in USDC tranches."
       },
-      "lumenTower": {
-        "name": "Lumen Tower",
-        "description": "A mixed-use rental building in Guadalajara. Investors earn a share of monthly rental income.",
-        "issuer": "Lumen Desarrollos S.A. de C.V.",
-        "location": "Guadalajara, Mexico",
-        "summary": "Lumen Tower is a completed mixed-use building in Guadalajara's Providencia district, a high-demand residential and business area. It has 64 apartments on the upper floors and retail space on the ground floor, and is currently 94% occupied. A professional property manager handles leasing, maintenance and rent collection. Each month, net rental income — rent collected minus operating costs, maintenance and management fees — is distributed to token holders in proportion to their holdings. The 36-month term matches the remaining length of most current leases. Before listing, Neko reviewed the property title, the rent roll and three years of operating statements.",
-        "highlights": [
-          "Completed building, 94% occupied",
-          "Monthly rental income distributions",
-          "Professional property management in place"
-        ]
-      },
-      "solarYucatan": {
-        "name": "Solar Yucatán",
-        "description": "A 4 MW solar farm selling clean energy to local businesses under long-term contracts.",
-        "issuer": "SolarVerde Energía",
-        "location": "Mérida, Mexico",
-        "summary": "Solar Yucatán is a 4 MW photovoltaic farm near Mérida, in one of the sunniest regions of Mexico. It sells the electricity it produces to local factories, hotels and retailers under 10-year power purchase agreements that set the price per kWh in advance. That gives the project a predictable stream of income that does not depend on wholesale energy prices. Investors receive a share of energy sales every quarter, after operation and maintenance costs. The plant is already connected to the grid and has been generating for over a year. Before listing, Neko reviewed the interconnection permits, the purchase agreements and the plant's production history.",
-        "highlights": [
-          "Long-term power purchase agreements",
-          "Clean energy for local businesses",
-          "Quarterly distributions from energy sales"
-        ]
-      },
-      "invoicePyme": {
-        "name": "Pyme Invoices",
-        "description": "Short-term financing of verified invoices from small businesses in Buenos Aires.",
-        "issuer": "Factura Ya S.A.",
-        "location": "Buenos Aires, Argentina",
-        "summary": "Pyme Invoices finances verified invoices that small businesses in Buenos Aires issue to large, creditworthy buyers such as supermarket chains and manufacturers. Instead of waiting 90 to 180 days to get paid, the small business receives cash today, and investors are repaid when the buyer pays the invoice. Every invoice is checked against the buyer before it is funded, and the pool is spread across many businesses and buyers so no single invoice weighs too much. At the end of the six-month term, investors receive their principal plus the target yield. This offering will open once the first batch of invoices has been verified.",
-        "highlights": [
-          "Short 6-month term",
-          "Invoices verified before funding",
-          "Diversified across many small businesses"
-        ]
+      "finca-turrialba": {
+        "location": "Turrialba, Costa Rica",
+        "description": "Tokenized farm financing in Turrialba, Costa Rica, repaid in USDC tranches."
       }
     },
     "detail": {
       "back": "Back to Pro Opportunities",
       "notFound": "Opportunity not found",
-      "payout": "Payout",
-      "funding": "Funding",
+      "loadError": "We couldn't read this vault from Stellar. Try again shortly.",
       "overview": "Overview",
+      "overviewBody": "{name} raises up to {target} in USDC from verified investors, who receive {symbol} tokens 1:1. The raise is released to the borrower, who repays {expected} in {count, plural, one {# tranche} other {# tranches}}. Once the vault settles, each investor redeems their share of the repayment. Everything on this page is read live from the vault's contracts on Stellar.",
+      "investCta": "Invest",
+      "hideInvest": "Hide invest panel",
       "highlights": "Highlights",
       "details": "Details",
-      "issuer": "Issuer",
+      "contracts": "Contracts",
+      "hlReturn": "Target return of {pct} over {count, plural, one {# month} other {# months}}",
+      "hlTranches": "Repaid in {count, plural, one {# tranche} other {# tranches}}, {paid} paid so far",
+      "hlVerified": "Only investors with a verified identity can hold {symbol}",
+      "minRaise": "Minimum raise",
+      "fundingDeadline": "Funding deadline",
+      "exitFee": "Early exit fee",
+      "tranches": "Repayments",
+      "trancheCount": "{count, plural, one {# tranche} other {# tranches}}",
+      "issuer": "Borrower",
       "location": "Location",
       "assetType": "Asset type",
       "token": "Token",
       "tokenStandard": "Token standard",
       "tokenStandardValue": "SEP-57 RWA token",
       "network": "Network",
+      "networkValue": "Stellar Testnet",
+      "createdAt": "Launched",
+      "vaultContract": "Vault contract",
+      "tokenContract": "Token contract",
+      "complianceContract": "Compliance contract",
+      "usdcContract": "USDC contract",
+      "totalRaised": "Total raised (USDC)",
+      "ofTarget": "{pct}% of {target} target",
+      "repaymentSchedule": "Repayment schedule",
+      "expected": "Expected",
+      "paid": "Paid",
+      "trancheLabel": "Tranche {n}",
       "invest": {
         "buyTab": "Buy",
         "withdrawTab": "Withdraw",
@@ -102,29 +93,47 @@
         "amountAriaLabel": "Amount in {unit}",
         "max": "MAX",
         "insufficientBalance": "Insufficient balance",
-        "belowMinimum": "Below the minimum investment of {amount}",
         "network": "Network",
-        "minimum": "Minimum investment",
-        "apy": "Target APY",
+        "targetReturn": "Target return",
         "projectedMonthly": "Projected monthly earnings",
         "projectedYearly": "Projected yearly earnings",
         "yourPosition": "Your position ({token})",
-        "payoutSchedule": "Payout schedule",
         "buyButton": "Buy {token}",
         "withdrawButton": "Withdraw {token}",
-        "comingSoon": "Coming soon"
+        "fundingClosed": "Funding closed",
+        "connectWallet": "Connect wallet",
+        "confirming": "Confirm in your wallet…",
+        "aboveRoom": "Only {room} is left to raise",
+        "youReceive": "You receive",
+        "withdrawButtons": {
+          "redeem": "Redeem {token}",
+          "early_exit": "Exit early",
+          "refund": "Get refund"
+        },
+        "withdrawNotOpen": "Withdrawals open while repaying",
+        "investDone": "Investment confirmed on Stellar Testnet.",
+        "withdrawDone": "Withdrawal confirmed on Stellar Testnet.",
+        "viewTx": "View transaction",
+        "errors": {
+          "noWallet": "Connect your wallet first.",
+          "rejected": "You cancelled the signature.",
+          "invalidState": "The vault can't do that in its current state.",
+          "invalidAmount": "Enter an amount above zero.",
+          "targetExceeded": "That amount goes over what's left to raise.",
+          "fundingClosed": "Funding for this vault has closed.",
+          "nothingToRedeem": "You don't hold any of this token.",
+          "insufficientLiquidity": "The vault doesn't have enough repaid yet to cover your exit. Try after the next repayment.",
+          "failed": "The transaction failed. Check your wallet is on Testnet and your identity is verified. {detail}",
+          "accountNotFound": "Your wallet has no account on Stellar Testnet yet. Fund it with Friendbot, then try again."
+        },
+        "blockers": {
+          "noUsdc": "This wallet has no Neko test USDC on Testnet. Add a trustline to {asset} and ask the Neko team for test USDC."
+        }
       },
-      "minInvestment": "Min. investment",
-      "totalRaised": "Total raised (USD)",
-      "ofTarget": "{pct}% of {target} target",
-      "noFundingYet": "No funding yet",
-      "investCta": "Invest",
-      "hideInvest": "Hide invest panel"
-    },
-    "payout": {
-      "monthly": "Monthly",
-      "quarterly": "Quarterly",
-      "at-maturity": "At maturity"
+      "fundingCompleted": "Funding completed",
+      "fundingFailed": "Funding failed",
+      "withdrawCta": "Withdraw",
+      "hideWithdraw": "Hide withdraw panel"
     }
   }
 }
