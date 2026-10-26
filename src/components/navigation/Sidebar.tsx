@@ -35,13 +35,14 @@ export function Sidebar() {
       <SidebarLogo />
 
       <nav className="flex flex-1 flex-col gap-1 px-3 min-h-0 overflow-y-auto">
-        {navItems.map(({ label, href, icon }) => (
+        {navItems.map(({ label, href, icon, disabled }) => (
           <NavItem
             key={href}
             label={label}
             href={href}
             icon={icon}
             isActive={isActive(href)}
+            disabled={disabled}
           />
         ))}
       </nav>

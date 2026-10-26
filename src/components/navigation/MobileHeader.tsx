@@ -192,9 +192,21 @@ export function MobileHeader() {
         )}
       >
         <div className="flex flex-col gap-2 px-4 py-6 sm:px-6">
-          {navItems.map(({ label, href, icon }) => {
+          {navItems.map(({ label, href, icon, disabled }) => {
             const Icon = icon;
             const active = isActive(href);
+            if (disabled) {
+              return (
+                <div
+                  key={href}
+                  aria-disabled="true"
+                  className="flex w-full cursor-not-allowed select-none items-center justify-start gap-4 px-4 py-4 text-lg font-medium text-white/15 sm:px-6"
+                >
+                  <Icon className="h-6 w-6 shrink-0 text-white/15" />
+                  {label}
+                </div>
+              );
+            }
             return (
               <Link
                 key={href}

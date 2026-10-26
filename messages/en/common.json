@@ -25,7 +25,8 @@
       "strategies": "Strategies",
       "settings": "Settings",
       "admin": "Admin",
-      "toggleMenu": "Toggle menu"
+      "toggleMenu": "Toggle menu",
+      "pro": "Pro"
     },
     "network": {
       "testnet": "Testnet",
@@ -77,6 +78,12 @@
       "expiredDescription": "Your {action} of {amount} {asset} was not signed in time. Please retry.",
       "actionDeposit": "deposit",
       "actionWithdraw": "withdraw"
+    },
+    "testnet": {
+      "notAvailable": "Not available on testnet",
+      "unavailableTitle": "Not available on testnet",
+      "unavailableBody": "This page uses Neko's mainnet protocols. On testnet you can explore Pro Opportunities.",
+      "goToPro": "Go to Pro Opportunities"
     }
   }
 }

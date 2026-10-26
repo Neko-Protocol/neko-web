@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 interface NavItemProps {
@@ -7,9 +8,20 @@ interface NavItemProps {
   href: string;
   icon: React.ElementType;
   isActive: boolean;
+  disabled?: boolean;
 }
 
-export function NavItem({ label, href, icon: Icon, isActive }: NavItemProps) {
+export function NavItem({
+  label,
+  href,
+  icon: Icon,
+  isActive,
+  disabled,
+}: NavItemProps) {
+  if (disabled) {
+    return <DisabledNavItem label={label} icon={Icon} />;
+  }
+
   return (
     <Link
       href={href}
@@ -33,5 +45,28 @@ export function NavItem({ label, href, icon: Icon, isActive }: NavItemProps) {
       />
       {label}
     </Link>
+  );
+}
+
+/** A mainnet-only page while the app runs on testnet. */
+function DisabledNavItem({
+  label,
+  icon: Icon,
+}: {
+  label: string;
+  icon: React.ElementType;
+}) {
+  const t = useTranslations("common.testnet");
+
+  return (
+    <div
+      aria-disabled="true"
+      title={t("notAvailable")}
+      className="flex cursor-not-allowed select-none items-center gap-3 px-4 py-3 text-base font-medium text-white/15"
+      style={{ borderRadius: "84px" }}
+    >
+      <Icon className="h-5 w-5 shrink-0 text-white/15" />
+      {label}
+    </div>
   );
 }
