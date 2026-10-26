@@ -9,6 +9,7 @@ const KNOWN_CODES = new Set([
   "CLAIM_TOKEN_INVALID",
   "VERIFICATION_NOT_FOUND",
   "BACKEND_UNREACHABLE",
+  "ONCHAIN_IDENTITY_FAILED",
 ]);
 
 /** i18n key under `sharedPro.verification.errors`. */

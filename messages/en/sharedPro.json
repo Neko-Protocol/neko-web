@@ -10,17 +10,26 @@
       "clearSearch": "Clear search",
       "noMatches": "No opportunities match your filters",
       "clearFilters": "Clear filters",
-      "filters": "Filters"
+      "filters": "Filters",
+      "loading": "Reading vaults from Stellar…",
+      "loadError": "We couldn't read the vaults from Stellar. Try again shortly."
     },
     "card": {
       "term": "Term",
       "months": "{count, plural, one {# month} other {# months}}",
-      "minInvestment": "Min. invest",
+      "status": "Status",
       "category": "Category",
       "token": "Token",
       "raised": "{raised} of {target}",
       "funded": "{pct}% funded",
-      "targetApy": "Target APY"
+      "targetReturn": "Target return"
+    },
+    "status": {
+      "Funding": "Funding",
+      "Funded": "Funded",
+      "Active": "Repaying",
+      "Settled": "Settled",
+      "Failed": "Failed"
     },
     "categories": {
       "real-estate": "Real estate",
@@ -28,23 +37,105 @@
       "energy": "Energy",
       "private-credit": "Private credit"
     },
-    "opportunities": {
-      "andesCoffee": {
-        "name": "Andes Coffee",
-        "description": "Harvest financing for a specialty coffee cooperative in Huila, Colombia, repaid from export sales."
+    "vaults": {
+      "casa-circle": {
+        "location": "Costa Rica",
+        "description": "Tokenized real estate loan in Costa Rica, funded and repaid in Circle's USDC."
       },
-      "lumenTower": {
-        "name": "Lumen Tower",
-        "description": "A mixed-use rental building in Guadalajara. Investors earn a share of monthly rental income."
-      },
-      "solarYucatan": {
-        "name": "Solar Yucatán",
-        "description": "A 4 MW solar farm selling clean energy to local businesses under long-term contracts."
-      },
-      "invoicePyme": {
-        "name": "Pyme Invoices",
-        "description": "Short-term financing of verified invoices from small businesses in Buenos Aires."
+      "torre-cartago": {
+        "location": "Cartago, Costa Rica",
+        "description": "Tokenized building loan in Cartago, Costa Rica, funded and repaid in USDT0."
       }
+    },
+    "detail": {
+      "back": "Back to Pro Opportunities",
+      "notFound": "Opportunity not found",
+      "loadError": "We couldn't read this vault from Stellar. Try again shortly.",
+      "overview": "Overview",
+      "overviewBody": "{name} raises up to {target} in {asset} from verified investors, who receive {symbol} tokens 1:1. The raise is released to the borrower, who repays {expected} in {count, plural, one {# tranche} other {# tranches}}. Once the vault settles, each investor redeems their share of the repayment. Everything on this page is read live from the vault's contracts on Stellar.",
+      "investCta": "Invest",
+      "hideInvest": "Hide invest panel",
+      "highlights": "Highlights",
+      "details": "Details",
+      "contracts": "Contracts",
+      "hlReturn": "Target return of {pct} over {count, plural, one {# month} other {# months}}",
+      "hlTranches": "Repaid in {count, plural, one {# tranche} other {# tranches}}, {paid} paid so far",
+      "hlVerified": "Only investors with a verified identity can hold {symbol}",
+      "minRaise": "Minimum raise",
+      "fundingDeadline": "Funding deadline",
+      "exitFee": "Early exit fee",
+      "tranches": "Repayments",
+      "trancheCount": "{count, plural, one {# tranche} other {# tranches}}",
+      "issuer": "Borrower",
+      "location": "Location",
+      "assetType": "Asset type",
+      "token": "Token",
+      "tokenStandard": "Token standard",
+      "tokenStandardValue": "SEP-57 RWA token",
+      "network": "Network",
+      "networkValue": "Stellar Testnet",
+      "createdAt": "Launched",
+      "vaultContract": "Vault contract",
+      "tokenContract": "Token contract",
+      "complianceContract": "Compliance contract",
+      "totalRaised": "Total raised ({asset})",
+      "ofTarget": "{pct}% of {target} target",
+      "repaymentSchedule": "Repayment schedule",
+      "expected": "Expected",
+      "paid": "Paid",
+      "trancheLabel": "Tranche {n}",
+      "invest": {
+        "buyTab": "Buy",
+        "withdrawTab": "Withdraw",
+        "buyLabel": "Buy {token} with {asset}",
+        "withdrawLabel": "Withdraw {token}",
+        "amountAriaLabel": "Amount in {unit}",
+        "max": "MAX",
+        "insufficientBalance": "Insufficient balance",
+        "network": "Network",
+        "targetReturn": "Target return",
+        "projectedMonthly": "Projected monthly earnings",
+        "projectedYearly": "Projected yearly earnings",
+        "yourPosition": "Your position ({token})",
+        "buyButton": "Buy {token}",
+        "withdrawButton": "Withdraw {token}",
+        "fundingClosed": "Funding closed",
+        "connectWallet": "Connect wallet",
+        "confirming": "Confirm in your wallet…",
+        "aboveRoom": "Only {room} is left to raise",
+        "youReceive": "You receive",
+        "withdrawButtons": {
+          "redeem": "Redeem {token}",
+          "early_exit": "Exit early",
+          "refund": "Get refund"
+        },
+        "withdrawNotOpen": "Withdrawals open while repaying",
+        "investDone": "Investment confirmed on Stellar Testnet.",
+        "withdrawDone": "Withdrawal confirmed on Stellar Testnet.",
+        "viewTx": "View transaction",
+        "txFailed": "Transaction failed",
+        "errors": {
+          "noWallet": "Connect your wallet first.",
+          "rejected": "You cancelled the signature.",
+          "invalidState": "The vault can't do that in its current state.",
+          "invalidAmount": "Enter an amount above zero.",
+          "targetExceeded": "That amount goes over what's left to raise.",
+          "fundingClosed": "Funding for this vault has closed.",
+          "nothingToRedeem": "You don't hold any of this token.",
+          "insufficientLiquidity": "The vault doesn't have enough repaid yet to cover your exit. Try after the next repayment.",
+          "failed": "The transaction failed. Check your wallet is on Testnet and your identity is verified. {detail}",
+          "accountNotFound": "Your wallet has no account on Stellar Testnet yet. Fund it with Friendbot, then try again.",
+          "identityNotRegistered": "Your wallet doesn't have an on-chain identity yet, so it can't hold this token. Reload the page to finish registering it, then try again in a minute."
+        },
+        "blockers": {
+          "noAsset": "This wallet has no {asset} for this vault on Testnet. Add a trustline to {assetId} and fund it first."
+        }
+      },
+      "fundingCompleted": "Funding completed",
+      "fundingFailed": "Funding failed",
+      "withdrawCta": "Withdraw",
+      "hideWithdraw": "Hide withdraw panel",
+      "assetContract": "{asset} contract"
     },
     "verification": {
       "connect": {
@@ -88,7 +179,8 @@
       "approved": {
         "title": "You're verified",
         "body": "Your verification was approved.",
-        "unlocking": "Whitelisting your wallet…"
+        "unlocking": "Whitelisting your wallet and registering its identity on Stellar. This can take up to a minute…",
+        "retry": "Try again"
       },
       "demo": {
         "open": "Skip verification (demo)",
@@ -110,6 +202,7 @@
         "WORKFLOW_NOT_CONFIGURED": "Verification isn't configured yet. Try again later.",
         "VERIFICATION_ALREADY_CLAIMED": "This verification is already linked to another wallet or account.",
         "WALLET_ALREADY_VERIFIED": "This wallet is already linked to a different verification.",
+        "ONCHAIN_IDENTITY_FAILED": "We couldn't register your wallet's identity on Stellar. Try again in a moment.",
         "VERIFICATION_NOT_APPROVED": "This verification isn't approved yet.",
         "CLAIM_TOKEN_INVALID": "This verification session is no longer valid. Start again.",
         "VERIFICATION_NOT_FOUND": "This verification session is no longer valid. Start again.",

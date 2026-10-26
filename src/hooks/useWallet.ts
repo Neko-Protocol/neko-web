@@ -56,6 +56,7 @@ export function useWallet() {
     const signedTxXdr = await signStellarTransactionWithWallet({
       unsignedTransactionXdr: xdr,
       signerPublicKey,
+      networkPassphrase: options?.networkPassphrase,
     });
     return { signedTxXdr };
   };

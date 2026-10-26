@@ -36,6 +36,7 @@
     "@vercel/analytics": "^2.0.1",
     "animate.css": "^4.1.1",
     "axios": "^1.7.9",
+    "buffer": "6.0.3",
     "chart.js": "^4.4.0",
     "clsx": "^2.1.1",
     "json-schema": "^0.4.0",

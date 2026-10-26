@@ -10,17 +10,26 @@
       "clearSearch": "Borrar búsqueda",
       "noMatches": "Ninguna oportunidad coincide con tus filtros",
       "clearFilters": "Quitar filtros",
-      "filters": "Filtros"
+      "filters": "Filtros",
+      "loading": "Leyendo vaults desde Stellar…",
+      "loadError": "No pudimos leer los vaults desde Stellar. Intenta de nuevo en un momento."
     },
     "card": {
       "term": "Plazo",
       "months": "{count, plural, one {# mes} other {# meses}}",
-      "minInvestment": "Mínimo",
+      "status": "Estado",
       "category": "Categoría",
       "token": "Token",
       "raised": "{raised} de {target}",
       "funded": "{pct}% financiado",
-      "targetApy": "APY objetivo"
+      "targetReturn": "Retorno objetivo"
+    },
+    "status": {
+      "Funding": "En financiamiento",
+      "Funded": "Financiado",
+      "Active": "Pagando",
+      "Settled": "Liquidado",
+      "Failed": "Fallido"
     },
     "categories": {
       "real-estate": "Inmobiliario",
@@ -28,23 +37,105 @@
       "energy": "Energía",
       "private-credit": "Crédito privado"
     },
-    "opportunities": {
-      "andesCoffee": {
-        "name": "Café de los Andes",
-        "description": "Financiamiento de cosecha para una cooperativa de café especial en Huila, Colombia, pagado con sus exportaciones."
+    "vaults": {
+      "casa-circle": {
+        "location": "Costa Rica",
+        "description": "Préstamo inmobiliario tokenizado en Costa Rica, financiado y pagado en USDC de Circle."
       },
-      "lumenTower": {
-        "name": "Torre Lumen",
-        "description": "Un edificio de renta de uso mixto en Guadalajara. Los inversionistas reciben parte de las rentas mensuales."
-      },
-      "solarYucatan": {
-        "name": "Solar Yucatán",
-        "description": "Un parque solar de 4 MW que vende energía limpia a empresas locales con contratos de largo plazo."
-      },
-      "invoicePyme": {
-        "name": "Facturas Pyme",
-        "description": "Financiamiento de corto plazo de facturas verificadas de pequeñas empresas en Buenos Aires."
+      "torre-cartago": {
+        "location": "Cartago, Costa Rica",
+        "description": "Préstamo para un edificio tokenizado en Cartago, Costa Rica, financiado y pagado en USDT0."
       }
+    },
+    "detail": {
+      "back": "Volver a Oportunidades Pro",
+      "notFound": "Oportunidad no encontrada",
+      "loadError": "No pudimos leer este vault desde Stellar. Intenta de nuevo en un momento.",
+      "overview": "Resumen",
+      "overviewBody": "{name} recauda hasta {target} en {asset} de inversionistas verificados, que reciben tokens {symbol} 1:1. Lo recaudado se entrega al deudor, que paga {expected} en {count, plural, one {# tramo} other {# tramos}}. Cuando el vault se liquida, cada inversionista redime su parte del pago. Todo en esta página se lee en vivo de los contratos del vault en Stellar.",
+      "investCta": "Invertir",
+      "hideInvest": "Ocultar panel de inversión",
+      "highlights": "Puntos clave",
+      "details": "Detalles",
+      "contracts": "Contratos",
+      "hlReturn": "Retorno objetivo de {pct} en {count, plural, one {# mes} other {# meses}}",
+      "hlTranches": "Se paga en {count, plural, one {# tramo} other {# tramos}}, {paid} pagados hasta ahora",
+      "hlVerified": "Solo inversionistas con identidad verificada pueden tener {symbol}",
+      "minRaise": "Recaudación mínima",
+      "fundingDeadline": "Cierre del financiamiento",
+      "exitFee": "Comisión de salida anticipada",
+      "tranches": "Pagos",
+      "trancheCount": "{count, plural, one {# tramo} other {# tramos}}",
+      "issuer": "Deudor",
+      "location": "Ubicación",
+      "assetType": "Tipo de activo",
+      "token": "Token",
+      "tokenStandard": "Estándar del token",
+      "tokenStandardValue": "Token RWA SEP-57",
+      "network": "Red",
+      "networkValue": "Stellar Testnet",
+      "createdAt": "Lanzado",
+      "vaultContract": "Contrato del vault",
+      "tokenContract": "Contrato del token",
+      "complianceContract": "Contrato de compliance",
+      "totalRaised": "Total recaudado ({asset})",
+      "ofTarget": "{pct}% de la meta de {target}",
+      "repaymentSchedule": "Calendario de pagos",
+      "expected": "Esperado",
+      "paid": "Pagado",
+      "trancheLabel": "Tramo {n}",
+      "invest": {
+        "buyTab": "Comprar",
+        "withdrawTab": "Retirar",
+        "buyLabel": "Comprar {token} con {asset}",
+        "withdrawLabel": "Retirar {token}",
+        "amountAriaLabel": "Monto en {unit}",
+        "max": "MAX",
+        "insufficientBalance": "Saldo insuficiente",
+        "network": "Red",
+        "targetReturn": "Retorno objetivo",
+        "projectedMonthly": "Ganancia mensual proyectada",
+        "projectedYearly": "Ganancia anual proyectada",
+        "yourPosition": "Tu posición ({token})",
+        "buyButton": "Comprar {token}",
+        "withdrawButton": "Retirar {token}",
+        "fundingClosed": "Financiamiento cerrado",
+        "connectWallet": "Conectar wallet",
+        "confirming": "Confirma en tu wallet…",
+        "aboveRoom": "Solo quedan {room} por recaudar",
+        "youReceive": "Recibes",
+        "withdrawButtons": {
+          "redeem": "Redimir {token}",
+          "early_exit": "Salir antes",
+          "refund": "Pedir reembolso"
+        },
+        "withdrawNotOpen": "Los retiros abren mientras se paga",
+        "investDone": "Inversión confirmada en Stellar Testnet.",
+        "withdrawDone": "Retiro confirmado en Stellar Testnet.",
+        "viewTx": "Ver transacción",
+        "txFailed": "La transacción falló",
+        "errors": {
+          "noWallet": "Conecta tu wallet primero.",
+          "rejected": "Cancelaste la firma.",
+          "invalidState": "El vault no puede hacer eso en su estado actual.",
+          "invalidAmount": "Ingresa un monto mayor a cero.",
+          "targetExceeded": "Ese monto supera lo que falta por recaudar.",
+          "fundingClosed": "El financiamiento de este vault ya cerró.",
+          "nothingToRedeem": "No tienes este token.",
+          "insufficientLiquidity": "El vault todavía no tiene suficiente pagado para cubrir tu salida. Intenta después del próximo pago.",
+          "failed": "La transacción falló. Revisa que tu wallet esté en Testnet y que tu identidad esté verificada. {detail}",
+          "accountNotFound": "Tu wallet todavía no tiene cuenta en Stellar Testnet. Fóndeala con Friendbot y vuelve a intentar.",
+          "identityNotRegistered": "Tu wallet todavía no tiene una identidad on-chain, así que no puede recibir este token. Recarga la página para terminar de registrarla y vuelve a intentar en un minuto."
+        },
+        "blockers": {
+          "noAsset": "Esta wallet no tiene {asset} de este vault en Testnet. Agrega una trustline a {assetId} y fóndeala primero."
+        }
+      },
+      "fundingCompleted": "Financiamiento completado",
+      "fundingFailed": "Financiamiento fallido",
+      "withdrawCta": "Retirar",
+      "hideWithdraw": "Ocultar panel de retiro",
+      "assetContract": "Contrato de {asset}"
     },
     "verification": {
       "connect": {
@@ -88,7 +179,8 @@
       "approved": {
         "title": "Estás verificado",
         "body": "Tu verificación fue aprobada.",
-        "unlocking": "Habilitando tu billetera…"
+        "unlocking": "Habilitando tu billetera y registrando su identidad en Stellar. Puede tardar hasta un minuto…",
+        "retry": "Intentar de nuevo"
       },
       "demo": {
         "open": "Omitir verificación (demo)",
@@ -110,6 +202,7 @@
         "WORKFLOW_NOT_CONFIGURED": "La verificación aún no está configurada. Intenta más tarde.",
         "VERIFICATION_ALREADY_CLAIMED": "Esta verificación ya está vinculada a otra billetera o cuenta.",
         "WALLET_ALREADY_VERIFIED": "Esta billetera ya está vinculada a otra verificación.",
+        "ONCHAIN_IDENTITY_FAILED": "No pudimos registrar la identidad de tu billetera en Stellar. Intenta de nuevo en un momento.",
         "VERIFICATION_NOT_APPROVED": "Esta verificación aún no está aprobada.",
         "CLAIM_TOKEN_INVALID": "Esta sesión de verificación ya no es válida. Empieza de nuevo.",
         "VERIFICATION_NOT_FOUND": "Esta sesión de verificación ya no es válida. Empieza de nuevo.",

@@ -149,6 +149,9 @@ export function useProVerification(wallet: string) {
     startMock: (kind: VerificationKind, name: string) =>
       startMock.mutate({ kind, name }),
     checkNow: () => void verification.refetch(),
+    /** Re-runs the whitelist (and on-chain registration) after a failure. */
+    retryWhitelist: () => whitelist.reset(),
+    whitelistFailed: whitelist.isError,
     reset,
   };
 }
