@@ -5,7 +5,8 @@ import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
 import { CATEGORY_ICON } from "../../constants/categories";
 import { PRO_ROUTES } from "../../constants/routes";
-import type { ProOpportunity } from "../../types/opportunity";
+import type { ProVault } from "../../types/vault";
+import { fundedPct, termMonths, totalReturn } from "../../utils/vaultMath";
 import { CurvedPhoto } from "./CurvedPhoto";
 
 /**
@@ -15,27 +16,24 @@ import { CurvedPhoto } from "./CurvedPhoto";
 const PANEL_TOP_PATH =
   "M0,28 Q0,0 28,0 H150 C196,0 194,44 240,44 H330 Q340,44 340,54 V76 H0 Z";
 
-interface OpportunityCardProps {
-  opportunity: ProOpportunity;
+interface VaultCardProps {
+  vault: ProVault;
 }
 
-export function OpportunityCard({ opportunity }: OpportunityCardProps) {
+export function VaultCard({ vault }: VaultCardProps) {
   const t = useTranslations("sharedPro.card");
+  const tStatus = useTranslations("sharedPro.status");
   const tCategory = useTranslations("sharedPro.categories");
-  const tOpportunity = useTranslations(
-    `sharedPro.opportunities.${opportunity.id}`
-  );
+  const tVault = useTranslations(`sharedPro.vaults.${vault.slug}`);
   const format = useFormatter();
 
-  const Icon = CATEGORY_ICON[opportunity.category];
-  const apy = format.number(opportunity.targetApy / 100, {
+  const Icon = CATEGORY_ICON[vault.category];
+  const description = tVault.has("description") ? tVault("description") : "";
+  const targetReturn = format.number(totalReturn(vault), {
     style: "percent",
     maximumFractionDigits: 1,
   });
-  const fundedPct = Math.min(
-    100,
-    Math.round((opportunity.raisedUsd / opportunity.targetUsd) * 100)
-  );
+  const pct = fundedPct(vault);
   const usd = (value: number) =>
     format.number(value, {
       style: "currency",
@@ -43,22 +41,22 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
       maximumFractionDigits: 0,
     });
   const details = [
-    { label: t("term"), value: t("months", { count: opportunity.termMonths }) },
-    { label: t("minInvestment"), value: usd(opportunity.minInvestmentUsd) },
-    { label: t("category"), value: tCategory(opportunity.category) },
-    { label: t("token"), value: opportunity.tokenSymbol },
+    { label: t("term"), value: t("months", { count: termMonths(vault) }) },
+    { label: t("status"), value: tStatus(vault.state) },
+    { label: t("category"), value: tCategory(vault.category) },
+    { label: t("token"), value: vault.symbol },
   ];
 
   return (
     <Link
-      href={PRO_ROUTES.detail(opportunity.id)}
+      href={PRO_ROUTES.detail(vault.slug)}
       className="group relative block h-full outline-none transition-transform duration-300 hover:-translate-y-1"
     >
       <article className="relative z-10 flex h-full flex-col overflow-hidden min-h-72 rounded-[28px] border border-white/10 bg-[#131312] p-2.5 group-focus-visible:border-white/40">
         <CurvedPhoto
-          src={opportunity.imageSrc}
-          alt={tOpportunity("name")}
-          gradient={opportunity.gradient}
+          src={vault.imageSrc}
+          alt={vault.name}
+          gradient={vault.gradient}
           fallbackIcon={Icon}
           sizes="(min-width: 1536px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="h-36"
@@ -70,21 +68,21 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
 
           <div className="absolute top-3 right-4 text-right text-white">
             <p className="text-4xl leading-none font-light tracking-tight">
-              {apy}
+              {targetReturn}
             </p>
             <p className="mt-1 text-[10px] font-medium tracking-wider uppercase">
-              {t("targetApy")}
+              {t("targetReturn")}
             </p>
           </div>
         </CurvedPhoto>
 
         <div className="relative -mt-7 w-1/2 px-3">
           <h3 className="text-xl leading-tight font-semibold text-white">
-            {tOpportunity("name")}
+            {vault.name}
           </h3>
         </div>
         <p className="mt-2 line-clamp-3 px-3 pb-6 text-sm leading-snug text-white/50">
-          {tOpportunity("description")}
+          {description}
         </p>
 
         {/* White lip hugging the bottom edge; a bottom border on a rounded box
@@ -110,7 +108,7 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
               <path d={PANEL_TOP_PATH} fill="white" />
             </svg>
             <p className="absolute top-6 left-5 text-lg leading-none font-semibold">
-              {tOpportunity("name")}
+              {vault.name}
             </p>
           </div>
 
@@ -130,24 +128,22 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
               <div className="mb-1.5 flex items-center justify-between text-xs">
                 <span className="text-black/60">
                   {t("raised", {
-                    raised: usd(opportunity.raisedUsd),
-                    target: usd(opportunity.targetUsd),
+                    raised: usd(vault.raised),
+                    target: usd(vault.target),
                   })}
                 </span>
-                <span className="font-semibold">
-                  {t("funded", { pct: fundedPct })}
-                </span>
+                <span className="font-semibold">{t("funded", { pct })}</span>
               </div>
               <div
                 className="h-1.5 overflow-hidden rounded-full bg-black/10"
                 role="progressbar"
-                aria-valuenow={fundedPct}
+                aria-valuenow={pct}
                 aria-valuemin={0}
                 aria-valuemax={100}
               >
                 <div
                   className="h-full rounded-full bg-[#131312]"
-                  style={{ width: `${fundedPct}%` }}
+                  style={{ width: `${pct}%` }}
                 />
               </div>
             </div>
