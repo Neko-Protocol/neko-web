@@ -20,11 +20,7 @@ import { useStellarWallet } from "@/hooks/useStellarWallet";
 import { useWallet } from "@/hooks/useWallet";
 import { sanitizeAmountInput } from "@/lib/helpers/tokenDisplay";
 import { CATEGORY_ICON } from "../../constants/categories";
-import {
-  explorerUrl,
-  PRO_NETWORK,
-  PRO_SHARED,
-} from "../../constants/deployments";
+import { explorerUrl, PRO_NETWORK } from "../../constants/deployments";
 import { PRO_ROUTES } from "../../constants/routes";
 import {
   useProBalance,
@@ -227,8 +223,8 @@ function VaultDetail({ vault }: { vault: ProVault }) {
       value: <ExplorerLink kind="contract" id={vault.compliance} />,
     },
     {
-      label: t("usdcContract"),
-      value: <ExplorerLink kind="contract" id={vault.usdc} />,
+      label: t("assetContract", { asset: vault.asset.code }),
+      value: <ExplorerLink kind="contract" id={vault.asset.contract} />,
     },
   ];
 
@@ -304,6 +300,7 @@ function VaultDetail({ vault }: { vault: ProVault }) {
             </h2>
             <p className="text-sm leading-relaxed text-white/70">
               {t("overviewBody", {
+                asset: vault.asset.code,
                 name: vault.name,
                 symbol: vault.symbol,
                 target: usd(vault.target),
@@ -620,7 +617,9 @@ function FundingChart({ vault }: { vault: ProVault }) {
 
   return (
     <section className="mt-6 rounded-[28px] border border-white/10 bg-white/[0.03] p-6 backdrop-blur-md">
-      <p className="text-sm text-white/60">{t("totalRaised")}</p>
+      <p className="text-sm text-white/60">
+        {t("totalRaised", { asset: vault.asset.code })}
+      </p>
       <p className="mt-1 text-5xl font-light tracking-tight text-white">
         {figure}
         <span className="text-white/40">{unit}</span>
@@ -705,6 +704,11 @@ function FundingChart({ vault }: { vault: ProVault }) {
 
 type InvestTab = "buy" | "withdraw";
 
+const ASSET_ICON: Record<string, string> = {
+  USDC: "/assets/usdc-logo.png",
+  USDT0: "/assets/usdt0-logo.png",
+};
+
 function InvestPanel({
   vault,
   tab,
@@ -725,7 +729,8 @@ function InvestPanel({
   const { address } = useWallet();
   const { connect } = useStellarWallet();
   // Balances on the vaults' own network (testnet), for the connected wallet.
-  const usdcBalance = useProBalance(vault.usdc, address).data ?? 0;
+  const asset = vault.asset.code;
+  const assetBalance = useProBalance(vault.asset.contract, address).data ?? 0;
   const position = useProBalance(vault.token, address).data ?? 0;
   const method = withdrawMethod(vault.state);
   const withdrawValue = useWithdrawValue(vault, address, position).data ?? 0;
@@ -737,12 +742,12 @@ function InvestPanel({
   const room = Math.max(0, vault.target - vault.raised);
   // Explain why buying can't work before the user tries.
   const buyBlocker =
-    isBuy && address && isFunding && usdcBalance === 0 ? "noUsdc" : null;
+    isBuy && address && isFunding && assetBalance === 0 ? "noAsset" : null;
 
   // Withdrawals always take the whole position, so the field shows it.
   const amount = isBuy ? parseFloat(amountInput) || 0 : position;
-  const balance = isBuy ? usdcBalance : position;
-  const unit = isBuy ? "USDC" : token;
+  const balance = isBuy ? assetBalance : position;
+  const unit = isBuy ? asset : token;
   const hasAmount = amount > 0;
   const exceedsBalance = isBuy && hasAmount && amount > balance + 1e-10;
   const exceedsRoom = isBuy && hasAmount && amount > room + 1e-10;
@@ -822,12 +827,14 @@ function InvestPanel({
       >
         <div className="mb-3 flex items-center justify-between">
           <span className="text-sm font-medium text-white/60">
-            {isBuy ? t("buyLabel", { token }) : t("withdrawLabel", { token })}
+            {isBuy
+              ? t("buyLabel", { token, asset })
+              : t("withdrawLabel", { token })}
           </span>
           {isBuy ? (
             <Image
-              src="/assets/usdc-logo.png"
-              alt="USDC"
+              src={ASSET_ICON[asset] ?? "/assets/usdc-logo.png"}
+              alt={asset}
               width={28}
               height={28}
               className="h-7 w-7 rounded-full"
@@ -880,7 +887,10 @@ function InvestPanel({
 
       {buyBlocker && (
         <p className="rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 text-xs leading-relaxed text-white/70">
-          {t(`blockers.${buyBlocker}`, { token, asset: PRO_SHARED.usdcAsset })}
+          {t(`blockers.${buyBlocker}`, {
+            asset,
+            assetId: `${asset}:${vault.asset.issuer}`,
+          })}
         </p>
       )}
 
