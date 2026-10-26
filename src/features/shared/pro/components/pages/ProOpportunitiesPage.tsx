@@ -5,11 +5,12 @@ import { Check, ChevronDown, Search, SlidersHorizontal, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { PageContainer } from "@/components/ui/PageContainer";
 import { BannerPage } from "@/components/ui/BannerPage";
-import { PRO_OPPORTUNITIES } from "../../constants/opportunities";
-import type { OpportunityCategory } from "../../types/opportunity";
-import { OpportunityCard } from "../ui/OpportunityCard";
+import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import { useProVaults } from "../../hooks/useProVaults";
+import type { VaultCategory } from "../../types/vault";
+import { VaultCard } from "../ui/VaultCard";
 
-type CategoryFilter = OpportunityCategory | "all";
+type CategoryFilter = VaultCategory | "all";
 
 const CATEGORY_FILTERS: CategoryFilter[] = [
   "all",
@@ -22,7 +23,9 @@ const CATEGORY_FILTERS: CategoryFilter[] = [
 export function ProOpportunitiesPage() {
   const t = useTranslations("sharedPro.page");
   const tCategory = useTranslations("sharedPro.categories");
-  const tOpportunities = useTranslations("sharedPro.opportunities");
+  const tVaults = useTranslations("sharedPro.vaults");
+  const vaultsQuery = useProVaults();
+  const vaults = useMemo(() => vaultsQuery.data ?? [], [vaultsQuery.data]);
 
   const [activeFilter, setActiveFilter] = useState<CategoryFilter>("all");
   const [query, setQuery] = useState("");
@@ -49,28 +52,29 @@ export function ProOpportunitiesPage() {
 
   const counts = useMemo(() => {
     const c: Record<CategoryFilter, number> = {
-      all: PRO_OPPORTUNITIES.length,
+      all: vaults.length,
       "real-estate": 0,
       agriculture: 0,
       energy: 0,
       "private-credit": 0,
     };
-    for (const o of PRO_OPPORTUNITIES) c[o.category] += 1;
+    for (const v of vaults) c[v.category] += 1;
     return c;
-  }, []);
+  }, [vaults]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return PRO_OPPORTUNITIES.filter((o) => {
-      if (activeFilter !== "all" && o.category !== activeFilter) return false;
+    return vaults.filter((v) => {
+      if (activeFilter !== "all" && v.category !== activeFilter) return false;
       if (!q) return true;
-      return [
-        tOpportunities(`${o.id}.name`),
-        tOpportunities(`${o.id}.description`),
-        o.tokenSymbol,
-      ].some((text) => text.toLowerCase().includes(q));
+      const description = tVaults.has(`${v.slug}.description`)
+        ? tVaults(`${v.slug}.description`)
+        : "";
+      return [v.name, description, v.symbol].some((text) =>
+        text.toLowerCase().includes(q)
+      );
     });
-  }, [activeFilter, query, tOpportunities]);
+  }, [vaults, activeFilter, query, tVaults]);
 
   return (
     <PageContainer maxWidth="7xl">
@@ -164,10 +168,19 @@ export function ProOpportunitiesPage() {
         </div>
       </div>
 
-      {filtered.length > 0 ? (
+      {vaultsQuery.isPending ? (
+        <div className="flex flex-col items-center gap-3 rounded-2xl border border-white/5 bg-[#1C1C1C] p-12 text-center">
+          <LoadingSpinner variant="spinner" size="md" />
+          <p className="text-sm text-white/40">{t("loading")}</p>
+        </div>
+      ) : vaultsQuery.isError ? (
+        <div className="rounded-2xl border border-white/5 bg-[#1C1C1C] p-12 text-center">
+          <p className="text-base text-white/40">{t("loadError")}</p>
+        </div>
+      ) : filtered.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-          {filtered.map((opportunity) => (
-            <OpportunityCard key={opportunity.id} opportunity={opportunity} />
+          {filtered.map((vault) => (
+            <VaultCard key={vault.slug} vault={vault} />
           ))}
         </div>
       ) : (
