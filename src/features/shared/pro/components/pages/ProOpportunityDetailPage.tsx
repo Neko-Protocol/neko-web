@@ -16,9 +16,9 @@ import {
 } from "recharts";
 import { PageContainer } from "@/components/ui/PageContainer";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
-import { useStellarWallet } from "@/hooks/useStellarWallet";
 import { useWallet } from "@/hooks/useWallet";
 import { promise as toastPromise } from "@/lib/toast";
+import { useConnectModalStore } from "@/features/shared/wallet/stores/connectModal.store";
 import { sanitizeAmountInput } from "@/lib/helpers/tokenDisplay";
 import { CATEGORY_ICON } from "../../constants/categories";
 import { explorerUrl, PRO_NETWORK } from "../../constants/deployments";
@@ -728,7 +728,8 @@ function InvestPanel({
   const format = useFormatter();
   const [amountInput, setAmountInput] = useState("");
   const { address } = useWallet();
-  const { connect } = useStellarWallet();
+  // Same sign-in modal as the rest of the app: email (Privy) or a wallet.
+  const openConnect = useConnectModalStore((s) => s.open);
   // Balances on the vaults' own network (testnet), for the connected wallet.
   const asset = vault.asset.code;
   const assetBalance = useProBalance(vault.asset.contract, address).data ?? 0;
@@ -813,7 +814,6 @@ function InvestPanel({
       // Already shown in the toast and under the button.
     });
   };
-
 
   const canSubmit = isBuy
     ? isFunding && !buyBlocker && hasAmount && !exceedsBalance && !exceedsRoom
@@ -1017,7 +1017,7 @@ function InvestPanel({
 
       <button
         type="button"
-        onClick={address ? submit : () => void connect()}
+        onClick={address ? submit : openConnect}
         disabled={Boolean(address) && (!canSubmit || action.isPending)}
         className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#229EDF] py-3.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-[#1a8bc7] disabled:cursor-not-allowed disabled:opacity-40"
       >
