@@ -30,6 +30,8 @@ export interface ProInvestor {
   wallet_address: string;
   network: string;
   whitelisted: boolean;
+  /** Has an identity in the on-chain registry, so vault tokens can mint to it. */
+  onchain: boolean;
   verification: Verification;
   created_at: string;
 }
@@ -80,6 +82,14 @@ class ProAccessService {
       "/v1/launchpad/investors",
       { verification_id: verificationId, wallet_address: wallet },
       { headers: claim(claimToken) }
+    );
+  }
+
+  /** Idempotent retry of the on-chain identity registration. */
+  registerOnchain(wallet: string) {
+    return backendClient.post<ProInvestor>(
+      `/v1/launchpad/investors/${encodeURIComponent(wallet)}/onchain`,
+      {}
     );
   }
 }

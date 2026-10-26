@@ -2,7 +2,8 @@
 
 import React, { useId } from "react";
 import Image from "next/image";
-import { Building2, FileText, Sprout, Sun } from "lucide-react";
+import Link from "next/link";
+import { Building2, FileText, Layers, Sprout, Sun } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import type {
@@ -15,6 +16,7 @@ const CATEGORY_ICON: Record<OpportunityCategory, React.ElementType> = {
   agriculture: Sprout,
   energy: Sun,
   "private-credit": FileText,
+  other: Layers,
 };
 
 /**
@@ -39,9 +41,7 @@ interface OpportunityCardProps {
 export function OpportunityCard({ opportunity }: OpportunityCardProps) {
   const t = useTranslations("sharedPro.card");
   const tCategory = useTranslations("sharedPro.categories");
-  const tOpportunity = useTranslations(
-    `sharedPro.opportunities.${opportunity.id}`
-  );
+  const tStatus = useTranslations("sharedPro.status");
   const format = useFormatter();
   // Older React versions return ":r0:"-style ids, invalid inside url(#…).
   const clipId = `pro-photo-${useId().replace(/:/g, "")}`;
@@ -51,10 +51,11 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
     style: "percent",
     maximumFractionDigits: 1,
   });
-  const fundedPct = Math.min(
-    100,
-    Math.round((opportunity.raisedUsd / opportunity.targetUsd) * 100)
-  );
+  const raisedUsd = opportunity.raisedUsd ?? 0;
+  const fundedPct =
+    opportunity.targetUsd > 0
+      ? Math.min(100, Math.round((raisedUsd / opportunity.targetUsd) * 100))
+      : 0;
   const usd = (value: number) =>
     format.number(value, {
       style: "currency",
@@ -69,9 +70,9 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
   ];
 
   return (
-    <article
-      tabIndex={0}
-      className="group relative h-full outline-none transition-transform duration-300 hover:-translate-y-1"
+    <Link
+      href={`/pro/${encodeURIComponent(opportunity.id)}`}
+      className="group relative block h-full outline-none transition-transform duration-300 hover:-translate-y-1"
     >
       <div className="relative z-10 flex h-full flex-col overflow-hidden min-h-72 rounded-[28px] border border-white/10 bg-[#131312] p-2.5 group-focus-visible:border-white/40">
         <svg width="0" height="0" className="absolute" aria-hidden>
@@ -89,7 +90,7 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
           {opportunity.imageSrc ? (
             <Image
               src={opportunity.imageSrc}
-              alt={tOpportunity("name")}
+              alt={opportunity.name}
               fill
               sizes="(min-width: 1536px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -124,6 +125,11 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
           <span className="absolute top-3 left-3 flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-white/15 text-white backdrop-blur-md">
             <Icon className="h-5 w-5" aria-hidden />
           </span>
+          {opportunity.status && (
+            <span className="absolute top-14 left-3 rounded-full border border-white/30 bg-black/40 px-2.5 py-0.5 text-[10px] font-semibold tracking-wider text-white uppercase backdrop-blur-md">
+              {tStatus(opportunity.status)}
+            </span>
+          )}
 
           <div className="absolute top-3 right-4 text-right text-white">
             <p className="text-4xl leading-none font-light tracking-tight">
@@ -137,11 +143,11 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
 
         <div className="relative -mt-7 w-1/2 px-3">
           <h3 className="text-xl leading-tight font-semibold text-white">
-            {tOpportunity("name")}
+            {opportunity.name}
           </h3>
         </div>
         <p className="mt-2 line-clamp-3 px-3 pb-6 text-sm leading-snug text-white/50">
-          {tOpportunity("description")}
+          {opportunity.description}
         </p>
 
         {/* White lip hugging the bottom edge; a bottom border on a rounded box
@@ -167,7 +173,7 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
               <path d={PANEL_TOP_PATH} fill="white" />
             </svg>
             <p className="absolute top-6 left-5 text-lg leading-none font-semibold">
-              {tOpportunity("name")}
+              {opportunity.name}
             </p>
           </div>
 
@@ -187,7 +193,10 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
               <div className="mb-1.5 flex items-center justify-between text-xs">
                 <span className="text-black/60">
                   {t("raised", {
-                    raised: usd(opportunity.raisedUsd),
+                    raised:
+                      opportunity.raisedUsd === null
+                        ? "—"
+                        : usd(opportunity.raisedUsd),
                     target: usd(opportunity.targetUsd),
                   })}
                 </span>
@@ -211,6 +220,6 @@ export function OpportunityCard({ opportunity }: OpportunityCardProps) {
           </div>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }

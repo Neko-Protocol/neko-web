@@ -10,7 +10,10 @@
       "clearSearch": "Borrar búsqueda",
       "noMatches": "Ninguna oportunidad coincide con tus filtros",
       "clearFilters": "Quitar filtros",
-      "filters": "Filtros"
+      "filters": "Filtros",
+      "loadFailed": "No pudimos cargar las oportunidades.",
+      "retry": "Reintentar",
+      "empty": "Aún no hay oportunidades activas. Las bóvedas lanzadas aparecen aquí."
     },
     "card": {
       "term": "Plazo",
@@ -26,25 +29,8 @@
       "real-estate": "Inmobiliario",
       "agriculture": "Agricultura",
       "energy": "Energía",
-      "private-credit": "Crédito privado"
-    },
-    "opportunities": {
-      "andesCoffee": {
-        "name": "Café de los Andes",
-        "description": "Financiamiento de cosecha para una cooperativa de café especial en Huila, Colombia, pagado con sus exportaciones."
-      },
-      "lumenTower": {
-        "name": "Torre Lumen",
-        "description": "Un edificio de renta de uso mixto en Guadalajara. Los inversionistas reciben parte de las rentas mensuales."
-      },
-      "solarYucatan": {
-        "name": "Solar Yucatán",
-        "description": "Un parque solar de 4 MW que vende energía limpia a empresas locales con contratos de largo plazo."
-      },
-      "invoicePyme": {
-        "name": "Facturas Pyme",
-        "description": "Financiamiento de corto plazo de facturas verificadas de pequeñas empresas en Buenos Aires."
-      }
+      "private-credit": "Crédito privado",
+      "other": "Otros"
     },
     "verification": {
       "connect": {
@@ -116,6 +102,153 @@
         "BACKEND_UNREACHABLE": "No se puede conectar con el backend de Neko.",
         "generic": "Algo salió mal. Intenta de nuevo.",
         "accessCheckFailed": "No pudimos revisar tu acceso a Neko Pro."
+      }
+    },
+    "status": {
+      "open": "Abierta",
+      "closed": "Financiación cerrada",
+      "funded": "Financiada",
+      "active": "En repago",
+      "settled": "Liquidada",
+      "failed": "No financiada"
+    },
+    "testnet": {
+      "title": "Neko Pro funciona en la testnet de Stellar.",
+      "body": "Cambia tu billetera a Testnet antes de firmar. Los saldos y tokens aquí no tienen valor real."
+    },
+    "positions": {
+      "title": "Tus posiciones"
+    },
+    "position": {
+      "holding": "Tenencia",
+      "claimable": "Canjeable ahora",
+      "exitValue": "La salida anticipada paga",
+      "exitFee": "Comisión de salida ({pct})",
+      "refundable": "Reembolsable",
+      "details": "Ver",
+      "locked": "Nada que hacer hasta que la bóveda avance.",
+      "earlyExitHint": "Se paga con lo que el emisor ha repagado hasta ahora, así que puede fallar hasta que entren suficientes tramos.",
+      "actions": {
+        "redeem": "Canjear",
+        "early_exit": "Salir antes",
+        "refund": "Reembolsar"
+      },
+      "success": {
+        "redeem": "Canjeaste tus tokens de {name}.",
+        "early_exit": "Saliste de {name}.",
+        "refund": "Se reembolsó tu depósito en {name}."
+      }
+    },
+    "tx": {
+      "successTitle": "Listo",
+      "errorTitle": "La transacción falló",
+      "errors": {
+        "invalidState": "La bóveda no está en un estado que permita esto.",
+        "invalidAmount": "Ingresa un monto mayor a cero.",
+        "targetExceeded": "Ese monto supera lo que falta por recaudar.",
+        "fundingClosed": "La financiación de esta bóveda está cerrada.",
+        "nothingToRedeem": "Esta billetera no tiene tokens en esta bóveda.",
+        "insufficientLiquidity": "Aún no se ha repagado lo suficiente para pagar una salida anticipada. Intenta después del próximo tramo.",
+        "notVerifiedOnchain": "Esta billetera aún no está verificada on-chain, así que no se le puede emitir el token.",
+        "trustlineMissing": "Primero agrega la línea de confianza de USDC.",
+        "backendUnreachable": "El backend de Neko no está disponible.",
+        "txFailed": "La red no aceptó la transacción. Intenta de nuevo.",
+        "wrongNetwork": "Tu billetera está en la red equivocada. Cámbiala a Testnet.",
+        "generic": "Algo salió mal. Intenta de nuevo."
+      }
+    },
+    "invest": {
+      "title": "Invertir",
+      "closed": {
+        "closed": "La financiación cerró. Neko finalizará la ronda en breve.",
+        "funded": "Esta ronda está totalmente financiada y espera la liberación.",
+        "active": "Esta bóveda está repagando a los inversionistas y ya no acepta depósitos.",
+        "settled": "Esta bóveda fue repagada por completo.",
+        "failed": "Esta ronda no alcanzó su mínimo. Los inversionistas pueden pedir el reembolso."
+      },
+      "unsupportedAsset": "Esta bóveda usa un activo que Neko Pro aún no puede fondear.",
+      "register": {
+        "body": "Tu billetera necesita una identidad on-chain antes de que se le pueda emitir el token de la bóveda.",
+        "cta": "Registrar on-chain",
+        "pending": "Registrando…"
+      },
+      "fundAccount": {
+        "body": "Tu billetera aún no existe en testnet. Fondéala con XLM de prueba para continuar.",
+        "cta": "Fondear con Friendbot"
+      },
+      "trustline": {
+        "body": "Tu billetera necesita una línea de confianza de {code} para tener {code} de prueba.",
+        "cta": "Agregar línea de confianza de {code}"
+      },
+      "balance": "Tu saldo",
+      "faucet": "Obtener USDC de prueba",
+      "amountLabel": "Monto (USDC)",
+      "limits": "Mínimo {min} · faltan {remaining} por recaudar",
+      "errors": {
+        "notFunding": "La bóveda no está aceptando depósitos.",
+        "deadlinePassed": "La fecha límite de financiación ya pasó.",
+        "invalidAmount": "Ingresa un monto válido.",
+        "belowMinimum": "Por debajo del ticket mínimo.",
+        "aboveRemaining": "Supera lo que falta por recaudar.",
+        "insufficientBalance": "No tienes suficiente {code}. Obtén USDC de prueba arriba."
+      },
+      "cta": "Invertir y recibir {symbol}",
+      "success": "Invertiste {amount} USDC. Tus tokens {symbol} están en tu billetera.",
+      "trustlineSuccess": "Línea de confianza agregada.",
+      "faucetSuccessTitle": "USDC de prueba enviado",
+      "faucetSuccess": "El USDC de prueba va en camino a tu billetera."
+    },
+    "detail": {
+      "back": "Todas las oportunidades",
+      "notFound": "Esta oportunidad no está disponible.",
+      "readFailed": "No pudimos leer esto del ledger.",
+      "targetApy": "APY objetivo",
+      "term": "Plazo",
+      "months": "{count, plural, one {# mes} other {# meses}}",
+      "minTicket": "Inversión mín.",
+      "deadline": "Cierre de financiación",
+      "funding": {
+        "raised": "{raised} recaudados de {target}",
+        "minimum": "Mínimo para financiar: {minimum}"
+      },
+      "terms": {
+        "title": "Términos",
+        "target": "Meta de recaudación",
+        "minTarget": "Recaudación mínima",
+        "expectedRepayment": "Repago esperado",
+        "exitFee": "Comisión de salida anticipada",
+        "exitFeeValue": "{current} (tope {max})",
+        "country": "País del emisor",
+        "offering": "Oferta",
+        "investorCountries": "Abierta a",
+        "token": "Token"
+      },
+      "schedule": {
+        "title": "Calendario de repagos",
+        "empty": "Sin tramos.",
+        "tranche": "Tramo {number}",
+        "paidOn": "Pagado el {date}",
+        "dueOn": "Vence el {date}",
+        "states": {
+          "paid": "Pagado",
+          "due": "Pendiente",
+          "overdue": "Vencido"
+        }
+      },
+      "milestones": {
+        "title": "Hitos",
+        "approved": "{approved} de {total} aprobados",
+        "empty": "No hay hitos registrados.",
+        "states": {
+          "Pending": "Pendiente",
+          "Submitted": "En revisión",
+          "Approved": "Aprobado",
+          "Rejected": "Rechazado"
+        }
+      },
+      "links": {
+        "vault": "Bóveda en stellar.expert",
+        "token": "Token {symbol} en stellar.expert"
       }
     }
   }

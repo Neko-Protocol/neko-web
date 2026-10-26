@@ -10,7 +10,10 @@
       "clearSearch": "Clear search",
       "noMatches": "No opportunities match your filters",
       "clearFilters": "Clear filters",
-      "filters": "Filters"
+      "filters": "Filters",
+      "loadFailed": "We couldn't load the opportunities.",
+      "retry": "Try again",
+      "empty": "No opportunities are live yet. Launched vaults appear here."
     },
     "card": {
       "term": "Term",
@@ -26,25 +29,8 @@
       "real-estate": "Real estate",
       "agriculture": "Agriculture",
       "energy": "Energy",
-      "private-credit": "Private credit"
-    },
-    "opportunities": {
-      "andesCoffee": {
-        "name": "Andes Coffee",
-        "description": "Harvest financing for a specialty coffee cooperative in Huila, Colombia, repaid from export sales."
-      },
-      "lumenTower": {
-        "name": "Lumen Tower",
-        "description": "A mixed-use rental building in Guadalajara. Investors earn a share of monthly rental income."
-      },
-      "solarYucatan": {
-        "name": "Solar Yucatán",
-        "description": "A 4 MW solar farm selling clean energy to local businesses under long-term contracts."
-      },
-      "invoicePyme": {
-        "name": "Pyme Invoices",
-        "description": "Short-term financing of verified invoices from small businesses in Buenos Aires."
-      }
+      "private-credit": "Private credit",
+      "other": "Other"
     },
     "verification": {
       "connect": {
@@ -116,6 +102,153 @@
         "BACKEND_UNREACHABLE": "The Neko backend is not reachable.",
         "generic": "Something went wrong. Try again.",
         "accessCheckFailed": "We couldn't check your Neko Pro access."
+      }
+    },
+    "status": {
+      "open": "Open",
+      "closed": "Funding closed",
+      "funded": "Funded",
+      "active": "Repaying",
+      "settled": "Settled",
+      "failed": "Not funded"
+    },
+    "testnet": {
+      "title": "Neko Pro runs on Stellar testnet.",
+      "body": "Switch your wallet to Testnet before signing. Balances and tokens here have no real value."
+    },
+    "positions": {
+      "title": "Your positions"
+    },
+    "position": {
+      "holding": "Holding",
+      "claimable": "Redeemable now",
+      "exitValue": "Early exit pays",
+      "exitFee": "Exit fee ({pct})",
+      "refundable": "Refundable",
+      "details": "View",
+      "locked": "Nothing to do until the vault moves on.",
+      "earlyExitHint": "Paid from what the issuer has repaid so far, so it may fail until enough tranches are in.",
+      "actions": {
+        "redeem": "Redeem",
+        "early_exit": "Leave early",
+        "refund": "Refund"
+      },
+      "success": {
+        "redeem": "Redeemed your {name} tokens.",
+        "early_exit": "You left {name}.",
+        "refund": "Refunded your {name} deposit."
+      }
+    },
+    "tx": {
+      "successTitle": "Done",
+      "errorTitle": "Transaction failed",
+      "errors": {
+        "invalidState": "The vault isn't in a state that allows this.",
+        "invalidAmount": "Enter an amount above zero.",
+        "targetExceeded": "That amount is more than what's left to raise.",
+        "fundingClosed": "Funding for this vault has closed.",
+        "nothingToRedeem": "This wallet holds no tokens in this vault.",
+        "insufficientLiquidity": "Not enough has been repaid yet to pay out an early exit. Try again after the next tranche.",
+        "notVerifiedOnchain": "This wallet isn't verified on-chain yet, so the token can't be issued to it.",
+        "trustlineMissing": "Add the USDC trustline first.",
+        "backendUnreachable": "The Neko backend is not reachable.",
+        "txFailed": "The network didn't accept the transaction. Try again.",
+        "wrongNetwork": "Your wallet is on the wrong network. Switch it to Testnet.",
+        "generic": "Something went wrong. Try again."
+      }
+    },
+    "invest": {
+      "title": "Invest",
+      "closed": {
+        "closed": "Funding has closed. Neko will finalize the round shortly.",
+        "funded": "This round is fully funded and waiting for release.",
+        "active": "This vault is repaying investors and no longer takes deposits.",
+        "settled": "This vault has been repaid in full.",
+        "failed": "This round didn't reach its minimum. Investors can claim a refund."
+      },
+      "unsupportedAsset": "This vault takes an asset Neko Pro can't fund yet.",
+      "register": {
+        "body": "Your wallet needs an on-chain identity before the vault token can be issued to it.",
+        "cta": "Register on-chain",
+        "pending": "Registering…"
+      },
+      "fundAccount": {
+        "body": "Your wallet doesn't exist on testnet yet. Fund it with test XLM to continue.",
+        "cta": "Fund with Friendbot"
+      },
+      "trustline": {
+        "body": "Your wallet needs a {code} trustline to hold test {code}.",
+        "cta": "Add {code} trustline"
+      },
+      "balance": "Your balance",
+      "faucet": "Get test USDC",
+      "amountLabel": "Amount (USDC)",
+      "limits": "Minimum {min} · {remaining} left to raise",
+      "errors": {
+        "notFunding": "The vault isn't taking deposits.",
+        "deadlinePassed": "The funding deadline has passed.",
+        "invalidAmount": "Enter a valid amount.",
+        "belowMinimum": "Below the minimum ticket.",
+        "aboveRemaining": "More than what's left to raise.",
+        "insufficientBalance": "Not enough {code}. Get test USDC above."
+      },
+      "cta": "Invest and receive {symbol}",
+      "success": "Invested {amount} USDC. Your {symbol} tokens are in your wallet.",
+      "trustlineSuccess": "Trustline added.",
+      "faucetSuccessTitle": "Test USDC sent",
+      "faucetSuccess": "Test USDC is on its way to your wallet."
+    },
+    "detail": {
+      "back": "All opportunities",
+      "notFound": "This opportunity isn't available.",
+      "readFailed": "Couldn't read this from the ledger.",
+      "targetApy": "Target APY",
+      "term": "Term",
+      "months": "{count, plural, one {# month} other {# months}}",
+      "minTicket": "Min. invest",
+      "deadline": "Funding deadline",
+      "funding": {
+        "raised": "{raised} raised of {target}",
+        "minimum": "Minimum to fund: {minimum}"
+      },
+      "terms": {
+        "title": "Terms",
+        "target": "Target raise",
+        "minTarget": "Minimum raise",
+        "expectedRepayment": "Expected repayment",
+        "exitFee": "Early exit fee",
+        "exitFeeValue": "{current} (cap {max})",
+        "country": "Issuer country",
+        "offering": "Offering",
+        "investorCountries": "Open to",
+        "token": "Token"
+      },
+      "schedule": {
+        "title": "Repayment schedule",
+        "empty": "No tranches.",
+        "tranche": "Tranche {number}",
+        "paidOn": "Paid {date}",
+        "dueOn": "Due {date}",
+        "states": {
+          "paid": "Paid",
+          "due": "Due",
+          "overdue": "Overdue"
+        }
+      },
+      "milestones": {
+        "title": "Milestones",
+        "approved": "{approved} of {total} approved",
+        "empty": "No milestones registered.",
+        "states": {
+          "Pending": "Pending",
+          "Submitted": "In review",
+          "Approved": "Approved",
+          "Rejected": "Rejected"
+        }
+      },
+      "links": {
+        "vault": "Vault on stellar.expert",
+        "token": "{symbol} token on stellar.expert"
       }
     }
   }

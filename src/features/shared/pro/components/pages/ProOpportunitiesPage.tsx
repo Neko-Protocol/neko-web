@@ -5,9 +5,14 @@ import { Check, ChevronDown, Search, SlidersHorizontal, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { PageContainer } from "@/components/ui/PageContainer";
 import { BannerPage } from "@/components/ui/BannerPage";
-import { PRO_OPPORTUNITIES } from "../../constants/opportunities";
+import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import { useProOpportunities } from "../../hooks/useProOpportunities";
+import { useProPositions } from "../../hooks/useProPositions";
 import type { OpportunityCategory } from "../../types/opportunity";
 import { OpportunityCard } from "../ui/OpportunityCard";
+import { ProPositionCard } from "../ui/ProPositionCard";
+import { ProTestnetNotice } from "../ui/ProTestnetNotice";
+import { PRO_SPINNER } from "../ui/proSpinner";
 
 type CategoryFilter = OpportunityCategory | "all";
 
@@ -17,12 +22,15 @@ const CATEGORY_FILTERS: CategoryFilter[] = [
   "agriculture",
   "energy",
   "private-credit",
+  "other",
 ];
 
 export function ProOpportunitiesPage() {
   const t = useTranslations("sharedPro.page");
   const tCategory = useTranslations("sharedPro.categories");
-  const tOpportunities = useTranslations("sharedPro.opportunities");
+  const tPositions = useTranslations("sharedPro.positions");
+  const { opportunities, isLoading, isError, refetch } = useProOpportunities();
+  const { positions } = useProPositions(opportunities);
 
   const [activeFilter, setActiveFilter] = useState<CategoryFilter>("all");
   const [query, setQuery] = useState("");
@@ -49,28 +57,27 @@ export function ProOpportunitiesPage() {
 
   const counts = useMemo(() => {
     const c: Record<CategoryFilter, number> = {
-      all: PRO_OPPORTUNITIES.length,
+      all: opportunities.length,
       "real-estate": 0,
       agriculture: 0,
       energy: 0,
       "private-credit": 0,
+      other: 0,
     };
-    for (const o of PRO_OPPORTUNITIES) c[o.category] += 1;
+    for (const o of opportunities) c[o.category] += 1;
     return c;
-  }, []);
+  }, [opportunities]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return PRO_OPPORTUNITIES.filter((o) => {
+    return opportunities.filter((o) => {
       if (activeFilter !== "all" && o.category !== activeFilter) return false;
       if (!q) return true;
-      return [
-        tOpportunities(`${o.id}.name`),
-        tOpportunities(`${o.id}.description`),
-        o.tokenSymbol,
-      ].some((text) => text.toLowerCase().includes(q));
+      return [o.name, o.description, o.tokenSymbol].some((text) =>
+        text.toLowerCase().includes(q)
+      );
     });
-  }, [activeFilter, query, tOpportunities]);
+  }, [activeFilter, query, opportunities]);
 
   return (
     <PageContainer maxWidth="7xl">
@@ -78,8 +85,27 @@ export function ProOpportunitiesPage() {
         title={t("title")}
         subtitle={t("subtitle")}
         badge={t("badge")}
-        className="mb-8"
+        className="mb-6"
       />
+
+      <ProTestnetNotice className="mb-8" />
+
+      {positions.length > 0 && (
+        <section className="mb-10">
+          <h2 className="mb-3 text-lg font-semibold text-white">
+            {tPositions("title")}
+          </h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {positions.map(({ opportunity, position }) => (
+              <ProPositionCard
+                key={opportunity.vault}
+                opportunity={opportunity}
+                position={position}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div ref={filtersRef} className="relative">
@@ -164,7 +190,26 @@ export function ProOpportunitiesPage() {
         </div>
       </div>
 
-      {filtered.length > 0 ? (
+      {isLoading ? (
+        <div className="flex justify-center rounded-2xl border border-white/5 bg-[#1C1C1C] p-12">
+          <LoadingSpinner className={PRO_SPINNER} />
+        </div>
+      ) : isError ? (
+        <div className="rounded-2xl border border-white/5 bg-[#1C1C1C] p-12 text-center">
+          <p className="text-base text-white/40">{t("loadFailed")}</p>
+          <button
+            type="button"
+            onClick={refetch}
+            className="mt-3 text-xs font-semibold text-[#229EDF] hover:underline"
+          >
+            {t("retry")}
+          </button>
+        </div>
+      ) : opportunities.length === 0 ? (
+        <div className="rounded-2xl border border-white/5 bg-[#1C1C1C] p-12 text-center">
+          <p className="text-base text-white/40">{t("empty")}</p>
+        </div>
+      ) : filtered.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
           {filtered.map((opportunity) => (
             <OpportunityCard key={opportunity.id} opportunity={opportunity} />
