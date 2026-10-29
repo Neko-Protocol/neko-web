@@ -6,13 +6,20 @@ import { useToast } from "@/hooks/useToast";
 import { isUserCancellationError } from "@neko-protocol/orchestrator";
 import { auditService } from "@/lib/services/audit.service";
 import { pollTransactionStatus, txApi } from "@/lib/services/transaction.api";
-import { buildPoolAuditPayload, extractSignedTxXdr } from "@neko-protocol/orchestrator";
+import {
+  ensurePrivyWalletActivated,
+  withSponsoredTrustlines,
+} from "@/features/shared/wallet/privy/sponsoredTx";
+import {
+  buildPoolAuditPayload,
+  extractSignedTxXdr,
+} from "@neko-protocol/orchestrator";
 import { orchestrator } from "../core/Orchestrator";
 import { POOLS_QUERY_KEY } from "./usePools";
 import type { PoolActionParams, TransactionResult } from "../types/pool.types";
 
 export function usePoolAction() {
-  const { address, signTransaction } = useWallet();
+  const { address, signTransaction, isPrivyWallet } = useWallet();
   const { addNotification } = useToast();
   const queryClient = useQueryClient();
 
@@ -22,90 +29,99 @@ export function usePoolAction() {
 
       if (!address) throw new Error("Wallet not connected");
 
-      let result: TransactionResult;
+      if (isPrivyWallet) await ensurePrivyWalletActivated();
 
-      switch (action) {
-        case "deposit":
-          result = await orchestrator.deposit(
-            poolId,
-            address,
-            amount,
-            tokenIndex
-          );
-          break;
-        case "supplyCollateral":
-          result = await orchestrator.supplyCollateral(poolId, address, amount);
-          break;
-        case "withdraw":
-          result = await orchestrator.withdraw(
-            poolId,
-            address,
-            amount,
-            tokenIndex,
-            {
-              withdrawAll: params.withdrawAll,
-              withdrawUnit: params.withdrawUnit,
-            }
-          );
-          break;
-        case "withdrawCollateral":
-          result = await orchestrator.withdrawCollateral(
-            poolId,
-            address,
-            amount,
-            { withdrawAll: params.withdrawAll }
-          );
-          break;
-        case "borrow":
-          result = await orchestrator.borrow(poolId, address, amount);
-          break;
-        case "borrowWithCollateral":
-          if (
-            !params.collateralAssetAddress ||
-            params.collateralAmount === undefined
-          ) {
-            throw new Error(
-              "borrowWithCollateral requires collateralAssetAddress and collateralAmount"
+      const final = await withSponsoredTrustlines(async () => {
+        let result: TransactionResult;
+
+        switch (action) {
+          case "deposit":
+            result = await orchestrator.deposit(
+              poolId,
+              address,
+              amount,
+              tokenIndex
             );
-          }
-          result = await orchestrator.borrowWithCollateral(
-            poolId,
-            address,
-            amount,
-            params.collateralAssetAddress,
-            params.collateralAmount
-          );
-          break;
-        case "repay":
-          result = await orchestrator.repay(poolId, address, amount);
-          break;
-        case "claimRewards":
-          result = await orchestrator.claimRewards(poolId, address);
-          break;
-        default:
-          throw new Error(`Unsupported action: ${action}`);
-      }
+            break;
+          case "supplyCollateral":
+            result = await orchestrator.supplyCollateral(
+              poolId,
+              address,
+              amount
+            );
+            break;
+          case "withdraw":
+            result = await orchestrator.withdraw(
+              poolId,
+              address,
+              amount,
+              tokenIndex,
+              {
+                withdrawAll: params.withdrawAll,
+                withdrawUnit: params.withdrawUnit,
+              }
+            );
+            break;
+          case "withdrawCollateral":
+            result = await orchestrator.withdrawCollateral(
+              poolId,
+              address,
+              amount,
+              { withdrawAll: params.withdrawAll }
+            );
+            break;
+          case "borrow":
+            result = await orchestrator.borrow(poolId, address, amount);
+            break;
+          case "borrowWithCollateral":
+            if (
+              !params.collateralAssetAddress ||
+              params.collateralAmount === undefined
+            ) {
+              throw new Error(
+                "borrowWithCollateral requires collateralAssetAddress and collateralAmount"
+              );
+            }
+            result = await orchestrator.borrowWithCollateral(
+              poolId,
+              address,
+              amount,
+              params.collateralAssetAddress,
+              params.collateralAmount
+            );
+            break;
+          case "repay":
+            result = await orchestrator.repay(poolId, address, amount);
+            break;
+          case "claimRewards":
+            result = await orchestrator.claimRewards(poolId, address);
+            break;
+          default:
+            throw new Error(`Unsupported action: ${action}`);
+        }
 
-      await txApi.prepare({ unsignedXdr: result.xdr });
+        await txApi.prepare({ unsignedXdr: result.xdr });
 
-      const signed = await signTransaction(result.xdr, {
-        networkPassphrase: result.networkPassphrase,
+        const signed = await signTransaction(result.xdr, {
+          networkPassphrase: result.networkPassphrase,
+        });
+
+        const signedXdr = extractSignedTxXdr(signed);
+
+        const submitResult = await txApi.submit({ signedXdr });
+
+        const landed =
+          submitResult.status === "PENDING"
+            ? await pollTransactionStatus(submitResult.hash)
+            : submitResult;
+
+        if (landed.status !== "SUCCESS") {
+          const errMsg =
+            landed.error?.message ?? landed.error?.code ?? landed.status;
+          throw new Error(`Transaction failed on-chain (${errMsg})`);
+        }
+        return landed;
       });
-
-      const signedXdr = extractSignedTxXdr(signed);
-
-      const submitResult = await txApi.submit({ signedXdr });
-
-      const final =
-        submitResult.status === "PENDING"
-          ? await pollTransactionStatus(submitResult.hash)
-          : submitResult;
-
-      if (final.status !== "SUCCESS") {
-        const errMsg =
-          final.error?.message ?? final.error?.code ?? final.status;
-        throw new Error(`Transaction failed on-chain (${errMsg})`);
-      }
 
       const hash = final.hash;
 

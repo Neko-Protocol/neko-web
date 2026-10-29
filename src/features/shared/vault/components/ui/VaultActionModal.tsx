@@ -19,6 +19,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { getTokenBalanceFromContract } from "@/lib/helpers/stellar/sorobanBalance";
 import { useVaultApy } from "../../hooks/useVaultApy";
+import { useHasWalletPrompt } from "@/features/shared/wallet/hooks/useHasWalletPrompt";
 
 interface VaultActionModalProps {
   vaultContractId: string;
@@ -44,6 +45,7 @@ export function VaultActionModal({
 }: VaultActionModalProps) {
   const t = useTranslations("sharedVault.action");
   const tModal = useTranslations("sharedVault.modal");
+  const hasWalletPrompt = useHasWalletPrompt();
   const [visible, setVisible] = useState(false);
   const [amount, setAmount] = useState(initialAmount);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -314,7 +316,9 @@ export function VaultActionModal({
                   ? t("processingDeposit")
                   : t("processingWithdrawal")}
               </p>
-              <p className="text-white/35 text-xs">{t("confirmInWallet")}</p>
+              {hasWalletPrompt && (
+                <p className="text-white/35 text-xs">{t("confirmInWallet")}</p>
+              )}
             </div>
           )}
         </div>

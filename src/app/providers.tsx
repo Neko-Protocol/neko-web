@@ -8,6 +8,8 @@ import {
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { NOTIFICATIONS_QUERY_ROOT } from "@/features/shared/notifications/hooks/notificationKeys";
 import { ToastProvider } from "@/providers/ToastProvider";
+import { PrivyAuthProvider } from "@/providers/PrivyAuthProvider";
+import { ME_QUERY_ROOT } from "@/features/shared/wallet/privy/useMe";
 import { useCurrencyStore } from "@/stores/currency.store";
 import { ReactNode, useEffect, useState } from "react";
 
@@ -67,11 +69,14 @@ export function Providers({ children }: { children: ReactNode }) {
           shouldDehydrateQuery: (query) =>
             query.state.status === "success" &&
             query.state.data !== undefined &&
-            query.queryKey[0] !== NOTIFICATIONS_QUERY_ROOT,
+            query.queryKey[0] !== NOTIFICATIONS_QUERY_ROOT &&
+            query.queryKey[0] !== ME_QUERY_ROOT,
         },
       }}
     >
-      <ToastProvider>{children}</ToastProvider>
+      <PrivyAuthProvider>
+        <ToastProvider>{children}</ToastProvider>
+      </PrivyAuthProvider>
     </PersistQueryClientProvider>
   );
 }

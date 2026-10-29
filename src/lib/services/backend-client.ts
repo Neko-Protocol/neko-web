@@ -27,17 +27,18 @@ type RequestOptions = {
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: unknown;
   signal?: AbortSignal;
+  headers?: Record<string, string>;
 };
 
 async function request<T>(
   path: string,
-  { method = "GET", body, signal }: RequestOptions = {}
+  { method = "GET", body, signal, headers }: RequestOptions = {}
 ): Promise<T> {
   const url = `${backendBaseUrl}${path.startsWith("/") ? path : `/${path}`}`;
 
   const init: RequestInit = {
     method,
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...headers },
     signal,
   };
   if (body !== undefined) {
@@ -75,4 +76,9 @@ export const backendClient = {
     body: unknown,
     options?: Omit<RequestOptions, "method" | "body">
   ) => request<T>(path, { ...options, method: "POST", body }),
+  patch: <T>(
+    path: string,
+    body: unknown,
+    options?: Omit<RequestOptions, "method" | "body">
+  ) => request<T>(path, { ...options, method: "PATCH", body }),
 };
